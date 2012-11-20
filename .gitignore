@@ -11,3 +11,9 @@
 *.lai
 *.la
 *.a
+
+# Visual Studio
+*.user
+*.suo
+Server/bin
+Server/obj
