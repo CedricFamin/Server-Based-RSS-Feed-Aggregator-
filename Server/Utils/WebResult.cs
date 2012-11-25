@@ -14,6 +14,7 @@ namespace Server.Utils
             SUCCESS = 0x0,
             USER_NOT_FOUND,
             USER_ALREADY_EXIST,
+            INFORMATION_REQUIRED,
         }
 
         public WebResult()
