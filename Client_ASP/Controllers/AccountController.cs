@@ -28,23 +28,16 @@ namespace Client_ASP.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (Membership.ValidateUser(model.UserName, model.Password))
-                {
-                    FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
-                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
+                Session["Username"] = "lopez_l";
+                if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                         && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
-                    {
-                        return Redirect(returnUrl);
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                }
-                else
                 {
-                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
-                }
+                    return Redirect(returnUrl);
+                 }
+                 else
+                 {
+                      return RedirectToAction("Index", "Home");
+                 }
             }
 
             // If we got this far, something failed, redisplay form
@@ -57,7 +50,7 @@ namespace Client_ASP.Controllers
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
-
+            Session["Username"] = null;
             return RedirectToAction("Index", "Home");
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace Client_ASP.Controllers
 {
@@ -10,8 +11,12 @@ namespace Client_ASP.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "RSS Feed Aggregator";
+            if (Session["Username"] != null)
+                ViewBag.auth = true;
+            else
+                ViewBag.auth = false;
 
+            ViewBag.Message = "RSS Feed Aggregator";
             return View();
         }
 
