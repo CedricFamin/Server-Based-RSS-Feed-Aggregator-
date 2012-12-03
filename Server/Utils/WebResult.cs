@@ -15,6 +15,10 @@ namespace Server.Utils
             USER_NOT_FOUND,
             USER_ALREADY_EXIST,
             INFORMATION_REQUIRED,
+            NOT_LOGUED,
+            INTERNAL_ERROR,
+            NEED_PRIVILEGE,
+            ALREADY_LOGUED,
         }
 
         public WebResult()

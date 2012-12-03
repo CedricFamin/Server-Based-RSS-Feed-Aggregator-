@@ -33,6 +33,9 @@ namespace Server.EntityFramwork
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
+    partial void InsertSession(Session instance);
+    partial void UpdateSession(Session instance);
+    partial void DeleteSession(Session instance);
     #endregion
 		
 		public ServerDataContext() : 
@@ -72,6 +75,14 @@ namespace Server.EntityFramwork
 				return this.GetTable<User>();
 			}
 		}
+		
+		public System.Data.Linq.Table<Session> Sessions
+		{
+			get
+			{
+				return this.GetTable<Session>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[User]")]
@@ -88,6 +99,8 @@ namespace Server.EntityFramwork
 		
 		private string _email;
 		
+		private bool _superuser;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -100,6 +113,8 @@ namespace Server.EntityFramwork
     partial void OnpasswordChanged();
     partial void OnemailChanging(string value);
     partial void OnemailChanged();
+    partial void OnsuperuserChanging(bool value);
+    partial void OnsuperuserChanged();
     #endregion
 		
 		public User()
@@ -183,6 +198,160 @@ namespace Server.EntityFramwork
 					this._email = value;
 					this.SendPropertyChanged("email");
 					this.OnemailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_superuser", DbType="Bit NOT NULL")]
+		public bool superuser
+		{
+			get
+			{
+				return this._superuser;
+			}
+			set
+			{
+				if ((this._superuser != value))
+				{
+					this.OnsuperuserChanging(value);
+					this.SendPropertyChanging();
+					this._superuser = value;
+					this.SendPropertyChanged("superuser");
+					this.OnsuperuserChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Session")]
+	public partial class Session : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _session_key;
+		
+		private int _id_user;
+		
+		private System.DateTime _expire;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void Onsession_keyChanging(string value);
+    partial void Onsession_keyChanged();
+    partial void Onid_userChanging(int value);
+    partial void Onid_userChanged();
+    partial void OnexpireChanging(System.DateTime value);
+    partial void OnexpireChanged();
+    #endregion
+		
+		public Session()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_session_key", DbType="VarChar(38) NOT NULL", CanBeNull=false)]
+		public string session_key
+		{
+			get
+			{
+				return this._session_key;
+			}
+			set
+			{
+				if ((this._session_key != value))
+				{
+					this.Onsession_keyChanging(value);
+					this.SendPropertyChanging();
+					this._session_key = value;
+					this.SendPropertyChanged("session_key");
+					this.Onsession_keyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_user", DbType="Int NOT NULL")]
+		public int id_user
+		{
+			get
+			{
+				return this._id_user;
+			}
+			set
+			{
+				if ((this._id_user != value))
+				{
+					this.Onid_userChanging(value);
+					this.SendPropertyChanging();
+					this._id_user = value;
+					this.SendPropertyChanged("id_user");
+					this.Onid_userChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_expire", DbType="DateTime NOT NULL")]
+		public System.DateTime expire
+		{
+			get
+			{
+				return this._expire;
+			}
+			set
+			{
+				if ((this._expire != value))
+				{
+					this.OnexpireChanging(value);
+					this.SendPropertyChanging();
+					this._expire = value;
+					this.SendPropertyChanged("expire");
+					this.OnexpireChanged();
 				}
 			}
 		}

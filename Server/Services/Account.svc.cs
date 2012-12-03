@@ -10,10 +10,13 @@ using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition;
 using Server.Utils;
 using Server.EntityFramwork;
+using System.Web.Security;
+using System.Threading;
+using System.Web;
 
 namespace Server.Services
 {
-    [ServiceContract(Namespace = "")]
+    [ServiceContract]
     [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
     public class Account : IAccount
     {
@@ -50,27 +53,33 @@ namespace Server.Services
         }
 
         [OperationContract]
-        public WebResult<User> Login(string username, string password)
+        public WebResult<Tuple<Session, User>> Login(string username, string password)
         {
-            return this._account.Login(username, password);
+            return this._account.Login(username, password);     
         }
 
         [OperationContract]
-        public WebResult Update(User updateUser)
+        public WebResult Logout(string session_key)
         {
-            return this._account.Update(updateUser);
+            return this._account.Logout(session_key);
         }
 
         [OperationContract]
-        public WebResult Delete(int id)
+        public WebResult Update(string session_key, User updateUser)
         {
-            return this._account.Delete(id);
+            return this._account.Update(session_key, updateUser);
         }
 
         [OperationContract]
-        public WebResult<List<User>> UserList()
+        public WebResult Delete(string session_key, int id)
         {
-            return this._account.UserList();
+            return this._account.Delete(session_key, id);
+        }
+
+        [OperationContract]
+        public WebResult<List<User>> UserList(string session_key)
+        {
+            return this._account.UserList(session_key);
         }
         #endregion
     }

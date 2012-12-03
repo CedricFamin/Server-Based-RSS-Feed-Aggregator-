@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{04F1074D-3054-4B87-98FC-8D448ED0DB30}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client_WPF", "Client_WPF\Client_WPF.csproj", "{AD0440E4-D63A-4EC4-B8C8-B3D08906E263}"
+	ProjectSection(ProjectDependencies) = postProject
+		{04F1074D-3054-4B87-98FC-8D448ED0DB30} = {04F1074D-3054-4B87-98FC-8D448ED0DB30}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client_ASP", "Client_ASP\Client_ASP.csproj", "{D0327B9A-CB9A-42E3-9D9C-551D60F1C7B8}"
 EndProject
