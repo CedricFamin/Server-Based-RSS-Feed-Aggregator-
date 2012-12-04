@@ -1,6 +1,7 @@
 ﻿<Application x:Class="Client_WPF.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Client_WPF="clr-namespace:Client_WPF.ViewModel"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          
