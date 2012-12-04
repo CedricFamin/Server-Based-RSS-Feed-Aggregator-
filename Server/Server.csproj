@@ -88,6 +88,7 @@
     <Compile Include="Services\Account.svc.cs">
       <DependentUpon>Account.svc</DependentUpon>
     </Compile>
+    <Compile Include="Utils\SessionWrapper.cs" />
     <Compile Include="Utils\WebResult.cs" />
   </ItemGroup>
   <ItemGroup>
