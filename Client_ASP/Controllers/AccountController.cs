@@ -28,16 +28,22 @@ namespace Client_ASP.Controllers
         {
             if (ModelState.IsValid)
             {
-                Session["Username"] = "lopez_l";
-                if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
-                        && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                AccServ.Account acc = new AccServ.Account();
+                AccServ.WebResult logon = acc.Login(model.UserName, model.Password);
+                if (logon.ErrorCode == 0)
                 {
-                    return Redirect(returnUrl);
-                 }
-                 else
-                 {
-                      return RedirectToAction("Index", "Home");
-                 }
+                    Session["Username"] = model.UserName;
+                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
+                        && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                
             }
 
             // If we got this far, something failed, redisplay form
@@ -70,18 +76,23 @@ namespace Client_ASP.Controllers
         {
             if (ModelState.IsValid)
             {
+                AccServ.Account acc = new AccServ.Account();
+                AccServ.WebResult register = acc.Register(model.UserName, model.Email, model.Password);
+
                 // Attempt to register the user
                 MembershipCreateStatus createStatus;
                 Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
 
-                if (createStatus == MembershipCreateStatus.Success)
+                if (register.ErrorCode.ToString() == "SUCCESS")
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
                     return RedirectToAction("Index", "Home");
                 }
-                else
+                
+                if (createStatus == MembershipCreateStatus.Success)
                 {
-                    ModelState.AddModelError("", ErrorCodeToString(createStatus));
+                    FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
+                    return RedirectToAction("Index", "Home");
                 }
             }
 
