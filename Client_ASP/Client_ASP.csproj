@@ -133,6 +133,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Content Include="Views\Account\UserList.cshtml" />
     <None Include="Web References\AccServ\Account.disco" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

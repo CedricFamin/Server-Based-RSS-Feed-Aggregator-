@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "UserList";
+}
+<div class="row-fluid">
+	<div class="box span12">
+		<div class="box-header">
+			<h2><i class="icon-edit"></i><span class="break"></span>@ViewBag.Title</h2>
+			<div class="box-icon">
+				<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+				<a href="#" class="btn-close"><i class="icon-remove"></i></a>
+			</div>
+		</div>
+		<div class="box-content">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Login</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var x in ViewBag.list.Value)
+                {
+                    <tr>
+                        <td>@x.username</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

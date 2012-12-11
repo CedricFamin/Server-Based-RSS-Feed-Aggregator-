@@ -26,11 +26,12 @@ namespace Client_ASP.Controllers
         [HttpPost]
         public ActionResult LogOn(LogOnModel model, string returnUrl)
         {
+            ViewBag.LogOnError = null;
             if (ModelState.IsValid)
             {
                 AccServ.Account acc = new AccServ.Account();
                 AccServ.WebResult logon = acc.Login(model.UserName, model.Password);
-                if (logon.ErrorCode == 0)
+                if (logon.ErrorCode == AccServ.WebResultErrorCodeList.SUCCESS)
                 {
                     Session["Username"] = model.UserName;
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
@@ -43,7 +44,10 @@ namespace Client_ASP.Controllers
                         return RedirectToAction("Index", "Home");
                     }
                 }
-                
+                else
+                {
+                    ViewBag.LogOnError = logon.ErrorCode.ToString();
+                }
             }
 
             // If we got this far, something failed, redisplay form
@@ -151,6 +155,17 @@ namespace Client_ASP.Controllers
 
         public ActionResult ChangePasswordSuccess()
         {
+            return View();
+        }
+
+        //
+        // GET: /Account/UserList
+        
+        public ActionResult UserList()
+        {
+            AccServ.Account acc = new AccServ.Account();
+            AccServ.WebResult list = acc.UserList("");
+            ViewBag.list = list;
             return View();
         }
 
