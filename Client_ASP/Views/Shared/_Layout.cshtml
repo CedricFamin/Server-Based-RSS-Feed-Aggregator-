@@ -9,7 +9,10 @@
     <script src="@Url.Content("~/Scripts/jquery-1.8.3.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/bootstrap.js")" type="text/javascript"></script>
-    
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -27,6 +30,7 @@
                         @if (Session["Username"] == null)
                         {
                             <li><a href="/Account/LogOn">LogOn</a></li>
+                            <li><a href="/Account/Register">Register</a></li>
                         }
 				    </ul>
                     <div class="btn-group">
@@ -46,30 +50,26 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid" style="margin-top: 50px;">
         <div class="row-fluid">
 	        @if (Session["Username"] != null)
-             {
+         {
 	            <div class="span2">
-		            <div class="well sidebar-nav" style="margin-top: 50px;">
+		            <div class="well sidebar-nav">
                     <ul class="nav nav-list">
-                        <li class="header">RSS</li>
+                        <li class="header"><b>RSS</b></li>
+                        <li><a href="#">Add Feed</a></li>
                         <li><a href="#">Feed List</a></li>
                         <li><a href="#">Settings</a></li>
                         <li class="divider"></li>
-                        <li class="header">Account</li>
-                        <li><a href="#">Settings</a></li>
-                        <li class="divider"></li>
+                        <li class="header"><b>Users</b></li>
+                        <li><a href="/Account/UserList">User List</a></li>
+                        <li><a href="#">Account Settings</a></li>
                     </ul>
                     </div>
 	            </div>
-             }
+         }
 	        <div class="span10">
-		        <div class="row-fluid">
-			        <ul class="breadcrumb">
-				        <li>Menu 1</li>
-			        </ul>
-		        </div>
                 @RenderBody()
 	        </div>
         </div>

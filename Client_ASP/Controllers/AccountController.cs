@@ -84,17 +84,9 @@ namespace Client_ASP.Controllers
                 AccServ.WebResult register = acc.Register(model.UserName, model.Email, model.Password);
 
                 // Attempt to register the user
-                MembershipCreateStatus createStatus;
-                Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
-
                 if (register.ErrorCode.ToString() == "SUCCESS")
                 {
-                    FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
-                    return RedirectToAction("Index", "Home");
-                }
-                
-                if (createStatus == MembershipCreateStatus.Success)
-                {
+                    Session["Username"] = model.UserName;
                     FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
                     return RedirectToAction("Index", "Home");
                 }
