@@ -61,12 +61,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataModel\UserDataModel.cs" />
     <Compile Include="Service References\RSSService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Service References\ServiceReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -75,6 +71,9 @@
     <Compile Include="Utils\RelayCommand.cs" />
     <Compile Include="ViewModel\BindableObject.cs" />
     <Compile Include="ViewModel\LoginPageViewModel.cs" />
+    <Compile Include="View\LoginModal.xaml.cs">
+      <DependentUpon>LoginModal.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -87,6 +86,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\LoginModal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -127,33 +130,16 @@
     <None Include="Service References\RSSService\Account3.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\RSSService\Account4.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\RSSService\Client_WPF.RSSService.WebResult.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\RSSService\Client_WPF.RSSService.WebResultOfArrayOfUserhd3s_SOtL.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\RSSService\Client_WPF.RSSService.WebResultOfUserhd3s_SOtL.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\ServiceReference\AuthenticationService.wsdl" />
-    <None Include="Service References\ServiceReference\Authentification.wsdl" />
-    <None Include="Service References\ServiceReference\Authentification.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceReference\Authentification1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceReference\Client_WPF.ServiceReference.IsLoggedInResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\ServiceReference\Client_WPF.ServiceReference.LoginResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\ServiceReference\Client_WPF.ServiceReference.LogoutResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\ServiceReference\Client_WPF.ServiceReference.ValidateUserResponse.datasource">
+    <None Include="Service References\RSSService\Client_WPF.RSSService.WebResultOfTupleOfSessionUserokBDsykR5F2dSckg.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
   </ItemGroup>
@@ -161,8 +147,12 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\1355008452_zoom.png" />
+    <Resource Include="Images\1355008732_magnifyingglass.png" />
+    <Resource Include="Images\1355429745_rss_feeds.png" />
+  </ItemGroup>
+  <ItemGroup>
     <WCFMetadataStorage Include="Service References\RSSService\" />
-    <WCFMetadataStorage Include="Service References\ServiceReference\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\RSSService\Account.disco" />
@@ -178,26 +168,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\ServiceReference\Authentification.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\ServiceReference\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\ServiceReference\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\ServiceReference\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\1355008452_zoom.png" />
-    <Resource Include="Images\1355008732_magnifyingglass.png" />
-    <Resource Include="Images\1355429745_rss_feeds.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -17,7 +17,7 @@ namespace Client_WPF.RSSService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="WebResult", Namespace="http://schemas.datacontract.org/2004/07/Server.Utils")]
     [System.SerializableAttribute()]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Client_WPF.RSSService.WebResultOfUserhd3s_SOtL))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Client_WPF.RSSService.WebResultOfTupleOfSessionUserokBDsykR5F2dSckg))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Client_WPF.RSSService.WebResultOfArrayOfUserhd3s_SOtL))]
     public partial class WebResult : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -83,20 +83,23 @@ namespace Client_WPF.RSSService {
             
             [System.Runtime.Serialization.EnumMemberAttribute()]
             NEED_PRIVILEGE = 6,
+            
+            [System.Runtime.Serialization.EnumMemberAttribute()]
+            ALREADY_LOGUED = 7,
         }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="WebResultOfUserhd3s_SOtL", Namespace="http://schemas.datacontract.org/2004/07/Server.Utils")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="WebResultOfTupleOfSessionUserokBDsykR5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/Server.Utils")]
     [System.SerializableAttribute()]
-    public partial class WebResultOfUserhd3s_SOtL : Client_WPF.RSSService.WebResult {
+    public partial class WebResultOfTupleOfSessionUserokBDsykR5F2dSckg : Client_WPF.RSSService.WebResult {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Client_WPF.RSSService.User ValueField;
+        private System.Tuple<Client_WPF.RSSService.Session, Client_WPF.RSSService.User> ValueField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Client_WPF.RSSService.User Value {
+        public System.Tuple<Client_WPF.RSSService.Session, Client_WPF.RSSService.User> Value {
             get {
                 return this.ValueField;
             }
@@ -128,6 +131,99 @@ namespace Client_WPF.RSSService {
                     this.ValueField = value;
                     this.RaisePropertyChanged("Value");
                 }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Session", Namespace="http://schemas.datacontract.org/2004/07/Server.EntityFramwork")]
+    [System.SerializableAttribute()]
+    public partial class Session : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime expireField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int idField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int id_userField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string session_keyField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime expire {
+            get {
+                return this.expireField;
+            }
+            set {
+                if ((this.expireField.Equals(value) != true)) {
+                    this.expireField = value;
+                    this.RaisePropertyChanged("expire");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int id {
+            get {
+                return this.idField;
+            }
+            set {
+                if ((this.idField.Equals(value) != true)) {
+                    this.idField = value;
+                    this.RaisePropertyChanged("id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int id_user {
+            get {
+                return this.id_userField;
+            }
+            set {
+                if ((this.id_userField.Equals(value) != true)) {
+                    this.id_userField = value;
+                    this.RaisePropertyChanged("id_user");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string session_key {
+            get {
+                return this.session_keyField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.session_keyField, value) != true)) {
+                    this.session_keyField = value;
+                    this.RaisePropertyChanged("session_key");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
         }
     }
@@ -254,42 +350,42 @@ namespace Client_WPF.RSSService {
         Client_WPF.RSSService.WebResult EndRegister(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Account/Login", ReplyAction="http://tempuri.org/Account/LoginResponse")]
-        Client_WPF.RSSService.WebResultOfUserhd3s_SOtL Login(string username, string password);
+        Client_WPF.RSSService.WebResultOfTupleOfSessionUserokBDsykR5F2dSckg Login(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/Account/Login", ReplyAction="http://tempuri.org/Account/LoginResponse")]
         System.IAsyncResult BeginLogin(string username, string password, System.AsyncCallback callback, object asyncState);
         
-        Client_WPF.RSSService.WebResultOfUserhd3s_SOtL EndLogin(System.IAsyncResult result);
+        Client_WPF.RSSService.WebResultOfTupleOfSessionUserokBDsykR5F2dSckg EndLogin(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Account/Logout", ReplyAction="http://tempuri.org/Account/LogoutResponse")]
-        Client_WPF.RSSService.WebResult Logout();
+        Client_WPF.RSSService.WebResult Logout(string session_key);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/Account/Logout", ReplyAction="http://tempuri.org/Account/LogoutResponse")]
-        System.IAsyncResult BeginLogout(System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginLogout(string session_key, System.AsyncCallback callback, object asyncState);
         
         Client_WPF.RSSService.WebResult EndLogout(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Account/Update", ReplyAction="http://tempuri.org/Account/UpdateResponse")]
-        Client_WPF.RSSService.WebResult Update(Client_WPF.RSSService.User updateUser);
+        Client_WPF.RSSService.WebResult Update(string session_key, Client_WPF.RSSService.User updateUser);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/Account/Update", ReplyAction="http://tempuri.org/Account/UpdateResponse")]
-        System.IAsyncResult BeginUpdate(Client_WPF.RSSService.User updateUser, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginUpdate(string session_key, Client_WPF.RSSService.User updateUser, System.AsyncCallback callback, object asyncState);
         
         Client_WPF.RSSService.WebResult EndUpdate(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Account/Delete", ReplyAction="http://tempuri.org/Account/DeleteResponse")]
-        Client_WPF.RSSService.WebResult Delete(int id);
+        Client_WPF.RSSService.WebResult Delete(string session_key, int id);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/Account/Delete", ReplyAction="http://tempuri.org/Account/DeleteResponse")]
-        System.IAsyncResult BeginDelete(int id, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginDelete(string session_key, int id, System.AsyncCallback callback, object asyncState);
         
         Client_WPF.RSSService.WebResult EndDelete(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Account/UserList", ReplyAction="http://tempuri.org/Account/UserListResponse")]
-        Client_WPF.RSSService.WebResultOfArrayOfUserhd3s_SOtL UserList();
+        Client_WPF.RSSService.WebResultOfArrayOfUserhd3s_SOtL UserList(string session_key);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/Account/UserList", ReplyAction="http://tempuri.org/Account/UserListResponse")]
-        System.IAsyncResult BeginUserList(System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginUserList(string session_key, System.AsyncCallback callback, object asyncState);
         
         Client_WPF.RSSService.WebResultOfArrayOfUserhd3s_SOtL EndUserList(System.IAsyncResult result);
     }
@@ -328,10 +424,10 @@ namespace Client_WPF.RSSService {
             this.results = results;
         }
         
-        public Client_WPF.RSSService.WebResultOfUserhd3s_SOtL Result {
+        public Client_WPF.RSSService.WebResultOfTupleOfSessionUserokBDsykR5F2dSckg Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((Client_WPF.RSSService.WebResultOfUserhd3s_SOtL)(this.results[0]));
+                return ((Client_WPF.RSSService.WebResultOfTupleOfSessionUserokBDsykR5F2dSckg)(this.results[0]));
             }
         }
     }
@@ -537,7 +633,7 @@ namespace Client_WPF.RSSService {
                         password}, this.onEndRegisterDelegate, this.onRegisterCompletedDelegate, userState);
         }
         
-        public Client_WPF.RSSService.WebResultOfUserhd3s_SOtL Login(string username, string password) {
+        public Client_WPF.RSSService.WebResultOfTupleOfSessionUserokBDsykR5F2dSckg Login(string username, string password) {
             return base.Channel.Login(username, password);
         }
         
@@ -547,7 +643,7 @@ namespace Client_WPF.RSSService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public Client_WPF.RSSService.WebResultOfUserhd3s_SOtL EndLogin(System.IAsyncResult result) {
+        public Client_WPF.RSSService.WebResultOfTupleOfSessionUserokBDsykR5F2dSckg EndLogin(System.IAsyncResult result) {
             return base.Channel.EndLogin(result);
         }
         
@@ -558,7 +654,7 @@ namespace Client_WPF.RSSService {
         }
         
         private object[] OnEndLogin(System.IAsyncResult result) {
-            Client_WPF.RSSService.WebResultOfUserhd3s_SOtL retVal = this.EndLogin(result);
+            Client_WPF.RSSService.WebResultOfTupleOfSessionUserokBDsykR5F2dSckg retVal = this.EndLogin(result);
             return new object[] {
                     retVal};
         }
@@ -589,13 +685,13 @@ namespace Client_WPF.RSSService {
                         password}, this.onEndLoginDelegate, this.onLoginCompletedDelegate, userState);
         }
         
-        public Client_WPF.RSSService.WebResult Logout() {
-            return base.Channel.Logout();
+        public Client_WPF.RSSService.WebResult Logout(string session_key) {
+            return base.Channel.Logout(session_key);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginLogout(System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginLogout(callback, asyncState);
+        public System.IAsyncResult BeginLogout(string session_key, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginLogout(session_key, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -604,7 +700,8 @@ namespace Client_WPF.RSSService {
         }
         
         private System.IAsyncResult OnBeginLogout(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            return this.BeginLogout(callback, asyncState);
+            string session_key = ((string)(inValues[0]));
+            return this.BeginLogout(session_key, callback, asyncState);
         }
         
         private object[] OnEndLogout(System.IAsyncResult result) {
@@ -620,11 +717,11 @@ namespace Client_WPF.RSSService {
             }
         }
         
-        public void LogoutAsync() {
-            this.LogoutAsync(null);
+        public void LogoutAsync(string session_key) {
+            this.LogoutAsync(session_key, null);
         }
         
-        public void LogoutAsync(object userState) {
+        public void LogoutAsync(string session_key, object userState) {
             if ((this.onBeginLogoutDelegate == null)) {
                 this.onBeginLogoutDelegate = new BeginOperationDelegate(this.OnBeginLogout);
             }
@@ -634,16 +731,17 @@ namespace Client_WPF.RSSService {
             if ((this.onLogoutCompletedDelegate == null)) {
                 this.onLogoutCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnLogoutCompleted);
             }
-            base.InvokeAsync(this.onBeginLogoutDelegate, null, this.onEndLogoutDelegate, this.onLogoutCompletedDelegate, userState);
+            base.InvokeAsync(this.onBeginLogoutDelegate, new object[] {
+                        session_key}, this.onEndLogoutDelegate, this.onLogoutCompletedDelegate, userState);
         }
         
-        public Client_WPF.RSSService.WebResult Update(Client_WPF.RSSService.User updateUser) {
-            return base.Channel.Update(updateUser);
+        public Client_WPF.RSSService.WebResult Update(string session_key, Client_WPF.RSSService.User updateUser) {
+            return base.Channel.Update(session_key, updateUser);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginUpdate(Client_WPF.RSSService.User updateUser, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginUpdate(updateUser, callback, asyncState);
+        public System.IAsyncResult BeginUpdate(string session_key, Client_WPF.RSSService.User updateUser, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginUpdate(session_key, updateUser, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -652,8 +750,9 @@ namespace Client_WPF.RSSService {
         }
         
         private System.IAsyncResult OnBeginUpdate(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            Client_WPF.RSSService.User updateUser = ((Client_WPF.RSSService.User)(inValues[0]));
-            return this.BeginUpdate(updateUser, callback, asyncState);
+            string session_key = ((string)(inValues[0]));
+            Client_WPF.RSSService.User updateUser = ((Client_WPF.RSSService.User)(inValues[1]));
+            return this.BeginUpdate(session_key, updateUser, callback, asyncState);
         }
         
         private object[] OnEndUpdate(System.IAsyncResult result) {
@@ -669,11 +768,11 @@ namespace Client_WPF.RSSService {
             }
         }
         
-        public void UpdateAsync(Client_WPF.RSSService.User updateUser) {
-            this.UpdateAsync(updateUser, null);
+        public void UpdateAsync(string session_key, Client_WPF.RSSService.User updateUser) {
+            this.UpdateAsync(session_key, updateUser, null);
         }
         
-        public void UpdateAsync(Client_WPF.RSSService.User updateUser, object userState) {
+        public void UpdateAsync(string session_key, Client_WPF.RSSService.User updateUser, object userState) {
             if ((this.onBeginUpdateDelegate == null)) {
                 this.onBeginUpdateDelegate = new BeginOperationDelegate(this.OnBeginUpdate);
             }
@@ -684,16 +783,17 @@ namespace Client_WPF.RSSService {
                 this.onUpdateCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnUpdateCompleted);
             }
             base.InvokeAsync(this.onBeginUpdateDelegate, new object[] {
+                        session_key,
                         updateUser}, this.onEndUpdateDelegate, this.onUpdateCompletedDelegate, userState);
         }
         
-        public Client_WPF.RSSService.WebResult Delete(int id) {
-            return base.Channel.Delete(id);
+        public Client_WPF.RSSService.WebResult Delete(string session_key, int id) {
+            return base.Channel.Delete(session_key, id);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginDelete(int id, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginDelete(id, callback, asyncState);
+        public System.IAsyncResult BeginDelete(string session_key, int id, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginDelete(session_key, id, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -702,8 +802,9 @@ namespace Client_WPF.RSSService {
         }
         
         private System.IAsyncResult OnBeginDelete(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            int id = ((int)(inValues[0]));
-            return this.BeginDelete(id, callback, asyncState);
+            string session_key = ((string)(inValues[0]));
+            int id = ((int)(inValues[1]));
+            return this.BeginDelete(session_key, id, callback, asyncState);
         }
         
         private object[] OnEndDelete(System.IAsyncResult result) {
@@ -719,11 +820,11 @@ namespace Client_WPF.RSSService {
             }
         }
         
-        public void DeleteAsync(int id) {
-            this.DeleteAsync(id, null);
+        public void DeleteAsync(string session_key, int id) {
+            this.DeleteAsync(session_key, id, null);
         }
         
-        public void DeleteAsync(int id, object userState) {
+        public void DeleteAsync(string session_key, int id, object userState) {
             if ((this.onBeginDeleteDelegate == null)) {
                 this.onBeginDeleteDelegate = new BeginOperationDelegate(this.OnBeginDelete);
             }
@@ -734,16 +835,17 @@ namespace Client_WPF.RSSService {
                 this.onDeleteCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnDeleteCompleted);
             }
             base.InvokeAsync(this.onBeginDeleteDelegate, new object[] {
+                        session_key,
                         id}, this.onEndDeleteDelegate, this.onDeleteCompletedDelegate, userState);
         }
         
-        public Client_WPF.RSSService.WebResultOfArrayOfUserhd3s_SOtL UserList() {
-            return base.Channel.UserList();
+        public Client_WPF.RSSService.WebResultOfArrayOfUserhd3s_SOtL UserList(string session_key) {
+            return base.Channel.UserList(session_key);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginUserList(System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginUserList(callback, asyncState);
+        public System.IAsyncResult BeginUserList(string session_key, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginUserList(session_key, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -752,7 +854,8 @@ namespace Client_WPF.RSSService {
         }
         
         private System.IAsyncResult OnBeginUserList(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            return this.BeginUserList(callback, asyncState);
+            string session_key = ((string)(inValues[0]));
+            return this.BeginUserList(session_key, callback, asyncState);
         }
         
         private object[] OnEndUserList(System.IAsyncResult result) {
@@ -768,11 +871,11 @@ namespace Client_WPF.RSSService {
             }
         }
         
-        public void UserListAsync() {
-            this.UserListAsync(null);
+        public void UserListAsync(string session_key) {
+            this.UserListAsync(session_key, null);
         }
         
-        public void UserListAsync(object userState) {
+        public void UserListAsync(string session_key, object userState) {
             if ((this.onBeginUserListDelegate == null)) {
                 this.onBeginUserListDelegate = new BeginOperationDelegate(this.OnBeginUserList);
             }
@@ -782,7 +885,8 @@ namespace Client_WPF.RSSService {
             if ((this.onUserListCompletedDelegate == null)) {
                 this.onUserListCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnUserListCompleted);
             }
-            base.InvokeAsync(this.onBeginUserListDelegate, null, this.onEndUserListDelegate, this.onUserListCompletedDelegate, userState);
+            base.InvokeAsync(this.onBeginUserListDelegate, new object[] {
+                        session_key}, this.onEndUserListDelegate, this.onUserListCompletedDelegate, userState);
         }
     }
 }
