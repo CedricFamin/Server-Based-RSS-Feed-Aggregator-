@@ -39,7 +39,8 @@ namespace Server.EntityFramwork
     #endregion
 		
 		public ServerDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["databaseConnectionString1"].ConnectionString, mappingSource)
+				base("Data Source=.\\SQLEXPRESS;AttachDbFilename=|DataDirectory|\\database.mdf;Integrated" +
+						" Security=True;Connect Timeout=30;User Instance=True", mappingSource)
 		{
 			OnCreated();
 		}
