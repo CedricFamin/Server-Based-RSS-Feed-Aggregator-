@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DiscoveryClientResultsFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Results>
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://localhost:3972/Services/FeedsService.svc?xsd=xsd0" filename="FeedsService.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.DiscoveryDocumentReference" url="http://localhost:3972/Services/FeedsService.svc?disco" filename="FeedsService.disco" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="http://localhost:3972/Services/FeedsService.svc?wsdl" filename="FeedsService.wsdl" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://localhost:3972/Services/FeedsService.svc?xsd=xsd3" filename="FeedsService0.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://localhost:3972/Services/FeedsService.svc?xsd=xsd1" filename="FeedsService1.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://localhost:3972/Services/FeedsService.svc?xsd=xsd2" filename="FeedsService2.xsd" />
+  </Results>
+</DiscoveryClientResultsFile>
