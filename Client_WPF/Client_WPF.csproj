@@ -61,6 +61,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Behavior\ApplyEffectBehavior.cs" />
     <Compile Include="DataModel\UserDataModel.cs" />
     <Compile Include="Service References\RSSService\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -71,6 +72,7 @@
     <Compile Include="Utils\RelayCommand.cs" />
     <Compile Include="ViewModel\BindableObject.cs" />
     <Compile Include="ViewModel\LoginPageViewModel.cs" />
+    <Compile Include="ViewModel\MenuViewModel.cs" />
     <Compile Include="View\LoginModal.xaml.cs">
       <DependentUpon>LoginModal.xaml</DependentUpon>
     </Compile>
@@ -169,7 +171,11 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Fonts\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Expression\Blend\.NETFramework\v4.0\Microsoft.Expression.Blend.WPF.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

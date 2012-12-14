@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Client_WPF.RSSService;
 using System.ServiceModel;
+using Client_WPF.View;
 
 namespace Client_WPF.DataModel
 {
@@ -34,16 +35,30 @@ namespace Client_WPF.DataModel
         #endregion
 
         public WebResult.ErrorCodeList Error { get; private set; }
+        private static LoginModal LoginView = new LoginModal();
 
         #region CTor/DTor
         public UserDataModel()
         {
             AccountClient.LoginCompleted += new EventHandler<LoginCompletedEventArgs>(OnEndLogin);
             AccountClient.RegisterCompleted += new EventHandler<RegisterCompletedEventArgs>(OnEndRegister);
+
+            
+        }
+        #endregion
+
+        #region Methods
+        public bool IsConnected()
+        {
+            return ConnectionString != null;
         }
 
-        ~UserDataModel()
+        public void ShowConnexionModel_IFN()
         {
+            if (!IsConnected())
+            {
+                LoginView.ShowDialog();
+            }
         }
         #endregion
 
@@ -66,6 +81,7 @@ namespace Client_WPF.DataModel
 
         public void Update()
         {
+            ShowConnexionModel_IFN();
             AccountClient.Update(ConnectionString, User);
         }
         #endregion
@@ -79,6 +95,7 @@ namespace Client_WPF.DataModel
                 {
                     ConnectionString = args.Result.Value.Item1.session_key;
                     User = args.Result.Value.Item2;
+                    LoginView.Close();
                 }
                 Error = args.Result.ErrorCode;
             }
