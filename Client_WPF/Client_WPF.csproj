@@ -62,8 +62,18 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Behavior\ApplyEffectBehavior.cs" />
+    <Compile Include="DataModel\FeedDataModel.cs" />
     <Compile Include="DataModel\UserDataModel.cs" />
     <Compile Include="Service References\RSSService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\FeedsManagerViewModel.cs" />
+    <Compile Include="View\FeedsManager.xaml.cs">
+      <DependentUpon>FeedsManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\FeedService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -76,6 +86,10 @@
     <Compile Include="View\LoginModal.xaml.cs">
       <DependentUpon>LoginModal.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\FeedsManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -119,6 +133,25 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Service References\FeedService\Client_WPF.FeedService.WebResultOfArrayOfRssFeedYxjpQ34D.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\FeedService\Client_WPF.FeedService.WebResultOfRssFeedYxjpQ34D.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\FeedService\FeedsService.wsdl" />
+    <None Include="Service References\FeedService\FeedsService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FeedService\FeedsService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FeedService\FeedsService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FeedService\FeedsService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\RSSService\Account.wsdl" />
     <None Include="Service References\RSSService\Account.xsd">
       <SubType>Designer</SubType>
@@ -135,13 +168,16 @@
     <None Include="Service References\RSSService\Account4.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\RSSService\Account5.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\RSSService\Client_WPF.RSSService.WebResult.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\RSSService\Client_WPF.RSSService.WebResultOfArrayOfUserhd3s_SOtL.datasource">
+    <None Include="Service References\RSSService\Client_WPF.RSSService.WebResultOfArrayOfAccountDataYxjpQ34D.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\RSSService\Client_WPF.RSSService.WebResultOfTupleOfSessionUserokBDsykR5F2dSckg.datasource">
+    <None Include="Service References\RSSService\Client_WPF.RSSService.WebResultOfTupleOfSessionAccountDatav7M43KXC5F2dSckg.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
   </ItemGroup>
@@ -153,9 +189,30 @@
     <Resource Include="Images\1355008732_magnifyingglass.png" />
     <Resource Include="Images\1355429745_rss_feeds.png" />
     <Resource Include="Images\background.jpg" />
+    <Resource Include="View\1355455076_interact.png" />
+    <Resource Include="View\1355456206_plus_64.png" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Service References\FeedService\" />
     <WCFMetadataStorage Include="Service References\RSSService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Fonts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\FeedService\FeedsService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\FeedService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\FeedService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\FeedService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\RSSService\Account.disco" />
@@ -171,9 +228,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Fonts\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Expression\Blend\.NETFramework\v4.0\Microsoft.Expression.Blend.WPF.targets" />

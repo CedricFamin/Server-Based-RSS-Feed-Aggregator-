@@ -13,9 +13,9 @@ namespace Client_WPF.DataModel
         #region Common
         static private string ConnectionString = null;
         static private AccountClient accountClient = null;
-        private static User user { get; set; }
+        private static AccountData user { get; set; }
 
-        static public User User
+        static public AccountData User
         {
             get { return user; }
             private set { user = value; }
@@ -109,5 +109,10 @@ namespace Client_WPF.DataModel
             }
         }
         #endregion
+
+        public string GetConnectionString()
+        {
+            return ConnectionString;
+        }
     }
 }
