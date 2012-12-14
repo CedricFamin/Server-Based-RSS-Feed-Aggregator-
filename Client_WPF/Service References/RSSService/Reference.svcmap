@@ -21,10 +21,9 @@
     <MetadataSource Address="http://localhost:3972/Services/Account.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Account.xsd" MetadataType="Schema" ID="1f89484c-2a2a-46cb-9aea-3c6f9167a863" SourceId="1" SourceUrl="http://localhost:3972/Services/Account.svc?xsd=xsd1" />
     <MetadataFile FileName="Account1.xsd" MetadataType="Schema" ID="3950e243-a812-4fe1-b33a-948ce5ba5684" SourceId="1" SourceUrl="http://localhost:3972/Services/Account.svc?xsd=xsd3" />
     <MetadataFile FileName="Account2.xsd" MetadataType="Schema" ID="f244d616-0487-4de1-863b-2f277761a22b" SourceId="1" SourceUrl="http://localhost:3972/Services/Account.svc?xsd=xsd0" />
-    <MetadataFile FileName="Account3.xsd" MetadataType="Schema" ID="7e9ef814-d6b6-484b-9374-bec4b627ed58" SourceId="1" SourceUrl="http://localhost:3972/Services/Account.svc?xsd=xsd5" />
+    <MetadataFile FileName="Account.xsd" MetadataType="Schema" ID="1f89484c-2a2a-46cb-9aea-3c6f9167a863" SourceId="1" SourceUrl="http://localhost:3972/Services/Account.svc?xsd=xsd1" />
     <MetadataFile FileName="Account.wsdl" MetadataType="Wsdl" ID="ebb5829c-c9e1-4dd9-859a-b64f4c131c9c" SourceId="1" SourceUrl="http://localhost:3972/Services/Account.svc?wsdl" />
     <MetadataFile FileName="Account.disco" MetadataType="Disco" ID="5c393dbe-3132-4ee4-85e1-593ba91da6d0" SourceId="1" SourceUrl="http://localhost:3972/Services/Account.svc?disco" />
     <MetadataFile FileName="Account4.xsd" MetadataType="Schema" ID="6026f4ae-0eee-4589-bdd8-6a605db314ea" SourceId="1" SourceUrl="http://localhost:3972/Services/Account.svc?xsd=xsd4" />

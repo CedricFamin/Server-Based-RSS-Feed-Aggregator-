@@ -28,18 +28,18 @@ namespace Client_WPF.DataModel
         #region PPties
         private UserDataModel UserData { get; set; }
 
-        private List<RssFeed> rootFeeds = null;
-        public List<RssFeed> RootFeeds 
-        { 
-            get { return rootFeeds; }
-            private set { rootFeeds = value; RaisePropertyChange("RootFeeds"); }
+        private List<Channel> channels = null;
+        public List<Channel> Channels 
+        {
+            get { return channels; }
+            private set { channels = value; RaisePropertyChange("Channels"); }
         }
 
-        private List<RssFeed> itemFeeds = null;
-        public List<RssFeed> ItemFeeds
+        private List<Item> item = null;
+        public List<Item> Items
         {
-            get { return itemFeeds; }
-            private set { itemFeeds = value; RaisePropertyChange("ItemFeeds"); }
+            get { return item; }
+            private set { item = value; RaisePropertyChange("Items"); }
         }
         #endregion
 
@@ -47,7 +47,6 @@ namespace Client_WPF.DataModel
         public FeedManagerDataModel()
         {
             UserData = new UserDataModel();
-            RootFeeds = new List<RssFeed>();
 
             FeedsClient.GetFeedsCompleted += new EventHandler<GetFeedsCompletedEventArgs>(FeedsClient_GetFeedsCompleted);
             FeedsClient.AddNewFeedCompleted += new EventHandler<AddNewFeedCompletedEventArgs>(FeedsClient_AddNewFeedCompleted);
@@ -85,7 +84,7 @@ namespace Client_WPF.DataModel
             {
                 if (e.Result.ErrorCode == WebResult.ErrorCodeList.SUCCESS)
                 {
-                    RootFeeds = e.Result.Value.ToList();
+                    Channels = e.Result.Value.ToList();
                 }
             }
         }
@@ -96,7 +95,7 @@ namespace Client_WPF.DataModel
             {
                 if (e.Result.ErrorCode == WebResult.ErrorCodeList.SUCCESS)
                 {
-                    ItemFeeds = e.Result.Value.ToList();
+                    Items = e.Result.Value.ToList();
                 }
             }
         }
@@ -123,7 +122,7 @@ namespace Client_WPF.DataModel
             
         }
 
-        public void RemoveFeed(RssFeed feed)
+        public void RemoveFeed(Channel feed)
         {
             UserData.ShowConnexionModel_IFN();
             FeedsClient.UnfollowFeedAsync(UserData.GetConnectionString(), feed);
@@ -131,7 +130,7 @@ namespace Client_WPF.DataModel
         #endregion
 
 
-        public void LoadFeedItems(RssFeed rssFeed)
+        public void LoadFeedItems(Channel rssFeed)
         {
             UserData.ShowConnexionModel_IFN();
             FeedsClient.GetFeedItemsAsync(UserData.GetConnectionString(), rssFeed);

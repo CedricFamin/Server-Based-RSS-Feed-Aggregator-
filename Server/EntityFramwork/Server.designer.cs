@@ -30,24 +30,24 @@ namespace Server.EntityFramwork
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertUser(User instance);
-    partial void UpdateUser(User instance);
-    partial void DeleteUser(User instance);
+    partial void InsertChannel(Channel instance);
+    partial void UpdateChannel(Channel instance);
+    partial void DeleteChannel(Channel instance);
+    partial void InsertChannelXUser(ChannelXUser instance);
+    partial void UpdateChannelXUser(ChannelXUser instance);
+    partial void DeleteChannelXUser(ChannelXUser instance);
+    partial void InsertItem(Item instance);
+    partial void UpdateItem(Item instance);
+    partial void DeleteItem(Item instance);
+    partial void InsertItemRead(ItemRead instance);
+    partial void UpdateItemRead(ItemRead instance);
+    partial void DeleteItemRead(ItemRead instance);
     partial void InsertSession(Session instance);
     partial void UpdateSession(Session instance);
     partial void DeleteSession(Session instance);
-    partial void InsertPublicFeed(PublicFeed instance);
-    partial void UpdatePublicFeed(PublicFeed instance);
-    partial void DeletePublicFeed(PublicFeed instance);
-    partial void InsertFeedByUser(FeedByUser instance);
-    partial void UpdateFeedByUser(FeedByUser instance);
-    partial void DeleteFeedByUser(FeedByUser instance);
-    partial void InsertReadState(ReadState instance);
-    partial void UpdateReadState(ReadState instance);
-    partial void DeleteReadState(ReadState instance);
-    partial void InsertFeed(Feed instance);
-    partial void UpdateFeed(Feed instance);
-    partial void DeleteFeed(Feed instance);
+    partial void InsertUser(User instance);
+    partial void UpdateUser(User instance);
+    partial void DeleteUser(User instance);
     #endregion
 		
 		public ServerDataContext() : 
@@ -81,11 +81,35 @@ namespace Server.EntityFramwork
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<User> Users
+		public System.Data.Linq.Table<Channel> Channels
 		{
 			get
 			{
-				return this.GetTable<User>();
+				return this.GetTable<Channel>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ChannelXUser> ChannelXUsers
+		{
+			get
+			{
+				return this.GetTable<ChannelXUser>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Item> Items
+		{
+			get
+			{
+				return this.GetTable<Item>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ItemRead> ItemReads
+		{
+			get
+			{
+				return this.GetTable<ItemRead>();
 			}
 		}
 		
@@ -97,35 +121,1227 @@ namespace Server.EntityFramwork
 			}
 		}
 		
-		public System.Data.Linq.Table<PublicFeed> PublicFeeds
+		public System.Data.Linq.Table<User> Users
 		{
 			get
 			{
-				return this.GetTable<PublicFeed>();
+				return this.GetTable<User>();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Channel")]
+	public partial class Channel : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _title;
+		
+		private string _description;
+		
+		private string _link;
+		
+		private string _url;
+		
+		private System.Nullable<System.DateTime> _pubDate;
+		
+		private System.Nullable<System.DateTime> _lastBuildDate;
+		
+		private string _image;
+		
+		private string _enclosure;
+		
+		private EntitySet<ChannelXUser> _ChannelXUsers;
+		
+		private EntitySet<Item> _Items;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OntitleChanging(string value);
+    partial void OntitleChanged();
+    partial void OndescriptionChanging(string value);
+    partial void OndescriptionChanged();
+    partial void OnlinkChanging(string value);
+    partial void OnlinkChanged();
+    partial void OnurlChanging(string value);
+    partial void OnurlChanged();
+    partial void OnpubDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnpubDateChanged();
+    partial void OnlastBuildDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnlastBuildDateChanged();
+    partial void OnimageChanging(string value);
+    partial void OnimageChanged();
+    partial void OnenclosureChanging(string value);
+    partial void OnenclosureChanged();
+    #endregion
+		
+		public Channel()
+		{
+			this._ChannelXUsers = new EntitySet<ChannelXUser>(new Action<ChannelXUser>(this.attach_ChannelXUsers), new Action<ChannelXUser>(this.detach_ChannelXUsers));
+			this._Items = new EntitySet<Item>(new Action<Item>(this.attach_Items), new Action<Item>(this.detach_Items));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
 			}
 		}
 		
-		public System.Data.Linq.Table<FeedByUser> FeedByUsers
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_title", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string title
 		{
 			get
 			{
-				return this.GetTable<FeedByUser>();
+				return this._title;
+			}
+			set
+			{
+				if ((this._title != value))
+				{
+					this.OntitleChanging(value);
+					this.SendPropertyChanging();
+					this._title = value;
+					this.SendPropertyChanged("title");
+					this.OntitleChanged();
+				}
 			}
 		}
 		
-		public System.Data.Linq.Table<ReadState> ReadStates
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="Text NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string description
 		{
 			get
 			{
-				return this.GetTable<ReadState>();
+				return this._description;
+			}
+			set
+			{
+				if ((this._description != value))
+				{
+					this.OndescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._description = value;
+					this.SendPropertyChanged("description");
+					this.OndescriptionChanged();
+				}
 			}
 		}
 		
-		public System.Data.Linq.Table<Feed> Feeds
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_link", DbType="VarChar(255) NOT NULL", CanBeNull=false)]
+		public string link
 		{
 			get
 			{
-				return this.GetTable<Feed>();
+				return this._link;
+			}
+			set
+			{
+				if ((this._link != value))
+				{
+					this.OnlinkChanging(value);
+					this.SendPropertyChanging();
+					this._link = value;
+					this.SendPropertyChanged("link");
+					this.OnlinkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_url", DbType="VarChar(255) NOT NULL", CanBeNull=false)]
+		public string url
+		{
+			get
+			{
+				return this._url;
+			}
+			set
+			{
+				if ((this._url != value))
+				{
+					this.OnurlChanging(value);
+					this.SendPropertyChanging();
+					this._url = value;
+					this.SendPropertyChanged("url");
+					this.OnurlChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pubDate", DbType="Date")]
+		public System.Nullable<System.DateTime> pubDate
+		{
+			get
+			{
+				return this._pubDate;
+			}
+			set
+			{
+				if ((this._pubDate != value))
+				{
+					this.OnpubDateChanging(value);
+					this.SendPropertyChanging();
+					this._pubDate = value;
+					this.SendPropertyChanged("pubDate");
+					this.OnpubDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_lastBuildDate", DbType="Date")]
+		public System.Nullable<System.DateTime> lastBuildDate
+		{
+			get
+			{
+				return this._lastBuildDate;
+			}
+			set
+			{
+				if ((this._lastBuildDate != value))
+				{
+					this.OnlastBuildDateChanging(value);
+					this.SendPropertyChanging();
+					this._lastBuildDate = value;
+					this.SendPropertyChanged("lastBuildDate");
+					this.OnlastBuildDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_image", DbType="VarChar(255)")]
+		public string image
+		{
+			get
+			{
+				return this._image;
+			}
+			set
+			{
+				if ((this._image != value))
+				{
+					this.OnimageChanging(value);
+					this.SendPropertyChanging();
+					this._image = value;
+					this.SendPropertyChanged("image");
+					this.OnimageChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_enclosure", DbType="VarChar(255)")]
+		public string enclosure
+		{
+			get
+			{
+				return this._enclosure;
+			}
+			set
+			{
+				if ((this._enclosure != value))
+				{
+					this.OnenclosureChanging(value);
+					this.SendPropertyChanging();
+					this._enclosure = value;
+					this.SendPropertyChanged("enclosure");
+					this.OnenclosureChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Channel_ChannelXUser", Storage="_ChannelXUsers", ThisKey="id", OtherKey="id_channel")]
+		public EntitySet<ChannelXUser> ChannelXUsers
+		{
+			get
+			{
+				return this._ChannelXUsers;
+			}
+			set
+			{
+				this._ChannelXUsers.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Channel_Item", Storage="_Items", ThisKey="id", OtherKey="id_channel")]
+		public EntitySet<Item> Items
+		{
+			get
+			{
+				return this._Items;
+			}
+			set
+			{
+				this._Items.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_ChannelXUsers(ChannelXUser entity)
+		{
+			this.SendPropertyChanging();
+			entity.Channel = this;
+		}
+		
+		private void detach_ChannelXUsers(ChannelXUser entity)
+		{
+			this.SendPropertyChanging();
+			entity.Channel = null;
+		}
+		
+		private void attach_Items(Item entity)
+		{
+			this.SendPropertyChanging();
+			entity.Channel = this;
+		}
+		
+		private void detach_Items(Item entity)
+		{
+			this.SendPropertyChanging();
+			entity.Channel = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ChannelXUser")]
+	public partial class ChannelXUser : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private int _id_channel;
+		
+		private int _id_user;
+		
+		private EntityRef<Channel> _Channel;
+		
+		private EntityRef<User> _User;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void Onid_channelChanging(int value);
+    partial void Onid_channelChanged();
+    partial void Onid_userChanging(int value);
+    partial void Onid_userChanged();
+    #endregion
+		
+		public ChannelXUser()
+		{
+			this._Channel = default(EntityRef<Channel>);
+			this._User = default(EntityRef<User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_channel", DbType="Int NOT NULL")]
+		public int id_channel
+		{
+			get
+			{
+				return this._id_channel;
+			}
+			set
+			{
+				if ((this._id_channel != value))
+				{
+					if (this._Channel.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_channelChanging(value);
+					this.SendPropertyChanging();
+					this._id_channel = value;
+					this.SendPropertyChanged("id_channel");
+					this.Onid_channelChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_user", DbType="Int NOT NULL")]
+		public int id_user
+		{
+			get
+			{
+				return this._id_user;
+			}
+			set
+			{
+				if ((this._id_user != value))
+				{
+					if (this._User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_userChanging(value);
+					this.SendPropertyChanging();
+					this._id_user = value;
+					this.SendPropertyChanged("id_user");
+					this.Onid_userChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Channel_ChannelXUser", Storage="_Channel", ThisKey="id_channel", OtherKey="id", IsForeignKey=true)]
+		public Channel Channel
+		{
+			get
+			{
+				return this._Channel.Entity;
+			}
+			set
+			{
+				Channel previousValue = this._Channel.Entity;
+				if (((previousValue != value) 
+							|| (this._Channel.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Channel.Entity = null;
+						previousValue.ChannelXUsers.Remove(this);
+					}
+					this._Channel.Entity = value;
+					if ((value != null))
+					{
+						value.ChannelXUsers.Add(this);
+						this._id_channel = value.id;
+					}
+					else
+					{
+						this._id_channel = default(int);
+					}
+					this.SendPropertyChanged("Channel");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_ChannelXUser", Storage="_User", ThisKey="id_user", OtherKey="id", IsForeignKey=true)]
+		public User User
+		{
+			get
+			{
+				return this._User.Entity;
+			}
+			set
+			{
+				User previousValue = this._User.Entity;
+				if (((previousValue != value) 
+							|| (this._User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User.Entity = null;
+						previousValue.ChannelXUsers.Remove(this);
+					}
+					this._User.Entity = value;
+					if ((value != null))
+					{
+						value.ChannelXUsers.Add(this);
+						this._id_user = value.id;
+					}
+					else
+					{
+						this._id_user = default(int);
+					}
+					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Item")]
+	public partial class Item : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private int _id_channel;
+		
+		private string _title;
+		
+		private string _link;
+		
+		private System.Nullable<System.DateTime> _pubDate;
+		
+		private string _description;
+		
+		private string _guid;
+		
+		private string _author;
+		
+		private string _category;
+		
+		private string _comments;
+		
+		private EntitySet<ItemRead> _ItemReads;
+		
+		private EntityRef<Channel> _Channel;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void Onid_channelChanging(int value);
+    partial void Onid_channelChanged();
+    partial void OntitleChanging(string value);
+    partial void OntitleChanged();
+    partial void OnlinkChanging(string value);
+    partial void OnlinkChanged();
+    partial void OnpubDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnpubDateChanged();
+    partial void OndescriptionChanging(string value);
+    partial void OndescriptionChanged();
+    partial void OnguidChanging(string value);
+    partial void OnguidChanged();
+    partial void OnauthorChanging(string value);
+    partial void OnauthorChanged();
+    partial void OncategoryChanging(string value);
+    partial void OncategoryChanged();
+    partial void OncommentsChanging(string value);
+    partial void OncommentsChanged();
+    #endregion
+		
+		public Item()
+		{
+			this._ItemReads = new EntitySet<ItemRead>(new Action<ItemRead>(this.attach_ItemReads), new Action<ItemRead>(this.detach_ItemReads));
+			this._Channel = default(EntityRef<Channel>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_channel", DbType="Int NOT NULL")]
+		public int id_channel
+		{
+			get
+			{
+				return this._id_channel;
+			}
+			set
+			{
+				if ((this._id_channel != value))
+				{
+					if (this._Channel.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_channelChanging(value);
+					this.SendPropertyChanging();
+					this._id_channel = value;
+					this.SendPropertyChanged("id_channel");
+					this.Onid_channelChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_title", DbType="VarChar(255)")]
+		public string title
+		{
+			get
+			{
+				return this._title;
+			}
+			set
+			{
+				if ((this._title != value))
+				{
+					this.OntitleChanging(value);
+					this.SendPropertyChanging();
+					this._title = value;
+					this.SendPropertyChanged("title");
+					this.OntitleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_link", DbType="VarChar(255)")]
+		public string link
+		{
+			get
+			{
+				return this._link;
+			}
+			set
+			{
+				if ((this._link != value))
+				{
+					this.OnlinkChanging(value);
+					this.SendPropertyChanging();
+					this._link = value;
+					this.SendPropertyChanged("link");
+					this.OnlinkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pubDate", DbType="Date")]
+		public System.Nullable<System.DateTime> pubDate
+		{
+			get
+			{
+				return this._pubDate;
+			}
+			set
+			{
+				if ((this._pubDate != value))
+				{
+					this.OnpubDateChanging(value);
+					this.SendPropertyChanging();
+					this._pubDate = value;
+					this.SendPropertyChanged("pubDate");
+					this.OnpubDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string description
+		{
+			get
+			{
+				return this._description;
+			}
+			set
+			{
+				if ((this._description != value))
+				{
+					this.OndescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._description = value;
+					this.SendPropertyChanged("description");
+					this.OndescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_guid", DbType="VarChar(255)")]
+		public string guid
+		{
+			get
+			{
+				return this._guid;
+			}
+			set
+			{
+				if ((this._guid != value))
+				{
+					this.OnguidChanging(value);
+					this.SendPropertyChanging();
+					this._guid = value;
+					this.SendPropertyChanged("guid");
+					this.OnguidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_author", DbType="VarChar(255)")]
+		public string author
+		{
+			get
+			{
+				return this._author;
+			}
+			set
+			{
+				if ((this._author != value))
+				{
+					this.OnauthorChanging(value);
+					this.SendPropertyChanging();
+					this._author = value;
+					this.SendPropertyChanged("author");
+					this.OnauthorChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_category", DbType="VarChar(255)")]
+		public string category
+		{
+			get
+			{
+				return this._category;
+			}
+			set
+			{
+				if ((this._category != value))
+				{
+					this.OncategoryChanging(value);
+					this.SendPropertyChanging();
+					this._category = value;
+					this.SendPropertyChanged("category");
+					this.OncategoryChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_comments", DbType="VarChar(255)")]
+		public string comments
+		{
+			get
+			{
+				return this._comments;
+			}
+			set
+			{
+				if ((this._comments != value))
+				{
+					this.OncommentsChanging(value);
+					this.SendPropertyChanging();
+					this._comments = value;
+					this.SendPropertyChanged("comments");
+					this.OncommentsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Item_ItemRead", Storage="_ItemReads", ThisKey="id", OtherKey="id_item")]
+		public EntitySet<ItemRead> ItemReads
+		{
+			get
+			{
+				return this._ItemReads;
+			}
+			set
+			{
+				this._ItemReads.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Channel_Item", Storage="_Channel", ThisKey="id_channel", OtherKey="id", IsForeignKey=true)]
+		public Channel Channel
+		{
+			get
+			{
+				return this._Channel.Entity;
+			}
+			set
+			{
+				Channel previousValue = this._Channel.Entity;
+				if (((previousValue != value) 
+							|| (this._Channel.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Channel.Entity = null;
+						previousValue.Items.Remove(this);
+					}
+					this._Channel.Entity = value;
+					if ((value != null))
+					{
+						value.Items.Add(this);
+						this._id_channel = value.id;
+					}
+					else
+					{
+						this._id_channel = default(int);
+					}
+					this.SendPropertyChanged("Channel");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_ItemReads(ItemRead entity)
+		{
+			this.SendPropertyChanging();
+			entity.Item = this;
+		}
+		
+		private void detach_ItemReads(ItemRead entity)
+		{
+			this.SendPropertyChanging();
+			entity.Item = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ItemRead")]
+	public partial class ItemRead : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private int _id_user;
+		
+		private int _id_item;
+		
+		private EntityRef<Item> _Item;
+		
+		private EntityRef<User> _User;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void Onid_userChanging(int value);
+    partial void Onid_userChanged();
+    partial void Onid_itemChanging(int value);
+    partial void Onid_itemChanged();
+    #endregion
+		
+		public ItemRead()
+		{
+			this._Item = default(EntityRef<Item>);
+			this._User = default(EntityRef<User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_user", DbType="Int NOT NULL")]
+		public int id_user
+		{
+			get
+			{
+				return this._id_user;
+			}
+			set
+			{
+				if ((this._id_user != value))
+				{
+					if (this._User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_userChanging(value);
+					this.SendPropertyChanging();
+					this._id_user = value;
+					this.SendPropertyChanged("id_user");
+					this.Onid_userChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_item", DbType="Int NOT NULL")]
+		public int id_item
+		{
+			get
+			{
+				return this._id_item;
+			}
+			set
+			{
+				if ((this._id_item != value))
+				{
+					if (this._Item.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_itemChanging(value);
+					this.SendPropertyChanging();
+					this._id_item = value;
+					this.SendPropertyChanged("id_item");
+					this.Onid_itemChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Item_ItemRead", Storage="_Item", ThisKey="id_item", OtherKey="id", IsForeignKey=true)]
+		public Item Item
+		{
+			get
+			{
+				return this._Item.Entity;
+			}
+			set
+			{
+				Item previousValue = this._Item.Entity;
+				if (((previousValue != value) 
+							|| (this._Item.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Item.Entity = null;
+						previousValue.ItemReads.Remove(this);
+					}
+					this._Item.Entity = value;
+					if ((value != null))
+					{
+						value.ItemReads.Add(this);
+						this._id_item = value.id;
+					}
+					else
+					{
+						this._id_item = default(int);
+					}
+					this.SendPropertyChanged("Item");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_ItemRead", Storage="_User", ThisKey="id_user", OtherKey="id", IsForeignKey=true)]
+		public User User
+		{
+			get
+			{
+				return this._User.Entity;
+			}
+			set
+			{
+				User previousValue = this._User.Entity;
+				if (((previousValue != value) 
+							|| (this._User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User.Entity = null;
+						previousValue.ItemReads.Remove(this);
+					}
+					this._User.Entity = value;
+					if ((value != null))
+					{
+						value.ItemReads.Add(this);
+						this._id_user = value.id;
+					}
+					else
+					{
+						this._id_user = default(int);
+					}
+					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Session")]
+	public partial class Session : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _session_key;
+		
+		private int _id_user;
+		
+		private System.DateTime _expire;
+		
+		private EntityRef<User> _User;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void Onsession_keyChanging(string value);
+    partial void Onsession_keyChanged();
+    partial void Onid_userChanging(int value);
+    partial void Onid_userChanged();
+    partial void OnexpireChanging(System.DateTime value);
+    partial void OnexpireChanged();
+    #endregion
+		
+		public Session()
+		{
+			this._User = default(EntityRef<User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_session_key", DbType="VarChar(38) NOT NULL", CanBeNull=false)]
+		public string session_key
+		{
+			get
+			{
+				return this._session_key;
+			}
+			set
+			{
+				if ((this._session_key != value))
+				{
+					this.Onsession_keyChanging(value);
+					this.SendPropertyChanging();
+					this._session_key = value;
+					this.SendPropertyChanged("session_key");
+					this.Onsession_keyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_user", DbType="Int NOT NULL")]
+		public int id_user
+		{
+			get
+			{
+				return this._id_user;
+			}
+			set
+			{
+				if ((this._id_user != value))
+				{
+					if (this._User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_userChanging(value);
+					this.SendPropertyChanging();
+					this._id_user = value;
+					this.SendPropertyChanged("id_user");
+					this.Onid_userChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_expire", DbType="DateTime NOT NULL")]
+		public System.DateTime expire
+		{
+			get
+			{
+				return this._expire;
+			}
+			set
+			{
+				if ((this._expire != value))
+				{
+					this.OnexpireChanging(value);
+					this.SendPropertyChanging();
+					this._expire = value;
+					this.SendPropertyChanged("expire");
+					this.OnexpireChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Session", Storage="_User", ThisKey="id_user", OtherKey="id", IsForeignKey=true)]
+		public User User
+		{
+			get
+			{
+				return this._User.Entity;
+			}
+			set
+			{
+				User previousValue = this._User.Entity;
+				if (((previousValue != value) 
+							|| (this._User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User.Entity = null;
+						previousValue.Sessions.Remove(this);
+					}
+					this._User.Entity = value;
+					if ((value != null))
+					{
+						value.Sessions.Add(this);
+						this._id_user = value.id;
+					}
+					else
+					{
+						this._id_user = default(int);
+					}
+					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
@@ -146,9 +1362,11 @@ namespace Server.EntityFramwork
 		
 		private bool _superuser;
 		
-		private EntitySet<FeedByUser> _FeedByUsers;
+		private EntitySet<ChannelXUser> _ChannelXUsers;
 		
-		private EntitySet<ReadState> _ReadStates;
+		private EntitySet<ItemRead> _ItemReads;
+		
+		private EntitySet<Session> _Sessions;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -168,8 +1386,9 @@ namespace Server.EntityFramwork
 		
 		public User()
 		{
-			this._FeedByUsers = new EntitySet<FeedByUser>(new Action<FeedByUser>(this.attach_FeedByUsers), new Action<FeedByUser>(this.detach_FeedByUsers));
-			this._ReadStates = new EntitySet<ReadState>(new Action<ReadState>(this.attach_ReadStates), new Action<ReadState>(this.detach_ReadStates));
+			this._ChannelXUsers = new EntitySet<ChannelXUser>(new Action<ChannelXUser>(this.attach_ChannelXUsers), new Action<ChannelXUser>(this.detach_ChannelXUsers));
+			this._ItemReads = new EntitySet<ItemRead>(new Action<ItemRead>(this.attach_ItemReads), new Action<ItemRead>(this.detach_ItemReads));
+			this._Sessions = new EntitySet<Session>(new Action<Session>(this.attach_Sessions), new Action<Session>(this.detach_Sessions));
 			OnCreated();
 		}
 		
@@ -273,29 +1492,42 @@ namespace Server.EntityFramwork
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_FeedByUser", Storage="_FeedByUsers", ThisKey="id", OtherKey="id_user")]
-		public EntitySet<FeedByUser> FeedByUsers
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_ChannelXUser", Storage="_ChannelXUsers", ThisKey="id", OtherKey="id_user")]
+		public EntitySet<ChannelXUser> ChannelXUsers
 		{
 			get
 			{
-				return this._FeedByUsers;
+				return this._ChannelXUsers;
 			}
 			set
 			{
-				this._FeedByUsers.Assign(value);
+				this._ChannelXUsers.Assign(value);
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_ReadState", Storage="_ReadStates", ThisKey="id", OtherKey="id_user")]
-		public EntitySet<ReadState> ReadStates
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_ItemRead", Storage="_ItemReads", ThisKey="id", OtherKey="id_user")]
+		public EntitySet<ItemRead> ItemReads
 		{
 			get
 			{
-				return this._ReadStates;
+				return this._ItemReads;
 			}
 			set
 			{
-				this._ReadStates.Assign(value);
+				this._ItemReads.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Session", Storage="_Sessions", ThisKey="id", OtherKey="id_user")]
+		public EntitySet<Session> Sessions
+		{
+			get
+			{
+				return this._Sessions;
+			}
+			set
+			{
+				this._Sessions.Assign(value);
 			}
 		}
 		
@@ -319,1008 +1551,40 @@ namespace Server.EntityFramwork
 			}
 		}
 		
-		private void attach_FeedByUsers(FeedByUser entity)
+		private void attach_ChannelXUsers(ChannelXUser entity)
 		{
 			this.SendPropertyChanging();
 			entity.User = this;
 		}
 		
-		private void detach_FeedByUsers(FeedByUser entity)
+		private void detach_ChannelXUsers(ChannelXUser entity)
 		{
 			this.SendPropertyChanging();
 			entity.User = null;
 		}
 		
-		private void attach_ReadStates(ReadState entity)
+		private void attach_ItemReads(ItemRead entity)
 		{
 			this.SendPropertyChanging();
 			entity.User = this;
 		}
 		
-		private void detach_ReadStates(ReadState entity)
+		private void detach_ItemReads(ItemRead entity)
 		{
 			this.SendPropertyChanging();
 			entity.User = null;
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Session")]
-	public partial class Session : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private string _session_key;
-		
-		private int _id_user;
-		
-		private System.DateTime _expire;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void Onsession_keyChanging(string value);
-    partial void Onsession_keyChanged();
-    partial void Onid_userChanging(int value);
-    partial void Onid_userChanged();
-    partial void OnexpireChanging(System.DateTime value);
-    partial void OnexpireChanged();
-    #endregion
-		
-		public Session()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_session_key", DbType="VarChar(38) NOT NULL", CanBeNull=false)]
-		public string session_key
-		{
-			get
-			{
-				return this._session_key;
-			}
-			set
-			{
-				if ((this._session_key != value))
-				{
-					this.Onsession_keyChanging(value);
-					this.SendPropertyChanging();
-					this._session_key = value;
-					this.SendPropertyChanged("session_key");
-					this.Onsession_keyChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_user", DbType="Int NOT NULL")]
-		public int id_user
-		{
-			get
-			{
-				return this._id_user;
-			}
-			set
-			{
-				if ((this._id_user != value))
-				{
-					this.Onid_userChanging(value);
-					this.SendPropertyChanging();
-					this._id_user = value;
-					this.SendPropertyChanged("id_user");
-					this.Onid_userChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_expire", DbType="DateTime NOT NULL")]
-		public System.DateTime expire
-		{
-			get
-			{
-				return this._expire;
-			}
-			set
-			{
-				if ((this._expire != value))
-				{
-					this.OnexpireChanging(value);
-					this.SendPropertyChanging();
-					this._expire = value;
-					this.SendPropertyChanged("expire");
-					this.OnexpireChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PublicFeed")]
-	public partial class PublicFeed : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private int _id_feed;
-		
-		private EntityRef<Feed> _Feed;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void Onid_feedChanging(int value);
-    partial void Onid_feedChanged();
-    #endregion
-		
-		public PublicFeed()
-		{
-			this._Feed = default(EntityRef<Feed>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_feed", DbType="Int NOT NULL")]
-		public int id_feed
-		{
-			get
-			{
-				return this._id_feed;
-			}
-			set
-			{
-				if ((this._id_feed != value))
-				{
-					if (this._Feed.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onid_feedChanging(value);
-					this.SendPropertyChanging();
-					this._id_feed = value;
-					this.SendPropertyChanged("id_feed");
-					this.Onid_feedChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Feed_PublicFeed", Storage="_Feed", ThisKey="id_feed", OtherKey="id", IsForeignKey=true)]
-		public Feed Feed
-		{
-			get
-			{
-				return this._Feed.Entity;
-			}
-			set
-			{
-				Feed previousValue = this._Feed.Entity;
-				if (((previousValue != value) 
-							|| (this._Feed.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Feed.Entity = null;
-						previousValue.PublicFeeds.Remove(this);
-					}
-					this._Feed.Entity = value;
-					if ((value != null))
-					{
-						value.PublicFeeds.Add(this);
-						this._id_feed = value.id;
-					}
-					else
-					{
-						this._id_feed = default(int);
-					}
-					this.SendPropertyChanged("Feed");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.FeedByUser")]
-	public partial class FeedByUser : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private int _id_feed;
-		
-		private int _id_user;
-		
-		private EntityRef<User> _User;
-		
-		private EntityRef<Feed> _Feed;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void Onid_feedChanging(int value);
-    partial void Onid_feedChanged();
-    partial void Onid_userChanging(int value);
-    partial void Onid_userChanged();
-    #endregion
-		
-		public FeedByUser()
-		{
-			this._User = default(EntityRef<User>);
-			this._Feed = default(EntityRef<Feed>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_feed", DbType="Int NOT NULL")]
-		public int id_feed
-		{
-			get
-			{
-				return this._id_feed;
-			}
-			set
-			{
-				if ((this._id_feed != value))
-				{
-					if (this._Feed.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onid_feedChanging(value);
-					this.SendPropertyChanging();
-					this._id_feed = value;
-					this.SendPropertyChanged("id_feed");
-					this.Onid_feedChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_user", DbType="Int NOT NULL")]
-		public int id_user
-		{
-			get
-			{
-				return this._id_user;
-			}
-			set
-			{
-				if ((this._id_user != value))
-				{
-					if (this._User.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onid_userChanging(value);
-					this.SendPropertyChanging();
-					this._id_user = value;
-					this.SendPropertyChanged("id_user");
-					this.Onid_userChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_FeedByUser", Storage="_User", ThisKey="id_user", OtherKey="id", IsForeignKey=true)]
-		public User User
-		{
-			get
-			{
-				return this._User.Entity;
-			}
-			set
-			{
-				User previousValue = this._User.Entity;
-				if (((previousValue != value) 
-							|| (this._User.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._User.Entity = null;
-						previousValue.FeedByUsers.Remove(this);
-					}
-					this._User.Entity = value;
-					if ((value != null))
-					{
-						value.FeedByUsers.Add(this);
-						this._id_user = value.id;
-					}
-					else
-					{
-						this._id_user = default(int);
-					}
-					this.SendPropertyChanged("User");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Feed_FeedByUser", Storage="_Feed", ThisKey="id_feed", OtherKey="id", IsForeignKey=true)]
-		public Feed Feed
-		{
-			get
-			{
-				return this._Feed.Entity;
-			}
-			set
-			{
-				Feed previousValue = this._Feed.Entity;
-				if (((previousValue != value) 
-							|| (this._Feed.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Feed.Entity = null;
-						previousValue.FeedByUsers.Remove(this);
-					}
-					this._Feed.Entity = value;
-					if ((value != null))
-					{
-						value.FeedByUsers.Add(this);
-						this._id_feed = value.id;
-					}
-					else
-					{
-						this._id_feed = default(int);
-					}
-					this.SendPropertyChanged("Feed");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ReadState")]
-	public partial class ReadState : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private int _id_feed;
-		
-		private int _id_user;
-		
-		private EntityRef<User> _User;
-		
-		private EntityRef<Feed> _Feed;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void Onid_feedChanging(int value);
-    partial void Onid_feedChanged();
-    partial void Onid_userChanging(int value);
-    partial void Onid_userChanged();
-    #endregion
-		
-		public ReadState()
-		{
-			this._User = default(EntityRef<User>);
-			this._Feed = default(EntityRef<Feed>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_feed", DbType="Int NOT NULL")]
-		public int id_feed
-		{
-			get
-			{
-				return this._id_feed;
-			}
-			set
-			{
-				if ((this._id_feed != value))
-				{
-					if (this._Feed.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onid_feedChanging(value);
-					this.SendPropertyChanging();
-					this._id_feed = value;
-					this.SendPropertyChanged("id_feed");
-					this.Onid_feedChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_user", DbType="Int NOT NULL")]
-		public int id_user
-		{
-			get
-			{
-				return this._id_user;
-			}
-			set
-			{
-				if ((this._id_user != value))
-				{
-					if (this._User.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onid_userChanging(value);
-					this.SendPropertyChanging();
-					this._id_user = value;
-					this.SendPropertyChanged("id_user");
-					this.Onid_userChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_ReadState", Storage="_User", ThisKey="id_user", OtherKey="id", IsForeignKey=true)]
-		public User User
-		{
-			get
-			{
-				return this._User.Entity;
-			}
-			set
-			{
-				User previousValue = this._User.Entity;
-				if (((previousValue != value) 
-							|| (this._User.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._User.Entity = null;
-						previousValue.ReadStates.Remove(this);
-					}
-					this._User.Entity = value;
-					if ((value != null))
-					{
-						value.ReadStates.Add(this);
-						this._id_user = value.id;
-					}
-					else
-					{
-						this._id_user = default(int);
-					}
-					this.SendPropertyChanged("User");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Feed_ReadState", Storage="_Feed", ThisKey="id_feed", OtherKey="id", IsForeignKey=true)]
-		public Feed Feed
-		{
-			get
-			{
-				return this._Feed.Entity;
-			}
-			set
-			{
-				Feed previousValue = this._Feed.Entity;
-				if (((previousValue != value) 
-							|| (this._Feed.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Feed.Entity = null;
-						previousValue.ReadStates.Remove(this);
-					}
-					this._Feed.Entity = value;
-					if ((value != null))
-					{
-						value.ReadStates.Add(this);
-						this._id_feed = value.id;
-					}
-					else
-					{
-						this._id_feed = default(int);
-					}
-					this.SendPropertyChanged("Feed");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Feed")]
-	public partial class Feed : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private System.Nullable<int> _id_parent;
-		
-		private string _title;
-		
-		private string _description;
-		
-		private string _url;
-		
-		private string _link;
-		
-		private EntitySet<PublicFeed> _PublicFeeds;
-		
-		private EntitySet<FeedByUser> _FeedByUsers;
-		
-		private EntitySet<ReadState> _ReadStates;
-		
-		private EntitySet<Feed> _Feeds;
-		
-		private EntityRef<Feed> _Feed1;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void Onid_parentChanging(System.Nullable<int> value);
-    partial void Onid_parentChanged();
-    partial void OntitleChanging(string value);
-    partial void OntitleChanged();
-    partial void OndescriptionChanging(string value);
-    partial void OndescriptionChanged();
-    partial void OnurlChanging(string value);
-    partial void OnurlChanged();
-    partial void OnlinkChanging(string value);
-    partial void OnlinkChanged();
-    #endregion
-		
-		public Feed()
-		{
-			this._PublicFeeds = new EntitySet<PublicFeed>(new Action<PublicFeed>(this.attach_PublicFeeds), new Action<PublicFeed>(this.detach_PublicFeeds));
-			this._FeedByUsers = new EntitySet<FeedByUser>(new Action<FeedByUser>(this.attach_FeedByUsers), new Action<FeedByUser>(this.detach_FeedByUsers));
-			this._ReadStates = new EntitySet<ReadState>(new Action<ReadState>(this.attach_ReadStates), new Action<ReadState>(this.detach_ReadStates));
-			this._Feeds = new EntitySet<Feed>(new Action<Feed>(this.attach_Feeds), new Action<Feed>(this.detach_Feeds));
-			this._Feed1 = default(EntityRef<Feed>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_parent", DbType="Int")]
-		public System.Nullable<int> id_parent
-		{
-			get
-			{
-				return this._id_parent;
-			}
-			set
-			{
-				if ((this._id_parent != value))
-				{
-					if (this._Feed1.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onid_parentChanging(value);
-					this.SendPropertyChanging();
-					this._id_parent = value;
-					this.SendPropertyChanged("id_parent");
-					this.Onid_parentChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_title", DbType="VarChar(MAX)")]
-		public string title
-		{
-			get
-			{
-				return this._title;
-			}
-			set
-			{
-				if ((this._title != value))
-				{
-					this.OntitleChanging(value);
-					this.SendPropertyChanging();
-					this._title = value;
-					this.SendPropertyChanged("title");
-					this.OntitleChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="Text", UpdateCheck=UpdateCheck.Never)]
-		public string description
-		{
-			get
-			{
-				return this._description;
-			}
-			set
-			{
-				if ((this._description != value))
-				{
-					this.OndescriptionChanging(value);
-					this.SendPropertyChanging();
-					this._description = value;
-					this.SendPropertyChanged("description");
-					this.OndescriptionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_url", DbType="VarChar(255)")]
-		public string url
-		{
-			get
-			{
-				return this._url;
-			}
-			set
-			{
-				if ((this._url != value))
-				{
-					this.OnurlChanging(value);
-					this.SendPropertyChanging();
-					this._url = value;
-					this.SendPropertyChanged("url");
-					this.OnurlChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_link", DbType="VarChar(255)")]
-		public string link
-		{
-			get
-			{
-				return this._link;
-			}
-			set
-			{
-				if ((this._link != value))
-				{
-					this.OnlinkChanging(value);
-					this.SendPropertyChanging();
-					this._link = value;
-					this.SendPropertyChanged("link");
-					this.OnlinkChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Feed_PublicFeed", Storage="_PublicFeeds", ThisKey="id", OtherKey="id_feed")]
-		public EntitySet<PublicFeed> PublicFeeds
-		{
-			get
-			{
-				return this._PublicFeeds;
-			}
-			set
-			{
-				this._PublicFeeds.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Feed_FeedByUser", Storage="_FeedByUsers", ThisKey="id", OtherKey="id_feed")]
-		public EntitySet<FeedByUser> FeedByUsers
-		{
-			get
-			{
-				return this._FeedByUsers;
-			}
-			set
-			{
-				this._FeedByUsers.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Feed_ReadState", Storage="_ReadStates", ThisKey="id", OtherKey="id_feed")]
-		public EntitySet<ReadState> ReadStates
-		{
-			get
-			{
-				return this._ReadStates;
-			}
-			set
-			{
-				this._ReadStates.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Feed_Feed", Storage="_Feeds", ThisKey="id", OtherKey="id_parent")]
-		public EntitySet<Feed> Feeds
-		{
-			get
-			{
-				return this._Feeds;
-			}
-			set
-			{
-				this._Feeds.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Feed_Feed", Storage="_Feed1", ThisKey="id_parent", OtherKey="id", IsForeignKey=true)]
-		public Feed Feed1
-		{
-			get
-			{
-				return this._Feed1.Entity;
-			}
-			set
-			{
-				Feed previousValue = this._Feed1.Entity;
-				if (((previousValue != value) 
-							|| (this._Feed1.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Feed1.Entity = null;
-						previousValue.Feeds.Remove(this);
-					}
-					this._Feed1.Entity = value;
-					if ((value != null))
-					{
-						value.Feeds.Add(this);
-						this._id_parent = value.id;
-					}
-					else
-					{
-						this._id_parent = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Feed1");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_PublicFeeds(PublicFeed entity)
+		private void attach_Sessions(Session entity)
 		{
 			this.SendPropertyChanging();
-			entity.Feed = this;
+			entity.User = this;
 		}
 		
-		private void detach_PublicFeeds(PublicFeed entity)
+		private void detach_Sessions(Session entity)
 		{
 			this.SendPropertyChanging();
-			entity.Feed = null;
-		}
-		
-		private void attach_FeedByUsers(FeedByUser entity)
-		{
-			this.SendPropertyChanging();
-			entity.Feed = this;
-		}
-		
-		private void detach_FeedByUsers(FeedByUser entity)
-		{
-			this.SendPropertyChanging();
-			entity.Feed = null;
-		}
-		
-		private void attach_ReadStates(ReadState entity)
-		{
-			this.SendPropertyChanging();
-			entity.Feed = this;
-		}
-		
-		private void detach_ReadStates(ReadState entity)
-		{
-			this.SendPropertyChanging();
-			entity.Feed = null;
-		}
-		
-		private void attach_Feeds(Feed entity)
-		{
-			this.SendPropertyChanging();
-			entity.Feed1 = this;
-		}
-		
-		private void detach_Feeds(Feed entity)
-		{
-			this.SendPropertyChanging();
-			entity.Feed1 = null;
+			entity.User = null;
 		}
 	}
 }

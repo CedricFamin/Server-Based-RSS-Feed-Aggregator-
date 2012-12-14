@@ -23,6 +23,7 @@ namespace Server.Utils
             CANNOT_GET_FEED,
             ITEM_NOT_FOUND,
             PARAMETER_ERROR,
+            INVALID_PARAMETER,
         }
 
         public WebResult()

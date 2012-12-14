@@ -136,10 +136,13 @@
     <None Include="Service References\FeedService\Client_WPF.FeedService.WebResult.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\FeedService\Client_WPF.FeedService.WebResultOfArrayOfRssFeedYxjpQ34D.datasource">
+    <None Include="Service References\FeedService\Client_WPF.FeedService.WebResultOfArrayOfChannelMeg_PnYqa.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\FeedService\Client_WPF.FeedService.WebResultOfRssFeedYxjpQ34D.datasource">
+    <None Include="Service References\FeedService\Client_WPF.FeedService.WebResultOfArrayOfItemMeg_PnYqa.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\FeedService\Client_WPF.FeedService.WebResultOfChannelMeg_PnYqa.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\FeedService\FeedsService.wsdl" />
@@ -165,9 +168,6 @@
     <None Include="Service References\RSSService\Account2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\RSSService\Account3.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\RSSService\Account4.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -178,9 +178,6 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\RSSService\Client_WPF.RSSService.WebResultOfArrayOfAccountDataYxjpQ34D.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\RSSService\Client_WPF.RSSService.WebResultOfTupleOfSessionAccountDatav7M43KXC5F2dSckg.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
   </ItemGroup>
@@ -222,6 +219,9 @@
     <None Include="Service References\RSSService\Account.disco" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Service References\RSSService\Client_WPF.RSSService.WebResultOfTupleOfstringAccountDatalrs4Oh3P5F2dSckg.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\RSSService\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>

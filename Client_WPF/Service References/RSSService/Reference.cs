@@ -17,7 +17,7 @@ namespace Client_WPF.RSSService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="WebResult", Namespace="http://schemas.datacontract.org/2004/07/Server.Utils")]
     [System.SerializableAttribute()]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Client_WPF.RSSService.WebResultOfTupleOfSessionAccountDatav7M43KXC5F2dSckg))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Client_WPF.RSSService.WebResultOfTupleOfstringAccountDatalrs4Oh3P5F2dSckg))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Client_WPF.RSSService.WebResultOfArrayOfAccountDataYxjpQ34D))]
     public partial class WebResult : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -95,20 +95,23 @@ namespace Client_WPF.RSSService {
             
             [System.Runtime.Serialization.EnumMemberAttribute()]
             ITEM_NOT_FOUND = 10,
+            
+            [System.Runtime.Serialization.EnumMemberAttribute()]
+            PARAMETER_ERROR = 11,
         }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="WebResultOfTupleOfSessionAccountDatav7M43KXC5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/Server.Utils")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="WebResultOfTupleOfstringAccountDatalrs4Oh3P5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/Server.Utils")]
     [System.SerializableAttribute()]
-    public partial class WebResultOfTupleOfSessionAccountDatav7M43KXC5F2dSckg : Client_WPF.RSSService.WebResult {
+    public partial class WebResultOfTupleOfstringAccountDatalrs4Oh3P5F2dSckg : Client_WPF.RSSService.WebResult {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Tuple<Client_WPF.RSSService.Session, Client_WPF.RSSService.AccountData> ValueField;
+        private System.Tuple<string, Client_WPF.RSSService.AccountData> ValueField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Tuple<Client_WPF.RSSService.Session, Client_WPF.RSSService.AccountData> Value {
+        public System.Tuple<string, Client_WPF.RSSService.AccountData> Value {
             get {
                 return this.ValueField;
             }
@@ -140,99 +143,6 @@ namespace Client_WPF.RSSService {
                     this.ValueField = value;
                     this.RaisePropertyChanged("Value");
                 }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Session", Namespace="http://schemas.datacontract.org/2004/07/Server.EntityFramwork")]
-    [System.SerializableAttribute()]
-    public partial class Session : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime expireField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int idField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int id_userField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string session_keyField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime expire {
-            get {
-                return this.expireField;
-            }
-            set {
-                if ((this.expireField.Equals(value) != true)) {
-                    this.expireField = value;
-                    this.RaisePropertyChanged("expire");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int id {
-            get {
-                return this.idField;
-            }
-            set {
-                if ((this.idField.Equals(value) != true)) {
-                    this.idField = value;
-                    this.RaisePropertyChanged("id");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int id_user {
-            get {
-                return this.id_userField;
-            }
-            set {
-                if ((this.id_userField.Equals(value) != true)) {
-                    this.id_userField = value;
-                    this.RaisePropertyChanged("id_user");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string session_key {
-            get {
-                return this.session_keyField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.session_keyField, value) != true)) {
-                    this.session_keyField = value;
-                    this.RaisePropertyChanged("session_key");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
         }
     }
@@ -343,12 +253,12 @@ namespace Client_WPF.RSSService {
         Client_WPF.RSSService.WebResult EndRegister(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Account/Login", ReplyAction="http://tempuri.org/Account/LoginResponse")]
-        Client_WPF.RSSService.WebResultOfTupleOfSessionAccountDatav7M43KXC5F2dSckg Login(string username, string password);
+        Client_WPF.RSSService.WebResultOfTupleOfstringAccountDatalrs4Oh3P5F2dSckg Login(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/Account/Login", ReplyAction="http://tempuri.org/Account/LoginResponse")]
         System.IAsyncResult BeginLogin(string username, string password, System.AsyncCallback callback, object asyncState);
         
-        Client_WPF.RSSService.WebResultOfTupleOfSessionAccountDatav7M43KXC5F2dSckg EndLogin(System.IAsyncResult result);
+        Client_WPF.RSSService.WebResultOfTupleOfstringAccountDatalrs4Oh3P5F2dSckg EndLogin(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Account/Logout", ReplyAction="http://tempuri.org/Account/LogoutResponse")]
         Client_WPF.RSSService.WebResult Logout(string session_key);
@@ -417,10 +327,10 @@ namespace Client_WPF.RSSService {
             this.results = results;
         }
         
-        public Client_WPF.RSSService.WebResultOfTupleOfSessionAccountDatav7M43KXC5F2dSckg Result {
+        public Client_WPF.RSSService.WebResultOfTupleOfstringAccountDatalrs4Oh3P5F2dSckg Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((Client_WPF.RSSService.WebResultOfTupleOfSessionAccountDatav7M43KXC5F2dSckg)(this.results[0]));
+                return ((Client_WPF.RSSService.WebResultOfTupleOfstringAccountDatalrs4Oh3P5F2dSckg)(this.results[0]));
             }
         }
     }
@@ -626,7 +536,7 @@ namespace Client_WPF.RSSService {
                         password}, this.onEndRegisterDelegate, this.onRegisterCompletedDelegate, userState);
         }
         
-        public Client_WPF.RSSService.WebResultOfTupleOfSessionAccountDatav7M43KXC5F2dSckg Login(string username, string password) {
+        public Client_WPF.RSSService.WebResultOfTupleOfstringAccountDatalrs4Oh3P5F2dSckg Login(string username, string password) {
             return base.Channel.Login(username, password);
         }
         
@@ -636,7 +546,7 @@ namespace Client_WPF.RSSService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public Client_WPF.RSSService.WebResultOfTupleOfSessionAccountDatav7M43KXC5F2dSckg EndLogin(System.IAsyncResult result) {
+        public Client_WPF.RSSService.WebResultOfTupleOfstringAccountDatalrs4Oh3P5F2dSckg EndLogin(System.IAsyncResult result) {
             return base.Channel.EndLogin(result);
         }
         
@@ -647,7 +557,7 @@ namespace Client_WPF.RSSService {
         }
         
         private object[] OnEndLogin(System.IAsyncResult result) {
-            Client_WPF.RSSService.WebResultOfTupleOfSessionAccountDatav7M43KXC5F2dSckg retVal = this.EndLogin(result);
+            Client_WPF.RSSService.WebResultOfTupleOfstringAccountDatalrs4Oh3P5F2dSckg retVal = this.EndLogin(result);
             return new object[] {
                     retVal};
         }

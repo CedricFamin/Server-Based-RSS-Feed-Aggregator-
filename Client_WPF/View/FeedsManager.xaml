@@ -51,7 +51,7 @@
 						</i:Interaction.Triggers>
 					</Button>
 				</StackPanel>
-				<ListView x:Name="listView" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" ItemsSource="{Binding RootFeeds}" Width="200" SelectionMode="Single" ItemTemplate="{DynamicResource DataTemplate}">
+				<ListView x:Name="listView" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" ItemsSource="{Binding Channels}" Width="200" SelectionMode="Single" ItemTemplate="{DynamicResource DataTemplate}">
 					<ListView.Resources>
 						<DataTemplate x:Key="DataTemplate">
 							<DockPanel Height="20" Width="Auto">
@@ -65,9 +65,9 @@
 						</i:EventTrigger>
 					</i:Interaction.Triggers>
 				</ListView>
-				<Border DockPanel.Dock="Bottom" BorderThickness="5,0,0,0" BorderBrush="{DynamicResource borderColor1}" Padding="10" Margin="10,0,0,0" >
+				<Border DockPanel.Dock="Bottom" BorderThickness="5,0,0,0" Padding="10" Margin="10,0,0,0" >
 					<StackPanel DataContext="{Binding SelectedItem, ElementName=listView}">
-						<TextBlock TextWrapping="Wrap" Foreground="{DynamicResource DefaultColor}" FontSize="18.667" FontWeight="Bold" HorizontalAlignment="Center" Text="{Binding Title}"/>
+						<TextBox TextWrapping="Wrap" Foreground="{DynamicResource DefaultColor}" FontSize="18.667" FontWeight="Bold" Text="{Binding Title}" BorderBrush="{x:Null}" Background="{x:Null}" SelectionBrush="{x:Null}"/>
 						<Grid>
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="Auto"/>
@@ -89,7 +89,7 @@
 							</Button>
 						</Grid>
 						<TextBlock TextWrapping="Wrap" Text="{Binding Description}" HorizontalAlignment="Left" Foreground="{DynamicResource DefaultColor}"/>
-						<ListBox ItemsSource="{Binding DataContext.ItemFeeds, ElementName=LayoutRoot}" ItemTemplate="{DynamicResource ItemTemplate}">
+						<ListBox ItemsSource="{Binding DataContext.Items, ElementName=LayoutRoot}" ItemTemplate="{DynamicResource ItemTemplate}">
 							<ListBox.Resources>
 								<DataTemplate x:Key="ItemTemplate">
 									<Grid>

@@ -17,8 +17,9 @@ namespace Client_WPF.FeedService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="WebResult", Namespace="http://schemas.datacontract.org/2004/07/Server.Utils")]
     [System.SerializableAttribute()]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Client_WPF.FeedService.WebResultOfArrayOfRssFeedYxjpQ34D))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Client_WPF.FeedService.WebResultOfRssFeedYxjpQ34D))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Client_WPF.FeedService.WebResultOfArrayOfChannelMeg_PnYqa))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Client_WPF.FeedService.WebResultOfArrayOfItemMeg_PnYqa))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Client_WPF.FeedService.WebResultOfChannelMeg_PnYqa))]
     public partial class WebResult : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
@@ -95,20 +96,23 @@ namespace Client_WPF.FeedService {
             
             [System.Runtime.Serialization.EnumMemberAttribute()]
             ITEM_NOT_FOUND = 10,
+            
+            [System.Runtime.Serialization.EnumMemberAttribute()]
+            PARAMETER_ERROR = 11,
         }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="WebResultOfArrayOfRssFeedYxjpQ34D", Namespace="http://schemas.datacontract.org/2004/07/Server.Utils")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="WebResultOfArrayOfChannelMeg_PnYqa", Namespace="http://schemas.datacontract.org/2004/07/Server.Utils")]
     [System.SerializableAttribute()]
-    public partial class WebResultOfArrayOfRssFeedYxjpQ34D : Client_WPF.FeedService.WebResult {
+    public partial class WebResultOfArrayOfChannelMeg_PnYqa : Client_WPF.FeedService.WebResult {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Client_WPF.FeedService.RssFeed[] ValueField;
+        private Client_WPF.FeedService.Channel[] ValueField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Client_WPF.FeedService.RssFeed[] Value {
+        public Client_WPF.FeedService.Channel[] Value {
             get {
                 return this.ValueField;
             }
@@ -123,15 +127,15 @@ namespace Client_WPF.FeedService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="WebResultOfRssFeedYxjpQ34D", Namespace="http://schemas.datacontract.org/2004/07/Server.Utils")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="WebResultOfArrayOfItemMeg_PnYqa", Namespace="http://schemas.datacontract.org/2004/07/Server.Utils")]
     [System.SerializableAttribute()]
-    public partial class WebResultOfRssFeedYxjpQ34D : Client_WPF.FeedService.WebResult {
+    public partial class WebResultOfArrayOfItemMeg_PnYqa : Client_WPF.FeedService.WebResult {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Client_WPF.FeedService.RssFeed ValueField;
+        private Client_WPF.FeedService.Item[] ValueField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Client_WPF.FeedService.RssFeed Value {
+        public Client_WPF.FeedService.Item[] Value {
             get {
                 return this.ValueField;
             }
@@ -146,27 +150,56 @@ namespace Client_WPF.FeedService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="RssFeed", Namespace="http://schemas.datacontract.org/2004/07/Server.Services")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="WebResultOfChannelMeg_PnYqa", Namespace="http://schemas.datacontract.org/2004/07/Server.Utils")]
     [System.SerializableAttribute()]
-    public partial class RssFeed : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class WebResultOfChannelMeg_PnYqa : Client_WPF.FeedService.WebResult {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Client_WPF.FeedService.Channel ValueField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Client_WPF.FeedService.Channel Value {
+            get {
+                return this.ValueField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ValueField, value) != true)) {
+                    this.ValueField = value;
+                    this.RaisePropertyChanged("Value");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Channel", Namespace="http://schemas.datacontract.org/2004/07/Server.Data")]
+    [System.SerializableAttribute()]
+    public partial class Channel : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime DateField;
+        private string DescriptionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DescriptionField;
+        private string EnclosureField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IdParentField;
+        private string ImageField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> LastBuildDateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string LinkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> PubDateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TitleField;
@@ -185,19 +218,6 @@ namespace Client_WPF.FeedService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime Date {
-            get {
-                return this.DateField;
-            }
-            set {
-                if ((this.DateField.Equals(value) != true)) {
-                    this.DateField = value;
-                    this.RaisePropertyChanged("Date");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Description {
             get {
                 return this.DescriptionField;
@@ -206,6 +226,19 @@ namespace Client_WPF.FeedService {
                 if ((object.ReferenceEquals(this.DescriptionField, value) != true)) {
                     this.DescriptionField = value;
                     this.RaisePropertyChanged("Description");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Enclosure {
+            get {
+                return this.EnclosureField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EnclosureField, value) != true)) {
+                    this.EnclosureField = value;
+                    this.RaisePropertyChanged("Enclosure");
                 }
             }
         }
@@ -224,14 +257,27 @@ namespace Client_WPF.FeedService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int IdParent {
+        public string Image {
             get {
-                return this.IdParentField;
+                return this.ImageField;
             }
             set {
-                if ((this.IdParentField.Equals(value) != true)) {
-                    this.IdParentField = value;
-                    this.RaisePropertyChanged("IdParent");
+                if ((object.ReferenceEquals(this.ImageField, value) != true)) {
+                    this.ImageField = value;
+                    this.RaisePropertyChanged("Image");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> LastBuildDate {
+            get {
+                return this.LastBuildDateField;
+            }
+            set {
+                if ((this.LastBuildDateField.Equals(value) != true)) {
+                    this.LastBuildDateField = value;
+                    this.RaisePropertyChanged("LastBuildDate");
                 }
             }
         }
@@ -245,6 +291,19 @@ namespace Client_WPF.FeedService {
                 if ((object.ReferenceEquals(this.LinkField, value) != true)) {
                     this.LinkField = value;
                     this.RaisePropertyChanged("Link");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> PubDate {
+            get {
+                return this.PubDateField;
+            }
+            set {
+                if ((this.PubDateField.Equals(value) != true)) {
+                    this.PubDateField = value;
+                    this.RaisePropertyChanged("PubDate");
                 }
             }
         }
@@ -285,41 +344,230 @@ namespace Client_WPF.FeedService {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Item", Namespace="http://schemas.datacontract.org/2004/07/Server.Data")]
+    [System.SerializableAttribute()]
+    public partial class Item : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AuthorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CategoryField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CommentsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescriptionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string GUIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdChannelField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string LinkField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> PubDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TitleField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Author {
+            get {
+                return this.AuthorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AuthorField, value) != true)) {
+                    this.AuthorField = value;
+                    this.RaisePropertyChanged("Author");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Category {
+            get {
+                return this.CategoryField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CategoryField, value) != true)) {
+                    this.CategoryField = value;
+                    this.RaisePropertyChanged("Category");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Comments {
+            get {
+                return this.CommentsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CommentsField, value) != true)) {
+                    this.CommentsField = value;
+                    this.RaisePropertyChanged("Comments");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Description {
+            get {
+                return this.DescriptionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescriptionField, value) != true)) {
+                    this.DescriptionField = value;
+                    this.RaisePropertyChanged("Description");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string GUID {
+            get {
+                return this.GUIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.GUIDField, value) != true)) {
+                    this.GUIDField = value;
+                    this.RaisePropertyChanged("GUID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdChannel {
+            get {
+                return this.IdChannelField;
+            }
+            set {
+                if ((this.IdChannelField.Equals(value) != true)) {
+                    this.IdChannelField = value;
+                    this.RaisePropertyChanged("IdChannel");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Link {
+            get {
+                return this.LinkField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LinkField, value) != true)) {
+                    this.LinkField = value;
+                    this.RaisePropertyChanged("Link");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> PubDate {
+            get {
+                return this.PubDateField;
+            }
+            set {
+                if ((this.PubDateField.Equals(value) != true)) {
+                    this.PubDateField = value;
+                    this.RaisePropertyChanged("PubDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Title {
+            get {
+                return this.TitleField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TitleField, value) != true)) {
+                    this.TitleField = value;
+                    this.RaisePropertyChanged("Title");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="FeedService.FeedsService")]
     public interface FeedsService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/FeedsService/AddNewFeed", ReplyAction="http://tempuri.org/FeedsService/AddNewFeedResponse")]
-        Client_WPF.FeedService.WebResultOfRssFeedYxjpQ34D AddNewFeed(string connectionKey, System.Uri uri);
+        Client_WPF.FeedService.WebResultOfChannelMeg_PnYqa AddNewFeed(string connectionKey, System.Uri uri);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/FeedsService/AddNewFeed", ReplyAction="http://tempuri.org/FeedsService/AddNewFeedResponse")]
         System.IAsyncResult BeginAddNewFeed(string connectionKey, System.Uri uri, System.AsyncCallback callback, object asyncState);
         
-        Client_WPF.FeedService.WebResultOfRssFeedYxjpQ34D EndAddNewFeed(System.IAsyncResult result);
+        Client_WPF.FeedService.WebResultOfChannelMeg_PnYqa EndAddNewFeed(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/FeedsService/GetFeeds", ReplyAction="http://tempuri.org/FeedsService/GetFeedsResponse")]
-        Client_WPF.FeedService.WebResultOfArrayOfRssFeedYxjpQ34D GetFeeds(string connectionKey);
+        Client_WPF.FeedService.WebResultOfArrayOfChannelMeg_PnYqa GetFeeds(string connectionKey);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/FeedsService/GetFeeds", ReplyAction="http://tempuri.org/FeedsService/GetFeedsResponse")]
         System.IAsyncResult BeginGetFeeds(string connectionKey, System.AsyncCallback callback, object asyncState);
         
-        Client_WPF.FeedService.WebResultOfArrayOfRssFeedYxjpQ34D EndGetFeeds(System.IAsyncResult result);
+        Client_WPF.FeedService.WebResultOfArrayOfChannelMeg_PnYqa EndGetFeeds(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/FeedsService/UnfollowFeed", ReplyAction="http://tempuri.org/FeedsService/UnfollowFeedResponse")]
-        Client_WPF.FeedService.WebResult UnfollowFeed(string connectionKey, Client_WPF.FeedService.RssFeed feed);
+        Client_WPF.FeedService.WebResult UnfollowFeed(string connectionKey, Client_WPF.FeedService.Channel feed);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/FeedsService/UnfollowFeed", ReplyAction="http://tempuri.org/FeedsService/UnfollowFeedResponse")]
-        System.IAsyncResult BeginUnfollowFeed(string connectionKey, Client_WPF.FeedService.RssFeed feed, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginUnfollowFeed(string connectionKey, Client_WPF.FeedService.Channel feed, System.AsyncCallback callback, object asyncState);
         
         Client_WPF.FeedService.WebResult EndUnfollowFeed(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/FeedsService/GetFeedItems", ReplyAction="http://tempuri.org/FeedsService/GetFeedItemsResponse")]
-        Client_WPF.FeedService.WebResultOfArrayOfRssFeedYxjpQ34D GetFeedItems(string connectionKey, Client_WPF.FeedService.RssFeed feed);
+        Client_WPF.FeedService.WebResultOfArrayOfItemMeg_PnYqa GetFeedItems(string connectionKey, Client_WPF.FeedService.Channel feed);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/FeedsService/GetFeedItems", ReplyAction="http://tempuri.org/FeedsService/GetFeedItemsResponse")]
-        System.IAsyncResult BeginGetFeedItems(string connectionKey, Client_WPF.FeedService.RssFeed feed, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginGetFeedItems(string connectionKey, Client_WPF.FeedService.Channel feed, System.AsyncCallback callback, object asyncState);
         
-        Client_WPF.FeedService.WebResultOfArrayOfRssFeedYxjpQ34D EndGetFeedItems(System.IAsyncResult result);
+        Client_WPF.FeedService.WebResultOfArrayOfItemMeg_PnYqa EndGetFeedItems(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -337,10 +585,10 @@ namespace Client_WPF.FeedService {
             this.results = results;
         }
         
-        public Client_WPF.FeedService.WebResultOfRssFeedYxjpQ34D Result {
+        public Client_WPF.FeedService.WebResultOfChannelMeg_PnYqa Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((Client_WPF.FeedService.WebResultOfRssFeedYxjpQ34D)(this.results[0]));
+                return ((Client_WPF.FeedService.WebResultOfChannelMeg_PnYqa)(this.results[0]));
             }
         }
     }
@@ -356,10 +604,10 @@ namespace Client_WPF.FeedService {
             this.results = results;
         }
         
-        public Client_WPF.FeedService.WebResultOfArrayOfRssFeedYxjpQ34D Result {
+        public Client_WPF.FeedService.WebResultOfArrayOfChannelMeg_PnYqa Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((Client_WPF.FeedService.WebResultOfArrayOfRssFeedYxjpQ34D)(this.results[0]));
+                return ((Client_WPF.FeedService.WebResultOfArrayOfChannelMeg_PnYqa)(this.results[0]));
             }
         }
     }
@@ -394,10 +642,10 @@ namespace Client_WPF.FeedService {
             this.results = results;
         }
         
-        public Client_WPF.FeedService.WebResultOfArrayOfRssFeedYxjpQ34D Result {
+        public Client_WPF.FeedService.WebResultOfArrayOfItemMeg_PnYqa Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((Client_WPF.FeedService.WebResultOfArrayOfRssFeedYxjpQ34D)(this.results[0]));
+                return ((Client_WPF.FeedService.WebResultOfArrayOfItemMeg_PnYqa)(this.results[0]));
             }
         }
     }
@@ -457,7 +705,7 @@ namespace Client_WPF.FeedService {
         
         public event System.EventHandler<GetFeedItemsCompletedEventArgs> GetFeedItemsCompleted;
         
-        public Client_WPF.FeedService.WebResultOfRssFeedYxjpQ34D AddNewFeed(string connectionKey, System.Uri uri) {
+        public Client_WPF.FeedService.WebResultOfChannelMeg_PnYqa AddNewFeed(string connectionKey, System.Uri uri) {
             return base.Channel.AddNewFeed(connectionKey, uri);
         }
         
@@ -467,7 +715,7 @@ namespace Client_WPF.FeedService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public Client_WPF.FeedService.WebResultOfRssFeedYxjpQ34D EndAddNewFeed(System.IAsyncResult result) {
+        public Client_WPF.FeedService.WebResultOfChannelMeg_PnYqa EndAddNewFeed(System.IAsyncResult result) {
             return base.Channel.EndAddNewFeed(result);
         }
         
@@ -478,7 +726,7 @@ namespace Client_WPF.FeedService {
         }
         
         private object[] OnEndAddNewFeed(System.IAsyncResult result) {
-            Client_WPF.FeedService.WebResultOfRssFeedYxjpQ34D retVal = this.EndAddNewFeed(result);
+            Client_WPF.FeedService.WebResultOfChannelMeg_PnYqa retVal = this.EndAddNewFeed(result);
             return new object[] {
                     retVal};
         }
@@ -509,7 +757,7 @@ namespace Client_WPF.FeedService {
                         uri}, this.onEndAddNewFeedDelegate, this.onAddNewFeedCompletedDelegate, userState);
         }
         
-        public Client_WPF.FeedService.WebResultOfArrayOfRssFeedYxjpQ34D GetFeeds(string connectionKey) {
+        public Client_WPF.FeedService.WebResultOfArrayOfChannelMeg_PnYqa GetFeeds(string connectionKey) {
             return base.Channel.GetFeeds(connectionKey);
         }
         
@@ -519,7 +767,7 @@ namespace Client_WPF.FeedService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public Client_WPF.FeedService.WebResultOfArrayOfRssFeedYxjpQ34D EndGetFeeds(System.IAsyncResult result) {
+        public Client_WPF.FeedService.WebResultOfArrayOfChannelMeg_PnYqa EndGetFeeds(System.IAsyncResult result) {
             return base.Channel.EndGetFeeds(result);
         }
         
@@ -529,7 +777,7 @@ namespace Client_WPF.FeedService {
         }
         
         private object[] OnEndGetFeeds(System.IAsyncResult result) {
-            Client_WPF.FeedService.WebResultOfArrayOfRssFeedYxjpQ34D retVal = this.EndGetFeeds(result);
+            Client_WPF.FeedService.WebResultOfArrayOfChannelMeg_PnYqa retVal = this.EndGetFeeds(result);
             return new object[] {
                     retVal};
         }
@@ -559,12 +807,12 @@ namespace Client_WPF.FeedService {
                         connectionKey}, this.onEndGetFeedsDelegate, this.onGetFeedsCompletedDelegate, userState);
         }
         
-        public Client_WPF.FeedService.WebResult UnfollowFeed(string connectionKey, Client_WPF.FeedService.RssFeed feed) {
+        public Client_WPF.FeedService.WebResult UnfollowFeed(string connectionKey, Client_WPF.FeedService.Channel feed) {
             return base.Channel.UnfollowFeed(connectionKey, feed);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginUnfollowFeed(string connectionKey, Client_WPF.FeedService.RssFeed feed, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BeginUnfollowFeed(string connectionKey, Client_WPF.FeedService.Channel feed, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginUnfollowFeed(connectionKey, feed, callback, asyncState);
         }
         
@@ -575,7 +823,7 @@ namespace Client_WPF.FeedService {
         
         private System.IAsyncResult OnBeginUnfollowFeed(object[] inValues, System.AsyncCallback callback, object asyncState) {
             string connectionKey = ((string)(inValues[0]));
-            Client_WPF.FeedService.RssFeed feed = ((Client_WPF.FeedService.RssFeed)(inValues[1]));
+            Client_WPF.FeedService.Channel feed = ((Client_WPF.FeedService.Channel)(inValues[1]));
             return this.BeginUnfollowFeed(connectionKey, feed, callback, asyncState);
         }
         
@@ -592,11 +840,11 @@ namespace Client_WPF.FeedService {
             }
         }
         
-        public void UnfollowFeedAsync(string connectionKey, Client_WPF.FeedService.RssFeed feed) {
+        public void UnfollowFeedAsync(string connectionKey, Client_WPF.FeedService.Channel feed) {
             this.UnfollowFeedAsync(connectionKey, feed, null);
         }
         
-        public void UnfollowFeedAsync(string connectionKey, Client_WPF.FeedService.RssFeed feed, object userState) {
+        public void UnfollowFeedAsync(string connectionKey, Client_WPF.FeedService.Channel feed, object userState) {
             if ((this.onBeginUnfollowFeedDelegate == null)) {
                 this.onBeginUnfollowFeedDelegate = new BeginOperationDelegate(this.OnBeginUnfollowFeed);
             }
@@ -611,28 +859,28 @@ namespace Client_WPF.FeedService {
                         feed}, this.onEndUnfollowFeedDelegate, this.onUnfollowFeedCompletedDelegate, userState);
         }
         
-        public Client_WPF.FeedService.WebResultOfArrayOfRssFeedYxjpQ34D GetFeedItems(string connectionKey, Client_WPF.FeedService.RssFeed feed) {
+        public Client_WPF.FeedService.WebResultOfArrayOfItemMeg_PnYqa GetFeedItems(string connectionKey, Client_WPF.FeedService.Channel feed) {
             return base.Channel.GetFeedItems(connectionKey, feed);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginGetFeedItems(string connectionKey, Client_WPF.FeedService.RssFeed feed, System.AsyncCallback callback, object asyncState) {
+        public System.IAsyncResult BeginGetFeedItems(string connectionKey, Client_WPF.FeedService.Channel feed, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginGetFeedItems(connectionKey, feed, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public Client_WPF.FeedService.WebResultOfArrayOfRssFeedYxjpQ34D EndGetFeedItems(System.IAsyncResult result) {
+        public Client_WPF.FeedService.WebResultOfArrayOfItemMeg_PnYqa EndGetFeedItems(System.IAsyncResult result) {
             return base.Channel.EndGetFeedItems(result);
         }
         
         private System.IAsyncResult OnBeginGetFeedItems(object[] inValues, System.AsyncCallback callback, object asyncState) {
             string connectionKey = ((string)(inValues[0]));
-            Client_WPF.FeedService.RssFeed feed = ((Client_WPF.FeedService.RssFeed)(inValues[1]));
+            Client_WPF.FeedService.Channel feed = ((Client_WPF.FeedService.Channel)(inValues[1]));
             return this.BeginGetFeedItems(connectionKey, feed, callback, asyncState);
         }
         
         private object[] OnEndGetFeedItems(System.IAsyncResult result) {
-            Client_WPF.FeedService.WebResultOfArrayOfRssFeedYxjpQ34D retVal = this.EndGetFeedItems(result);
+            Client_WPF.FeedService.WebResultOfArrayOfItemMeg_PnYqa retVal = this.EndGetFeedItems(result);
             return new object[] {
                     retVal};
         }
@@ -644,11 +892,11 @@ namespace Client_WPF.FeedService {
             }
         }
         
-        public void GetFeedItemsAsync(string connectionKey, Client_WPF.FeedService.RssFeed feed) {
+        public void GetFeedItemsAsync(string connectionKey, Client_WPF.FeedService.Channel feed) {
             this.GetFeedItemsAsync(connectionKey, feed, null);
         }
         
-        public void GetFeedItemsAsync(string connectionKey, Client_WPF.FeedService.RssFeed feed, object userState) {
+        public void GetFeedItemsAsync(string connectionKey, Client_WPF.FeedService.Channel feed, object userState) {
             if ((this.onBeginGetFeedItemsDelegate == null)) {
                 this.onBeginGetFeedItemsDelegate = new BeginOperationDelegate(this.OnBeginGetFeedItems);
             }

@@ -4,14 +4,15 @@ using System.Linq;
 using System.Text;
 using Server.Utils;
 using Server.Services;
+using Server.Data;
 
 namespace Server.Interface
 {
     interface IFeeds
     {
-        WebResult<RssFeed> AddNewFeed(string connectionKey, Uri uri);
-        WebResult<List<RssFeed>> GetFeeds(string connectionKey);
-        WebResult UnfollowFeed(string connectionKey, RssFeed feed);
-        WebResult<List<RssFeed>> GetFeedItems(string connectionKey, RssFeed feed);
+        WebResult<Channel> AddNewFeed(string connectionKey, Uri uri);
+        WebResult<List<Channel>> GetFeeds(string connectionKey);
+        WebResult UnfollowFeed(string connectionKey, Channel feed);
+        WebResult<List<Item>> GetFeedItems(string connectionKey, Channel feed);
     }
 }

@@ -12,7 +12,7 @@ namespace Client_WPF.DataModel
     {
         #region Common
         static private string ConnectionString = null;
-        static private AccountClient accountClient = null;
+        static private AccountClient accountClient = new AccountClient();
         private static AccountData user { get; set; }
 
         static public AccountData User
@@ -25,8 +25,6 @@ namespace Client_WPF.DataModel
         {
             get
             {
-                if (accountClient == null)
-                    accountClient = new AccountClient();
                 if (accountClient.State == CommunicationState.Closed)
                     accountClient.Open();
                 return accountClient;
@@ -42,8 +40,6 @@ namespace Client_WPF.DataModel
         {
             AccountClient.LoginCompleted += new EventHandler<LoginCompletedEventArgs>(OnEndLogin);
             AccountClient.RegisterCompleted += new EventHandler<RegisterCompletedEventArgs>(OnEndRegister);
-
-            
         }
         #endregion
 
@@ -57,6 +53,8 @@ namespace Client_WPF.DataModel
         {
             if (!IsConnected())
             {
+                if (!LoginView.IsActive)
+                    LoginView = new LoginModal();
                 LoginView.ShowDialog();
             }
         }
@@ -93,7 +91,7 @@ namespace Client_WPF.DataModel
             {
                 if (args.Result.ErrorCode == WebResult.ErrorCodeList.SUCCESS)
                 {
-                    ConnectionString = args.Result.Value.Item1.session_key;
+                    ConnectionString = args.Result.Value.Item1;
                     User = args.Result.Value.Item2;
                     LoginView.Close();
                 }

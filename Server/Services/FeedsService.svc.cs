@@ -9,200 +9,97 @@ using System.Xml;
 using System.ServiceModel.Syndication;
 using System.ServiceModel.Activation;
 using Server.Utils;
-using Server.EntityFramwork;
+using Server.Data;
 
 namespace Server.Services
 {
-    [DataContract]
-    public class RssFeed
-    {
-        public RssFeed()
-        {
-        }
-
-        public RssFeed(Feed dbFeed)
-        {
-            Id = dbFeed.id;
-            Title = dbFeed.title;
-            Description = dbFeed.description;
-            Url = dbFeed.url;
-            Link = dbFeed.link;
-        }
-
-        public Feed ToDbFeed()
-        {
-            ServerDataContext db = new ServerDataContext();
-            return (from f in db.Feeds where f.id == Id select f).SingleOrDefault();
-        }
-
-        [DataMember]
-        public int Id { get; set; }
-        [DataMember]
-        public int IdParent { get; set; }
-        [DataMember]
-        public String Title { get; set; }
-        [DataMember]
-        public String Description { get; set; }
-        [DataMember]
-        public String Url { get; set; }
-        [DataMember]
-        public DateTime Date { get; set; }
-        [DataMember]
-        public string Link { get; set; }
-    }
-
     [ServiceContract]
     [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
     public class FeedsService : IFeeds
     {
         #region Database
-        ServerDataContext db = new ServerDataContext();
+        EntityFramwork.ServerDataContext db = new EntityFramwork.ServerDataContext();
         #endregion
 
         SessionWrapper _sessionWrapper = new SessionWrapper();
 
-        #region Utils
-        RssFeed CreateFeedIFN(Uri uri)
+        [OperationContract]
+        public WebResult<Channel> AddNewFeed(string connectionKey, Uri uri)
         {
-            Feed dbFeed = (from f in db.Feeds where f.url == uri.ToString() select f).SingleOrDefault();
-            if (dbFeed == null)
+            EntityFramwork.User user = _sessionWrapper.GetUser(connectionKey);
+            if (user == null) return new WebResult<Channel>(WebResult.ErrorCodeList.NOT_LOGUED);
+
+            EntityFramwork.Channel dbChan = RssFeedConverter.UriToDbChannel(uri);
+            if (dbChan == null)
+                return new WebResult<Channel>(WebResult.ErrorCodeList.CANNOT_CREATE_FEED);
+
+            EntityFramwork.ChannelXUser cxu = new EntityFramwork.ChannelXUser()
             {
-                SyndicationFeed feed = null;
-                try
-                {
-                    XmlReader reader = XmlReader.Create(uri.ToString());
-                    feed = SyndicationFeed.Load(reader);
-                    if (feed == null)
-                        return null;
-                }
-                catch (Exception)
-                {
-                    return null;
-                }
-                dbFeed = CreateDbFeed(feed, uri);
-            }
+                id_user = user.id,
+                id_channel = dbChan.id
+            };
 
-            return new RssFeed(dbFeed);
+            db.ChannelXUsers.InsertOnSubmit(cxu);
+            db.SubmitChanges();
 
+            return new WebResult<Channel>(new Channel(dbChan));
         }
 
+        [OperationContract]
+        public WebResult<List<Channel>> GetFeeds(string connectionKey)
+        {
+            EntityFramwork.User user = _sessionWrapper.GetUser(connectionKey);
+            if (user == null) return new WebResult<List<Channel>>(WebResult.ErrorCodeList.NOT_LOGUED);
+
+            List<Channel> chans = new List<Channel>();
+
+            var dbChans = from chan in db.ChannelXUsers where chan.User == user select chan.Channel;
+            foreach (var dbChan in dbChans)
+            {
+                chans.Add(new Channel(dbChan));
+            }
+
+            return new WebResult<List<Channel>>(chans);
+        }
         
-        private Feed CreateDbFeed(SyndicationFeed feed, Uri uri, int parentId = 0)
-        {
-            Feed dbFeed = new Feed()
-            {
-                title = feed.Title.Text,
-                description = feed.Description.Text,
-                url = uri.ToString(),
-                link = feed.Links[0].ToString()
-            };
-
-            db.Feeds.InsertOnSubmit(dbFeed);
-            db.SubmitChanges();
-            foreach (var feedItem in feed.Items)
-            {
-                CreateDbFeed(feedItem, uri, dbFeed.id);
-            }
-            return dbFeed;
-        }
-
-        private Feed CreateDbFeed(SyndicationItem feed, Uri uri, int parentId)
-        {
-            Feed dbFeed = new Feed()
-            {
-                title = feed.Title.Text,
-                url = uri.ToString(),
-                link = feed.Links[0].ToString(),
-                id_parent = parentId
-            };
-
-            db.Feeds.InsertOnSubmit(dbFeed);
-            db.SubmitChanges();
-            return dbFeed;
-        }
-        #endregion
-
         [OperationContract]
-        public WebResult<RssFeed> AddNewFeed(string connectionKey, Uri uri)
+        public WebResult UnfollowFeed(string connectionKey, Channel feed)
         {
-            User user = _sessionWrapper.GetUser(connectionKey);
+            EntityFramwork.User user = _sessionWrapper.GetUser(connectionKey);
+            if (user == null) return new WebResult(WebResult.ErrorCodeList.NOT_LOGUED);
 
-            if (user == null)
-                return new WebResult<RssFeed>(WebResult.ErrorCodeList.NOT_LOGUED);
+            EntityFramwork.ChannelXUser cxu = (from item in db.ChannelXUsers where item.User == user && item.id_channel == feed.Id select item).SingleOrDefault();
 
-            RssFeed feed = CreateFeedIFN(uri);
-
-            if (feed == null)
-                return new WebResult<RssFeed>(WebResult.ErrorCodeList.CANNOT_CREATE_FEED);
-            FeedByUser feedXUser = (from uf in db.FeedByUsers where uf.id_user == user.id && uf.id_feed == feed.Id select uf).SingleOrDefault();
-            if (feedXUser == null)
+            if (cxu != null)
             {
-                feedXUser = new FeedByUser()
-                {
-                    id_feed = feed.Id,
-                    id_user = user.id
-                };
-                db.FeedByUsers.InsertOnSubmit(feedXUser);
+                db.ChannelXUsers.DeleteOnSubmit(cxu);
                 db.SubmitChanges();
+                return new WebResult();
             }
-            return new WebResult<RssFeed>(feed);
+
+            return new WebResult(WebResult.ErrorCodeList.CANNOT_GET_FEED);
+            
         }
 
         [OperationContract]
-        public WebResult<List<RssFeed>> GetFeeds(string connectionKey)
+        public WebResult<List<Item>> GetFeedItems(string connectionKey, Channel feed)
         {
-            User user = _sessionWrapper.GetUser(connectionKey);
-
-            List<RssFeed> feeds = new List<RssFeed>();
-
-            if (user == null)
-                return new WebResult<List<RssFeed>>(WebResult.ErrorCodeList.NOT_LOGUED);
-
-            var dbFeeds = from uf in db.FeedByUsers where uf.User == user select uf.Feed;
-            foreach (Feed dbFeed in dbFeeds)
-            {
-                feeds.Add(new RssFeed(dbFeed));
-            }
-            return new WebResult<List<RssFeed>>(feeds);
-        }
-
-        [OperationContract]
-        public WebResult UnfollowFeed(string connectionKey, RssFeed feed)
-        {
-            User user = _sessionWrapper.GetUser(connectionKey);
-
-            if (user == null)
-                return new WebResult(WebResult.ErrorCodeList.NOT_LOGUED);
-            FeedByUser feedUser = (from item in db.FeedByUsers where item.User == user && item.id_feed == feed.Id select item).SingleOrDefault();
-
-            if (feedUser == null)
-                return new WebResult(WebResult.ErrorCodeList.ITEM_NOT_FOUND);
-            db.FeedByUsers.DeleteOnSubmit(feedUser);
-            db.SubmitChanges();
-            return new WebResult();
-        }
-
-        [OperationContract]
-        public WebResult<List<RssFeed>> GetFeedItems(string connectionKey, RssFeed feed)
-        {
-            User user = _sessionWrapper.GetUser(connectionKey);
-
-            if (user == null)
-                return new WebResult<List<RssFeed>>(WebResult.ErrorCodeList.NOT_LOGUED);
             if (feed == null)
-                return new WebResult<List<RssFeed>>(WebResult.ErrorCodeList.PARAMETER_ERROR);
-            List<RssFeed> feeds = new List<RssFeed>();
+                return new WebResult<List<Item>>(WebResult.ErrorCodeList.INVALID_PARAMETER);
 
-            var dbFeeds = from f in db.Feeds where f.id_parent == feed.Id select f;
-            if (dbFeeds != null)
+            EntityFramwork.User user = _sessionWrapper.GetUser(connectionKey);
+            if (user == null) return new WebResult<List<Item>>(WebResult.ErrorCodeList.NOT_LOGUED);
+            
+            List<Item> items = new List<Item>();
+
+            var dbItems = from item in db.Items where item.id_channel == feed.Id select item;
+            foreach (var dbItem in dbItems)
             {
-                foreach (var dbFeed in dbFeeds)
-                {
-                    feeds.Add(new RssFeed(dbFeed));
-                }
+                items.Add(new Item(dbItem));
             }
 
-            return new WebResult<List<RssFeed>>(feeds);
+            return new WebResult<List<Item>>(items);
+
         }
     }
 }

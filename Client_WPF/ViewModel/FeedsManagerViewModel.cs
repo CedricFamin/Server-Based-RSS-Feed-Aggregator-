@@ -19,18 +19,18 @@ namespace Client_WPF.ViewModel
         public ICommand RemoveFeed { get; private set; }
         public ICommand LoadFeedItems { get; private set; }
         
-        private List<RssFeed> rootFeeds = null;
-        public List<RssFeed> RootFeeds
+        private List<Channel> channels = null;
+        public List<Channel> Channels
         {
-            get { return rootFeeds; }
-            private set { rootFeeds = value; RaisePropertyChange("RootFeeds"); }
+            get { return channels; }
+            private set { channels = value; RaisePropertyChange("Channels"); }
         }
 
-        private List<RssFeed> itemFeeds = null;
-        public List<RssFeed> ItemFeeds
+        private List<Item> items = null;
+        public List<Item> Items
         {
-            get { return itemFeeds; }
-            private set { itemFeeds = value; RaisePropertyChange("ItemFeeds"); }
+            get { return items; }
+            private set { items = value; RaisePropertyChange("Items"); }
         }
 
         private string urlFeed = "";
@@ -40,11 +40,11 @@ namespace Client_WPF.ViewModel
             set { urlFeed = value; RaisePropertyChange("UrlFeed"); }
         }
 
-        private RssFeed currentFeed = null;
-        public RssFeed CurrentFeed
+        private Channel currentChannel = null;
+        public Channel CurrentChannel
         {
-            get { return currentFeed; }
-            set { currentFeed = value; RaisePropertyChange("CurrentFeed"); }
+            get { return currentChannel; }
+            set { currentChannel = value; RaisePropertyChange("CurrentChannel"); }
         }
 
         #endregion
@@ -57,21 +57,21 @@ namespace Client_WPF.ViewModel
 
             RefreshFeeds = new RelayCommand((param) => FeedsManager.GetAllRootFeeds());
             AddFeed = new RelayCommand((param) => AddFeedBody());
-            RemoveFeed = new RelayCommand((param) => FeedsManager.RemoveFeed(param as RssFeed));
-            LoadFeedItems = new RelayCommand((param) => FeedsManager.LoadFeedItems(param as RssFeed));
+            RemoveFeed = new RelayCommand((param) => FeedsManager.RemoveFeed(param as Channel));
+            LoadFeedItems = new RelayCommand((param) => FeedsManager.LoadFeedItems(param as Channel));
 
-            RootFeeds = new List<RssFeed>();
+            Channels = new List<Channel>();
         }
         #endregion
 
         void FeedsManager_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "RootFeeds")
+            if (e.PropertyName == "Channels")
             {
-                RootFeeds = (sender as FeedManagerDataModel).RootFeeds;
+                Channels = (sender as FeedManagerDataModel).Channels;
             }
-            else if (e.PropertyName == "ItemFeeds")
-                ItemFeeds = (sender as FeedManagerDataModel).ItemFeeds;
+            else if (e.PropertyName == "Items")
+                Items = (sender as FeedManagerDataModel).Items;
         }
 
         

@@ -43,19 +43,19 @@ namespace Server.Implementation
             return result;
         }
 
-        public WebResult<Tuple<Session, AccountData>> Login(string username, string password)
+        public WebResult<Tuple<string, AccountData>> Login(string username, string password)
         {
             try
             {
                 
                 User user = (from u in db.Users where u.username == username && u.password == password select u).Single();
                 Session session = _sessionWrapper.CreateSession(user);
-                return new WebResult<Tuple<Session, AccountData>>(new Tuple<Session, AccountData>(session, new AccountData(user)));
+                return new WebResult<Tuple<string, AccountData>>(new Tuple<string, AccountData>(session.session_key, new AccountData(user)));
                 
             }
             catch
             {
-                return new WebResult<Tuple<Session, AccountData>>(WebResult.ErrorCodeList.USER_NOT_FOUND);
+                return new WebResult<Tuple<string, AccountData>>(WebResult.ErrorCodeList.USER_NOT_FOUND);
             }
         }
 

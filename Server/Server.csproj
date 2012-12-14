@@ -82,6 +82,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\RssFeed.cs" />
     <Compile Include="EntityFramwork\Server.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -97,6 +98,7 @@
     <Compile Include="Services\FeedsService.svc.cs">
       <DependentUpon>FeedsService.svc</DependentUpon>
     </Compile>
+    <Compile Include="Utils\RssFeed.cs" />
     <Compile Include="Utils\SessionWrapper.cs" />
     <Compile Include="Utils\WebResult.cs" />
   </ItemGroup>
@@ -124,7 +126,7 @@
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
+          <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>3972</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
