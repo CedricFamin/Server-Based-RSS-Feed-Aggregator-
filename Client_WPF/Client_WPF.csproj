@@ -133,6 +133,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Service References\FeedService\Client_WPF.FeedService.WebResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\FeedService\Client_WPF.FeedService.WebResultOfArrayOfRssFeedYxjpQ34D.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -191,6 +194,7 @@
     <Resource Include="Images\background.jpg" />
     <Resource Include="View\1355455076_interact.png" />
     <Resource Include="View\1355456206_plus_64.png" />
+    <Resource Include="View\1355463466_Close_Box_Red.png" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\FeedService\" />

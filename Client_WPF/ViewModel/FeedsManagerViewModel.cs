@@ -16,6 +16,7 @@ namespace Client_WPF.ViewModel
         #region properties
         public ICommand RefreshFeeds { get; private set; }
         public ICommand AddFeed { get; private set; }
+        public ICommand RemoveFeed { get; private set; }
         
         private List<RssFeed> rootFeeds = null;
         public List<RssFeed> RootFeeds
@@ -41,6 +42,7 @@ namespace Client_WPF.ViewModel
 
             RefreshFeeds = new RelayCommand((param) => FeedsManager.GetAllRootFeeds());
             AddFeed = new RelayCommand((param) => AddFeedBody());
+            RemoveFeed = new RelayCommand((param) => FeedsManager.RemoveFeed(param as RssFeed));
 
             RootFeeds = new List<RssFeed>();
         }

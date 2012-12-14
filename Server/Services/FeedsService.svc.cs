@@ -27,6 +27,7 @@ namespace Server.Services
             Description = dbFeed.description;
             Url = dbFeed.url;
             Date = dbFeed.date;
+            Link = dbFeed.link;
         }
 
         public Feed ToDbFeed()
@@ -47,6 +48,8 @@ namespace Server.Services
         public String Url { get; set; }
         [DataMember]
         public DateTime Date { get; set; }
+        [DataMember]
+        public string Link { get; set; }
     }
 
     [ServiceContract]
@@ -91,7 +94,8 @@ namespace Server.Services
                 title = feed.Title.Text,
                 date = feed.LastUpdatedTime.DateTime,
                 description = feed.Description.Text,
-                url = uri.ToString()
+                url = uri.ToString(),
+                link = feed.Links[0].ToString()
             };
 
             db.Feeds.InsertOnSubmit(dbFeed);
@@ -142,6 +146,22 @@ namespace Server.Services
                 feeds.Add(new RssFeed(dbFeed));
             }
             return new WebResult<List<RssFeed>>(feeds);
+        }
+
+        [OperationContract]
+        public WebResult UnfollowFeed(string connectionKey, RssFeed feed)
+        {
+            User user = _sessionWrapper.GetUser(connectionKey);
+
+            if (user == null)
+                return new WebResult(WebResult.ErrorCodeList.NOT_LOGUED);
+            FeedByUser feedUser = (from item in db.FeedByUsers where item.User == user && item.id_feed == feed.Id select item).SingleOrDefault();
+
+            if (feedUser == null)
+                return new WebResult(WebResult.ErrorCodeList.ITEM_NOT_FOUND);
+            db.FeedByUsers.DeleteOnSubmit(feedUser);
+            db.SubmitChanges();
+            return new WebResult();
         }
     }
 }

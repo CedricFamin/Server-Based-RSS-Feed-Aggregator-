@@ -21,6 +21,7 @@ namespace Server.Utils
             ALREADY_LOGUED,
             CANNOT_CREATE_FEED,
             CANNOT_GET_FEED,
+            ITEM_NOT_FOUND,
         }
 
         public WebResult()

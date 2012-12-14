@@ -36,6 +36,7 @@
       <xs:enumeration value="ALREADY_LOGUED" />
       <xs:enumeration value="CANNOT_CREATE_FEED" />
       <xs:enumeration value="CANNOT_GET_FEED" />
+      <xs:enumeration value="ITEM_NOT_FOUND" />
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="WebResult.ErrorCodeList" nillable="true" type="tns:WebResult.ErrorCodeList" />

@@ -44,11 +44,23 @@ namespace Client_WPF.DataModel
 
             FeedsClient.GetFeedsCompleted += new EventHandler<GetFeedsCompletedEventArgs>(FeedsClient_GetFeedsCompleted);
             FeedsClient.AddNewFeedCompleted += new EventHandler<AddNewFeedCompletedEventArgs>(FeedsClient_AddNewFeedCompleted);
+            FeedsClient.UnfollowFeedCompleted += new EventHandler<UnfollowFeedCompletedEventArgs>(FeedsClient_UnfollowFeedCompleted);
         }
         #endregion
 
         #region OnEndAction
         void FeedsClient_AddNewFeedCompleted(object sender, AddNewFeedCompletedEventArgs e)
+        {
+            if (e.Error == null)
+            {
+                if (e.Result.ErrorCode == WebResult.ErrorCodeList.SUCCESS)
+                {
+                    GetAllRootFeeds();
+                }
+            }
+        }
+
+        void FeedsClient_UnfollowFeedCompleted(object sender, UnfollowFeedCompletedEventArgs e)
         {
             if (e.Error == null)
             {
@@ -82,6 +94,12 @@ namespace Client_WPF.DataModel
         {
             UserData.ShowConnexionModel_IFN();
             FeedsClient.AddNewFeedAsync(UserData.GetConnectionString(), new Uri(url));
+        }
+
+        public void RemoveFeed(RssFeed feed)
+        {
+            UserData.ShowConnexionModel_IFN();
+            FeedsClient.UnfollowFeedAsync(UserData.GetConnectionString(), feed);
         }
         #endregion
 
