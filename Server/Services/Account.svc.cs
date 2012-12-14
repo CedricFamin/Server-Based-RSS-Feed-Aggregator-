@@ -16,6 +16,31 @@ using System.Web;
 
 namespace Server.Services
 {
+    [DataContract]
+    public class AccountData
+    {
+        public AccountData()
+        {
+        }
+
+        public AccountData(User user)
+        {
+            Id = user.id;
+            Username = user.username;
+            Password = user.password;
+            IsSuperUser = user.superuser;
+        }
+
+        [DataMember]
+        public int Id { get; set; }
+        [DataMember]
+        public string Username{ get; set; }
+        [DataMember]
+        public String Password { get; set; }
+        [DataMember]
+        public bool IsSuperUser { get; set; }
+    }
+
     [ServiceContract]
     [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
     public class Account : IAccount
@@ -53,7 +78,7 @@ namespace Server.Services
         }
 
         [OperationContract]
-        public WebResult<Tuple<Session, User>> Login(string username, string password)
+        public WebResult<Tuple<Session, AccountData>> Login(string username, string password)
         {
             return this._account.Login(username, password);     
         }
@@ -65,7 +90,7 @@ namespace Server.Services
         }
 
         [OperationContract]
-        public WebResult Update(string session_key, User updateUser)
+        public WebResult Update(string session_key, AccountData updateUser)
         {
             return this._account.Update(session_key, updateUser);
         }
@@ -77,7 +102,7 @@ namespace Server.Services
         }
 
         [OperationContract]
-        public WebResult<List<User>> UserList(string session_key)
+        public WebResult<List<AccountData>> UserList(string session_key)
         {
             return this._account.UserList(session_key);
         }

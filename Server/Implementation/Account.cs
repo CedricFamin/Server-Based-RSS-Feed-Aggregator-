@@ -7,6 +7,7 @@ using System.ComponentModel.Composition;
 using Server.Utils;
 using Server.EntityFramwork;
 using System.Web.Security;
+using Server.Services;
 
 namespace Server.Implementation
 {
@@ -42,19 +43,19 @@ namespace Server.Implementation
             return result;
         }
 
-        public WebResult<Tuple<Session, User>> Login(string username, string password)
+        public WebResult<Tuple<Session, AccountData>> Login(string username, string password)
         {
             try
             {
                 
                 User user = (from u in db.Users where u.username == username && u.password == password select u).Single();
                 Session session = _sessionWrapper.CreateSession(user);
-                return new WebResult<Tuple<Session, User>>(new Tuple<Session, User>(session, user));
+                return new WebResult<Tuple<Session, AccountData>>(new Tuple<Session, AccountData>(session, new AccountData(user)));
                 
             }
             catch
             {
-                return new WebResult<Tuple<Session, User>>(WebResult.ErrorCodeList.USER_NOT_FOUND);
+                return new WebResult<Tuple<Session, AccountData>>(WebResult.ErrorCodeList.USER_NOT_FOUND);
             }
         }
 
@@ -63,7 +64,7 @@ namespace Server.Implementation
             return new WebResult();
         }
 
-        public WebResult Update(string session_key, User updateUser)
+        public WebResult Update(string session_key, AccountData updateUser)
         {
             Session session = _sessionWrapper.GetSession(session_key);
 
@@ -72,9 +73,9 @@ namespace Server.Implementation
 
             User user = _sessionWrapper.GetUser(session);
 
-            user.username = updateUser.username;
-            user.password = updateUser.password;
-            user.email = updateUser.email;
+            user.username = updateUser.Username;
+            user.password = updateUser.Password;
+            user.email = updateUser.Username;
             db.SubmitChanges();
             return new WebResult();
         }
@@ -102,9 +103,14 @@ namespace Server.Implementation
         }
 
 
-        public WebResult<List<User>> UserList(string session_key)
+        public WebResult<List<AccountData>> UserList(string session_key)
         {
-            return new WebResult<List<User>>(db.Users.ToList());
+            List<AccountData> users = new List<AccountData>();
+            foreach (var user in db.Users)
+            {
+                users.Add(new AccountData(user));
+            }
+            return new WebResult<List<AccountData>>(users);
         }
         #endregion
     }

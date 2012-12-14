@@ -112,14 +112,17 @@ namespace Server.Services
 
             if (feed == null)
                 return new WebResult<RssFeed>(WebResult.ErrorCodeList.CANNOT_CREATE_FEED);
-
-            FeedByUser feedXUser = new FeedByUser()
+            FeedByUser feedXUser = (from uf in db.FeedByUsers where uf.id_user == user.id && uf.id_feed == feed.Id select uf).SingleOrDefault();
+            if (feedXUser == null)
             {
-                Feed = feed.ToDbFeed(),
-                User = user
-            };
-            db.FeedByUsers.InsertOnSubmit(feedXUser);
-            db.SubmitChanges();
+                feedXUser = new FeedByUser()
+                {
+                    id_feed = feed.Id,
+                    id_user = user.id
+                };
+                db.FeedByUsers.InsertOnSubmit(feedXUser);
+                db.SubmitChanges();
+            }
             return new WebResult<RssFeed>(feed);
         }
 
