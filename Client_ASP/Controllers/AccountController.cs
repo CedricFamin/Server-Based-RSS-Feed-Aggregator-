@@ -17,6 +17,10 @@ namespace Client_ASP.Controllers
 
         public ActionResult LogOn()
         {
+            if (Session["UserName"] != null)
+            {
+                return new RedirectResult("/Home/Index");
+            }
             return View();
         }
 
@@ -26,6 +30,11 @@ namespace Client_ASP.Controllers
         [HttpPost]
         public ActionResult LogOn(LogOnModel model, string returnUrl)
         {
+            if (Session["UserName"] != null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             ViewBag.LogOnError = null;
             if (ModelState.IsValid)
             {
@@ -56,11 +65,13 @@ namespace Client_ASP.Controllers
 
         //
         // GET: /Account/LogOff
-
+        
         public ActionResult LogOff()
         {
-            FormsAuthentication.SignOut();
-            Session["Username"] = null;
+            if (Session["UserName"] != null)
+            {
+                Session["Username"] = null;
+            }
             return RedirectToAction("Index", "Home");
         }
 

@@ -1,0 +1,35 @@
+﻿@model Client_ASP.Models.CreateFeedModel
+@{
+    ViewBag.Title = "Add new feed";
+}
+<div class="row-fluid">
+	<div class="box span12">
+		<div class="box-header">
+			<h2><i class="icon-edit"></i><span class="break"></span>@ViewBag.Title</h2>
+			<div class="box-icon">
+				<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+				<a href="#" class="btn-close"><i class="icon-remove"></i></a>
+			</div>
+		</div>
+		<div class="box-content">
+            @using (Html.BeginForm())
+            {
+                <div>
+                    <fieldset>
+                        <legend>Account Information</legend>
+                    </fieldset>
+                    <div class="editor-label">
+                        @Html.LabelFor(m => m.Uri)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(m => m.Uri)
+                        @Html.ValidationMessageFor(m => m.Uri)
+                    </div>
+                    <p>
+                        <input type="submit" value="Add feed" class="btn btn-primary" />
+                    </p>
+                </div>
+            }
+        </div>
+    </div>
+</div>

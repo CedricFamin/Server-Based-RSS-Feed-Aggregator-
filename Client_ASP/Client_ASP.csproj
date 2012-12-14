@@ -63,11 +63,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\FeedsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\FeedsModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -75,6 +77,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Web References\AccServ\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\FeedServ\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -134,7 +141,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <Content Include="Views\Account\UserList.cshtml" />
+    <Content Include="Views\Feeds\Create.cshtml" />
     <None Include="Web References\AccServ\Account.disco" />
+    <None Include="Web References\FeedServ\FeedsService.disco" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -183,6 +192,32 @@
     <None Include="Web References\AccServ\WebResultOfTupleOfSessionUserokBDsykR5F2dSckg.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
+    <None Include="Web References\FeedServ\FeedsService.wsdl" />
+    <None Include="Web References\FeedServ\FeedsService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\FeedServ\FeedsService0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\FeedServ\FeedsService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\FeedServ\FeedsService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\FeedServ\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\FeedServ\WebResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FeedServ\WebResultOfArrayOfRssFeedYxjpQ34D.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FeedServ\WebResultOfRssFeedYxjpQ34D.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -207,6 +242,17 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>Client_ASP_AccServ_Account</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://localhost:3972/Services/FeedsService.svc">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\FeedServ\</RelPath>
+      <UpdateFromURL>http://localhost:3972/Services/FeedsService.svc</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Client_ASP_FeedServ_FeedsService</CachedSettingsPropName>
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
