@@ -55,5 +55,13 @@ namespace Server.Utils
                 db.SubmitChanges();
             }
         }
+
+        public User GetUser(string connectionKey)
+        {
+            Session session = GetSession(connectionKey);
+            if (session == null)
+                return null;
+            return GetUser(session);
+        }
     }
 }

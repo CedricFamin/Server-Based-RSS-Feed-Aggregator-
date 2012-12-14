@@ -36,11 +36,23 @@ namespace Server.EntityFramwork
     partial void InsertSession(Session instance);
     partial void UpdateSession(Session instance);
     partial void DeleteSession(Session instance);
+    partial void InsertPublicFeed(PublicFeed instance);
+    partial void UpdatePublicFeed(PublicFeed instance);
+    partial void DeletePublicFeed(PublicFeed instance);
+    partial void InsertFeedByUser(FeedByUser instance);
+    partial void UpdateFeedByUser(FeedByUser instance);
+    partial void DeleteFeedByUser(FeedByUser instance);
+    partial void InsertFeed(Feed instance);
+    partial void UpdateFeed(Feed instance);
+    partial void DeleteFeed(Feed instance);
+    partial void InsertReadState(ReadState instance);
+    partial void UpdateReadState(ReadState instance);
+    partial void DeleteReadState(ReadState instance);
     #endregion
 		
 		public ServerDataContext() : 
 				base("Data Source=.\\SQLEXPRESS;AttachDbFilename=|DataDirectory|\\database.mdf;Integrated" +
-						" Security=True;Connect Timeout=30;User Instance=True", mappingSource)
+						" Security=True;User Instance=True", mappingSource)
 		{
 			OnCreated();
 		}
@@ -84,6 +96,38 @@ namespace Server.EntityFramwork
 				return this.GetTable<Session>();
 			}
 		}
+		
+		public System.Data.Linq.Table<PublicFeed> PublicFeeds
+		{
+			get
+			{
+				return this.GetTable<PublicFeed>();
+			}
+		}
+		
+		public System.Data.Linq.Table<FeedByUser> FeedByUsers
+		{
+			get
+			{
+				return this.GetTable<FeedByUser>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Feed> Feeds
+		{
+			get
+			{
+				return this.GetTable<Feed>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ReadState> ReadStates
+		{
+			get
+			{
+				return this.GetTable<ReadState>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[User]")]
@@ -101,6 +145,10 @@ namespace Server.EntityFramwork
 		private string _email;
 		
 		private bool _superuser;
+		
+		private EntitySet<FeedByUser> _FeedByUsers;
+		
+		private EntitySet<ReadState> _ReadStates;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -120,6 +168,8 @@ namespace Server.EntityFramwork
 		
 		public User()
 		{
+			this._FeedByUsers = new EntitySet<FeedByUser>(new Action<FeedByUser>(this.attach_FeedByUsers), new Action<FeedByUser>(this.detach_FeedByUsers));
+			this._ReadStates = new EntitySet<ReadState>(new Action<ReadState>(this.attach_ReadStates), new Action<ReadState>(this.detach_ReadStates));
 			OnCreated();
 		}
 		
@@ -223,6 +273,32 @@ namespace Server.EntityFramwork
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_FeedByUser", Storage="_FeedByUsers", ThisKey="id", OtherKey="id_user")]
+		public EntitySet<FeedByUser> FeedByUsers
+		{
+			get
+			{
+				return this._FeedByUsers;
+			}
+			set
+			{
+				this._FeedByUsers.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_ReadState", Storage="_ReadStates", ThisKey="id", OtherKey="id_user")]
+		public EntitySet<ReadState> ReadStates
+		{
+			get
+			{
+				return this._ReadStates;
+			}
+			set
+			{
+				this._ReadStates.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -241,6 +317,30 @@ namespace Server.EntityFramwork
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_FeedByUsers(FeedByUser entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = this;
+		}
+		
+		private void detach_FeedByUsers(FeedByUser entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = null;
+		}
+		
+		private void attach_ReadStates(ReadState entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = this;
+		}
+		
+		private void detach_ReadStates(ReadState entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = null;
 		}
 	}
 	
@@ -353,6 +453,852 @@ namespace Server.EntityFramwork
 					this._expire = value;
 					this.SendPropertyChanged("expire");
 					this.OnexpireChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PublicFeed")]
+	public partial class PublicFeed : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private int _id_feed;
+		
+		private EntityRef<Feed> _Feed;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void Onid_feedChanging(int value);
+    partial void Onid_feedChanged();
+    #endregion
+		
+		public PublicFeed()
+		{
+			this._Feed = default(EntityRef<Feed>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_feed", DbType="Int NOT NULL")]
+		public int id_feed
+		{
+			get
+			{
+				return this._id_feed;
+			}
+			set
+			{
+				if ((this._id_feed != value))
+				{
+					if (this._Feed.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_feedChanging(value);
+					this.SendPropertyChanging();
+					this._id_feed = value;
+					this.SendPropertyChanged("id_feed");
+					this.Onid_feedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Feed_PublicFeed", Storage="_Feed", ThisKey="id_feed", OtherKey="id", IsForeignKey=true)]
+		public Feed Feed
+		{
+			get
+			{
+				return this._Feed.Entity;
+			}
+			set
+			{
+				Feed previousValue = this._Feed.Entity;
+				if (((previousValue != value) 
+							|| (this._Feed.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Feed.Entity = null;
+						previousValue.PublicFeeds.Remove(this);
+					}
+					this._Feed.Entity = value;
+					if ((value != null))
+					{
+						value.PublicFeeds.Add(this);
+						this._id_feed = value.id;
+					}
+					else
+					{
+						this._id_feed = default(int);
+					}
+					this.SendPropertyChanged("Feed");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.FeedByUser")]
+	public partial class FeedByUser : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private int _id_feed;
+		
+		private int _id_user;
+		
+		private EntityRef<User> _User;
+		
+		private EntityRef<Feed> _Feed;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void Onid_feedChanging(int value);
+    partial void Onid_feedChanged();
+    partial void Onid_userChanging(int value);
+    partial void Onid_userChanged();
+    #endregion
+		
+		public FeedByUser()
+		{
+			this._User = default(EntityRef<User>);
+			this._Feed = default(EntityRef<Feed>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_feed", DbType="Int NOT NULL")]
+		public int id_feed
+		{
+			get
+			{
+				return this._id_feed;
+			}
+			set
+			{
+				if ((this._id_feed != value))
+				{
+					if (this._Feed.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_feedChanging(value);
+					this.SendPropertyChanging();
+					this._id_feed = value;
+					this.SendPropertyChanged("id_feed");
+					this.Onid_feedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_user", DbType="Int NOT NULL")]
+		public int id_user
+		{
+			get
+			{
+				return this._id_user;
+			}
+			set
+			{
+				if ((this._id_user != value))
+				{
+					if (this._User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_userChanging(value);
+					this.SendPropertyChanging();
+					this._id_user = value;
+					this.SendPropertyChanged("id_user");
+					this.Onid_userChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_FeedByUser", Storage="_User", ThisKey="id_user", OtherKey="id", IsForeignKey=true)]
+		public User User
+		{
+			get
+			{
+				return this._User.Entity;
+			}
+			set
+			{
+				User previousValue = this._User.Entity;
+				if (((previousValue != value) 
+							|| (this._User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User.Entity = null;
+						previousValue.FeedByUsers.Remove(this);
+					}
+					this._User.Entity = value;
+					if ((value != null))
+					{
+						value.FeedByUsers.Add(this);
+						this._id_user = value.id;
+					}
+					else
+					{
+						this._id_user = default(int);
+					}
+					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Feed_FeedByUser", Storage="_Feed", ThisKey="id_feed", OtherKey="id", IsForeignKey=true)]
+		public Feed Feed
+		{
+			get
+			{
+				return this._Feed.Entity;
+			}
+			set
+			{
+				Feed previousValue = this._Feed.Entity;
+				if (((previousValue != value) 
+							|| (this._Feed.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Feed.Entity = null;
+						previousValue.FeedByUsers.Remove(this);
+					}
+					this._Feed.Entity = value;
+					if ((value != null))
+					{
+						value.FeedByUsers.Add(this);
+						this._id_feed = value.id;
+					}
+					else
+					{
+						this._id_feed = default(int);
+					}
+					this.SendPropertyChanged("Feed");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Feed")]
+	public partial class Feed : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private System.Nullable<int> _id_parent;
+		
+		private string _title;
+		
+		private string _description;
+		
+		private string _url;
+		
+		private System.DateTime _date;
+		
+		private EntitySet<PublicFeed> _PublicFeeds;
+		
+		private EntitySet<FeedByUser> _FeedByUsers;
+		
+		private EntitySet<Feed> _Feeds;
+		
+		private EntitySet<ReadState> _ReadStates;
+		
+		private EntityRef<Feed> _Feed1;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void Onid_parentChanging(System.Nullable<int> value);
+    partial void Onid_parentChanged();
+    partial void OntitleChanging(string value);
+    partial void OntitleChanged();
+    partial void OndescriptionChanging(string value);
+    partial void OndescriptionChanged();
+    partial void OnurlChanging(string value);
+    partial void OnurlChanged();
+    partial void OndateChanging(System.DateTime value);
+    partial void OndateChanged();
+    #endregion
+		
+		public Feed()
+		{
+			this._PublicFeeds = new EntitySet<PublicFeed>(new Action<PublicFeed>(this.attach_PublicFeeds), new Action<PublicFeed>(this.detach_PublicFeeds));
+			this._FeedByUsers = new EntitySet<FeedByUser>(new Action<FeedByUser>(this.attach_FeedByUsers), new Action<FeedByUser>(this.detach_FeedByUsers));
+			this._Feeds = new EntitySet<Feed>(new Action<Feed>(this.attach_Feeds), new Action<Feed>(this.detach_Feeds));
+			this._ReadStates = new EntitySet<ReadState>(new Action<ReadState>(this.attach_ReadStates), new Action<ReadState>(this.detach_ReadStates));
+			this._Feed1 = default(EntityRef<Feed>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_parent", DbType="Int")]
+		public System.Nullable<int> id_parent
+		{
+			get
+			{
+				return this._id_parent;
+			}
+			set
+			{
+				if ((this._id_parent != value))
+				{
+					if (this._Feed1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_parentChanging(value);
+					this.SendPropertyChanging();
+					this._id_parent = value;
+					this.SendPropertyChanged("id_parent");
+					this.Onid_parentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_title", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string title
+		{
+			get
+			{
+				return this._title;
+			}
+			set
+			{
+				if ((this._title != value))
+				{
+					this.OntitleChanging(value);
+					this.SendPropertyChanging();
+					this._title = value;
+					this.SendPropertyChanged("title");
+					this.OntitleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="Text NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		public string description
+		{
+			get
+			{
+				return this._description;
+			}
+			set
+			{
+				if ((this._description != value))
+				{
+					this.OndescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._description = value;
+					this.SendPropertyChanged("description");
+					this.OndescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_url", DbType="VarChar(255) NOT NULL", CanBeNull=false)]
+		public string url
+		{
+			get
+			{
+				return this._url;
+			}
+			set
+			{
+				if ((this._url != value))
+				{
+					this.OnurlChanging(value);
+					this.SendPropertyChanging();
+					this._url = value;
+					this.SendPropertyChanged("url");
+					this.OnurlChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_date", DbType="DateTime NOT NULL")]
+		public System.DateTime date
+		{
+			get
+			{
+				return this._date;
+			}
+			set
+			{
+				if ((this._date != value))
+				{
+					this.OndateChanging(value);
+					this.SendPropertyChanging();
+					this._date = value;
+					this.SendPropertyChanged("date");
+					this.OndateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Feed_PublicFeed", Storage="_PublicFeeds", ThisKey="id", OtherKey="id_feed")]
+		public EntitySet<PublicFeed> PublicFeeds
+		{
+			get
+			{
+				return this._PublicFeeds;
+			}
+			set
+			{
+				this._PublicFeeds.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Feed_FeedByUser", Storage="_FeedByUsers", ThisKey="id", OtherKey="id_feed")]
+		public EntitySet<FeedByUser> FeedByUsers
+		{
+			get
+			{
+				return this._FeedByUsers;
+			}
+			set
+			{
+				this._FeedByUsers.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Feed_Feed", Storage="_Feeds", ThisKey="id", OtherKey="id_parent")]
+		public EntitySet<Feed> Feeds
+		{
+			get
+			{
+				return this._Feeds;
+			}
+			set
+			{
+				this._Feeds.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Feed_ReadState", Storage="_ReadStates", ThisKey="id", OtherKey="id_feed")]
+		public EntitySet<ReadState> ReadStates
+		{
+			get
+			{
+				return this._ReadStates;
+			}
+			set
+			{
+				this._ReadStates.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Feed_Feed", Storage="_Feed1", ThisKey="id_parent", OtherKey="id", IsForeignKey=true)]
+		public Feed Feed1
+		{
+			get
+			{
+				return this._Feed1.Entity;
+			}
+			set
+			{
+				Feed previousValue = this._Feed1.Entity;
+				if (((previousValue != value) 
+							|| (this._Feed1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Feed1.Entity = null;
+						previousValue.Feeds.Remove(this);
+					}
+					this._Feed1.Entity = value;
+					if ((value != null))
+					{
+						value.Feeds.Add(this);
+						this._id_parent = value.id;
+					}
+					else
+					{
+						this._id_parent = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Feed1");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_PublicFeeds(PublicFeed entity)
+		{
+			this.SendPropertyChanging();
+			entity.Feed = this;
+		}
+		
+		private void detach_PublicFeeds(PublicFeed entity)
+		{
+			this.SendPropertyChanging();
+			entity.Feed = null;
+		}
+		
+		private void attach_FeedByUsers(FeedByUser entity)
+		{
+			this.SendPropertyChanging();
+			entity.Feed = this;
+		}
+		
+		private void detach_FeedByUsers(FeedByUser entity)
+		{
+			this.SendPropertyChanging();
+			entity.Feed = null;
+		}
+		
+		private void attach_Feeds(Feed entity)
+		{
+			this.SendPropertyChanging();
+			entity.Feed1 = this;
+		}
+		
+		private void detach_Feeds(Feed entity)
+		{
+			this.SendPropertyChanging();
+			entity.Feed1 = null;
+		}
+		
+		private void attach_ReadStates(ReadState entity)
+		{
+			this.SendPropertyChanging();
+			entity.Feed = this;
+		}
+		
+		private void detach_ReadStates(ReadState entity)
+		{
+			this.SendPropertyChanging();
+			entity.Feed = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ReadState")]
+	public partial class ReadState : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private int _id_feed;
+		
+		private int _id_user;
+		
+		private EntityRef<Feed> _Feed;
+		
+		private EntityRef<User> _User;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void Onid_feedChanging(int value);
+    partial void Onid_feedChanged();
+    partial void Onid_userChanging(int value);
+    partial void Onid_userChanged();
+    #endregion
+		
+		public ReadState()
+		{
+			this._Feed = default(EntityRef<Feed>);
+			this._User = default(EntityRef<User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_feed", DbType="Int NOT NULL")]
+		public int id_feed
+		{
+			get
+			{
+				return this._id_feed;
+			}
+			set
+			{
+				if ((this._id_feed != value))
+				{
+					if (this._Feed.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_feedChanging(value);
+					this.SendPropertyChanging();
+					this._id_feed = value;
+					this.SendPropertyChanged("id_feed");
+					this.Onid_feedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_user", DbType="Int NOT NULL")]
+		public int id_user
+		{
+			get
+			{
+				return this._id_user;
+			}
+			set
+			{
+				if ((this._id_user != value))
+				{
+					if (this._User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_userChanging(value);
+					this.SendPropertyChanging();
+					this._id_user = value;
+					this.SendPropertyChanged("id_user");
+					this.Onid_userChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Feed_ReadState", Storage="_Feed", ThisKey="id_feed", OtherKey="id", IsForeignKey=true)]
+		public Feed Feed
+		{
+			get
+			{
+				return this._Feed.Entity;
+			}
+			set
+			{
+				Feed previousValue = this._Feed.Entity;
+				if (((previousValue != value) 
+							|| (this._Feed.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Feed.Entity = null;
+						previousValue.ReadStates.Remove(this);
+					}
+					this._Feed.Entity = value;
+					if ((value != null))
+					{
+						value.ReadStates.Add(this);
+						this._id_feed = value.id;
+					}
+					else
+					{
+						this._id_feed = default(int);
+					}
+					this.SendPropertyChanged("Feed");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_ReadState", Storage="_User", ThisKey="id_user", OtherKey="id", IsForeignKey=true)]
+		public User User
+		{
+			get
+			{
+				return this._User.Entity;
+			}
+			set
+			{
+				User previousValue = this._User.Entity;
+				if (((previousValue != value) 
+							|| (this._User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User.Entity = null;
+						previousValue.ReadStates.Remove(this);
+					}
+					this._User.Entity = value;
+					if ((value != null))
+					{
+						value.ReadStates.Add(this);
+						this._id_user = value.id;
+					}
+					else
+					{
+						this._id_user = default(int);
+					}
+					this.SendPropertyChanged("User");
 				}
 			}
 		}

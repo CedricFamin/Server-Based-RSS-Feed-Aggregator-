@@ -19,6 +19,8 @@ namespace Server.Utils
             INTERNAL_ERROR,
             NEED_PRIVILEGE,
             ALREADY_LOGUED,
+            CANNOT_CREATE_FEED,
+            CANNOT_GET_FEED,
         }
 
         public WebResult()
