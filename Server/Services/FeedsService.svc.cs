@@ -26,7 +26,6 @@ namespace Server.Services
             Title = dbFeed.title;
             Description = dbFeed.description;
             Url = dbFeed.url;
-            Date = dbFeed.date;
             Link = dbFeed.link;
         }
 
@@ -87,15 +86,33 @@ namespace Server.Services
 
         }
 
-        private Feed CreateDbFeed(SyndicationFeed feed, Uri uri)
+        
+        private Feed CreateDbFeed(SyndicationFeed feed, Uri uri, int parentId = 0)
         {
             Feed dbFeed = new Feed()
             {
                 title = feed.Title.Text,
-                date = feed.LastUpdatedTime.DateTime,
                 description = feed.Description.Text,
                 url = uri.ToString(),
                 link = feed.Links[0].ToString()
+            };
+
+            db.Feeds.InsertOnSubmit(dbFeed);
+            db.SubmitChanges();
+            foreach (var feedItem in feed.Items)
+            {
+                CreateDbFeed(feedItem, uri, dbFeed.id);
+            }
+            return dbFeed;
+        }
+
+        private Feed CreateDbFeed(SyndicationItem feed, Uri uri, int parentId)
+        {
+            Feed dbFeed = new Feed()
+            {
+                title = feed.Title.Text,
+                url = uri.ToString(),
+                link = feed.Links[0].ToString(),
             };
 
             db.Feeds.InsertOnSubmit(dbFeed);

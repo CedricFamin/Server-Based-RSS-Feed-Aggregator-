@@ -1005,8 +1005,6 @@ namespace Server.EntityFramwork
 		
 		private string _url;
 		
-		private System.DateTime _date;
-		
 		private string _link;
 		
 		private EntitySet<PublicFeed> _PublicFeeds;
@@ -1033,8 +1031,6 @@ namespace Server.EntityFramwork
     partial void OndescriptionChanged();
     partial void OnurlChanging(string value);
     partial void OnurlChanged();
-    partial void OndateChanging(System.DateTime value);
-    partial void OndateChanged();
     partial void OnlinkChanging(string value);
     partial void OnlinkChanged();
     #endregion
@@ -1093,7 +1089,7 @@ namespace Server.EntityFramwork
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_title", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_title", DbType="VarChar(MAX)")]
 		public string title
 		{
 			get
@@ -1113,7 +1109,7 @@ namespace Server.EntityFramwork
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="Text NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="Text", UpdateCheck=UpdateCheck.Never)]
 		public string description
 		{
 			get
@@ -1133,7 +1129,7 @@ namespace Server.EntityFramwork
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_url", DbType="VarChar(255) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_url", DbType="VarChar(255)")]
 		public string url
 		{
 			get
@@ -1149,26 +1145,6 @@ namespace Server.EntityFramwork
 					this._url = value;
 					this.SendPropertyChanged("url");
 					this.OnurlChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_date", DbType="DateTime NOT NULL")]
-		public System.DateTime date
-		{
-			get
-			{
-				return this._date;
-			}
-			set
-			{
-				if ((this._date != value))
-				{
-					this.OndateChanging(value);
-					this.SendPropertyChanging();
-					this._date = value;
-					this.SendPropertyChanged("date");
-					this.OndateChanged();
 				}
 			}
 		}
