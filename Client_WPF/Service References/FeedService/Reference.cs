@@ -312,6 +312,14 @@ namespace Client_WPF.FeedService {
         System.IAsyncResult BeginUnfollowFeed(string connectionKey, Client_WPF.FeedService.RssFeed feed, System.AsyncCallback callback, object asyncState);
         
         Client_WPF.FeedService.WebResult EndUnfollowFeed(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/FeedsService/GetFeedItems", ReplyAction="http://tempuri.org/FeedsService/GetFeedItemsResponse")]
+        Client_WPF.FeedService.WebResultOfArrayOfRssFeedYxjpQ34D GetFeedItems(string connectionKey, Client_WPF.FeedService.RssFeed feed);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/FeedsService/GetFeedItems", ReplyAction="http://tempuri.org/FeedsService/GetFeedItemsResponse")]
+        System.IAsyncResult BeginGetFeedItems(string connectionKey, Client_WPF.FeedService.RssFeed feed, System.AsyncCallback callback, object asyncState);
+        
+        Client_WPF.FeedService.WebResultOfArrayOfRssFeedYxjpQ34D EndGetFeedItems(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -377,6 +385,25 @@ namespace Client_WPF.FeedService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetFeedItemsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetFeedItemsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Client_WPF.FeedService.WebResultOfArrayOfRssFeedYxjpQ34D Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Client_WPF.FeedService.WebResultOfArrayOfRssFeedYxjpQ34D)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class FeedsServiceClient : System.ServiceModel.ClientBase<Client_WPF.FeedService.FeedsService>, Client_WPF.FeedService.FeedsService {
         
         private BeginOperationDelegate onBeginAddNewFeedDelegate;
@@ -396,6 +423,12 @@ namespace Client_WPF.FeedService {
         private EndOperationDelegate onEndUnfollowFeedDelegate;
         
         private System.Threading.SendOrPostCallback onUnfollowFeedCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetFeedItemsDelegate;
+        
+        private EndOperationDelegate onEndGetFeedItemsDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetFeedItemsCompletedDelegate;
         
         public FeedsServiceClient() {
         }
@@ -421,6 +454,8 @@ namespace Client_WPF.FeedService {
         public event System.EventHandler<GetFeedsCompletedEventArgs> GetFeedsCompleted;
         
         public event System.EventHandler<UnfollowFeedCompletedEventArgs> UnfollowFeedCompleted;
+        
+        public event System.EventHandler<GetFeedItemsCompletedEventArgs> GetFeedItemsCompleted;
         
         public Client_WPF.FeedService.WebResultOfRssFeedYxjpQ34D AddNewFeed(string connectionKey, System.Uri uri) {
             return base.Channel.AddNewFeed(connectionKey, uri);
@@ -574,6 +609,58 @@ namespace Client_WPF.FeedService {
             base.InvokeAsync(this.onBeginUnfollowFeedDelegate, new object[] {
                         connectionKey,
                         feed}, this.onEndUnfollowFeedDelegate, this.onUnfollowFeedCompletedDelegate, userState);
+        }
+        
+        public Client_WPF.FeedService.WebResultOfArrayOfRssFeedYxjpQ34D GetFeedItems(string connectionKey, Client_WPF.FeedService.RssFeed feed) {
+            return base.Channel.GetFeedItems(connectionKey, feed);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetFeedItems(string connectionKey, Client_WPF.FeedService.RssFeed feed, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetFeedItems(connectionKey, feed, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Client_WPF.FeedService.WebResultOfArrayOfRssFeedYxjpQ34D EndGetFeedItems(System.IAsyncResult result) {
+            return base.Channel.EndGetFeedItems(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetFeedItems(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string connectionKey = ((string)(inValues[0]));
+            Client_WPF.FeedService.RssFeed feed = ((Client_WPF.FeedService.RssFeed)(inValues[1]));
+            return this.BeginGetFeedItems(connectionKey, feed, callback, asyncState);
+        }
+        
+        private object[] OnEndGetFeedItems(System.IAsyncResult result) {
+            Client_WPF.FeedService.WebResultOfArrayOfRssFeedYxjpQ34D retVal = this.EndGetFeedItems(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetFeedItemsCompleted(object state) {
+            if ((this.GetFeedItemsCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetFeedItemsCompleted(this, new GetFeedItemsCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetFeedItemsAsync(string connectionKey, Client_WPF.FeedService.RssFeed feed) {
+            this.GetFeedItemsAsync(connectionKey, feed, null);
+        }
+        
+        public void GetFeedItemsAsync(string connectionKey, Client_WPF.FeedService.RssFeed feed, object userState) {
+            if ((this.onBeginGetFeedItemsDelegate == null)) {
+                this.onBeginGetFeedItemsDelegate = new BeginOperationDelegate(this.OnBeginGetFeedItems);
+            }
+            if ((this.onEndGetFeedItemsDelegate == null)) {
+                this.onEndGetFeedItemsDelegate = new EndOperationDelegate(this.OnEndGetFeedItems);
+            }
+            if ((this.onGetFeedItemsCompletedDelegate == null)) {
+                this.onGetFeedItemsCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetFeedItemsCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetFeedItemsDelegate, new object[] {
+                        connectionKey,
+                        feed}, this.onEndGetFeedItemsDelegate, this.onGetFeedItemsCompletedDelegate, userState);
         }
     }
 }

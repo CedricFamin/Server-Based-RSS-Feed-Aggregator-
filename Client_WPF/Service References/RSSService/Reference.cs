@@ -92,6 +92,9 @@ namespace Client_WPF.RSSService {
             
             [System.Runtime.Serialization.EnumMemberAttribute()]
             CANNOT_GET_FEED = 9,
+            
+            [System.Runtime.Serialization.EnumMemberAttribute()]
+            ITEM_NOT_FOUND = 10,
         }
     }
     

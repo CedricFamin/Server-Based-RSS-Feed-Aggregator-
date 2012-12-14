@@ -180,5 +180,24 @@ namespace Server.Services
             db.SubmitChanges();
             return new WebResult();
         }
+
+        [OperationContract]
+        public WebResult<List<RssFeed>> GetFeedItems(string connectionKey, RssFeed feed)
+        {
+            User user = _sessionWrapper.GetUser(connectionKey);
+
+            if (user == null)
+                return new WebResult<List<RssFeed>>(WebResult.ErrorCodeList.NOT_LOGUED);
+
+            List<RssFeed> feeds = new List<RssFeed>();
+
+            var dbFeeds = from f in db.Feeds where f.id_parent == feed.Id select f;
+            foreach (var dbFeed in dbFeeds)
+            {
+                feeds.Add(new RssFeed(dbFeed));
+            }
+
+            return new WebResult<List<RssFeed>>(feeds);
+        }
     }
 }

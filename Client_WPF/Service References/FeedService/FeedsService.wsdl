@@ -26,6 +26,12 @@
   <wsdl:message name="FeedsService_UnfollowFeed_OutputMessage">
     <wsdl:part name="parameters" element="tns:UnfollowFeedResponse" />
   </wsdl:message>
+  <wsdl:message name="FeedsService_GetFeedItems_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFeedItems" />
+  </wsdl:message>
+  <wsdl:message name="FeedsService_GetFeedItems_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFeedItemsResponse" />
+  </wsdl:message>
   <wsdl:portType name="FeedsService">
     <wsdl:operation name="AddNewFeed">
       <wsdl:input wsaw:Action="http://tempuri.org/FeedsService/AddNewFeed" message="tns:FeedsService_AddNewFeed_InputMessage" />
@@ -38,6 +44,10 @@
     <wsdl:operation name="UnfollowFeed">
       <wsdl:input wsaw:Action="http://tempuri.org/FeedsService/UnfollowFeed" message="tns:FeedsService_UnfollowFeed_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/FeedsService/UnfollowFeedResponse" message="tns:FeedsService_UnfollowFeed_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFeedItems">
+      <wsdl:input wsaw:Action="http://tempuri.org/FeedsService/GetFeedItems" message="tns:FeedsService_GetFeedItems_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/FeedsService/GetFeedItemsResponse" message="tns:FeedsService_GetFeedItems_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_FeedsService" type="tns:FeedsService">
@@ -62,6 +72,15 @@
     </wsdl:operation>
     <wsdl:operation name="UnfollowFeed">
       <soap:operation soapAction="http://tempuri.org/FeedsService/UnfollowFeed" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFeedItems">
+      <soap:operation soapAction="http://tempuri.org/FeedsService/GetFeedItems" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

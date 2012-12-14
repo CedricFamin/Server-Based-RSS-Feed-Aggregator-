@@ -12,5 +12,6 @@ namespace Server.Interface
         WebResult<RssFeed> AddNewFeed(string connectionKey, Uri uri);
         WebResult<List<RssFeed>> GetFeeds(string connectionKey);
         WebResult UnfollowFeed(string connectionKey, RssFeed feed);
+        WebResult<List<RssFeed>> GetFeedItems(string connectionKey, RssFeed feed);
     }
 }
