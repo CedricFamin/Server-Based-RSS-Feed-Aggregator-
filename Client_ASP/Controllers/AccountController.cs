@@ -78,6 +78,7 @@ namespace Client_ASP.Controllers
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
+            ViewBag.RegisterError = null;
             if (ModelState.IsValid)
             {
                 AccServ.Account acc = new AccServ.Account();
@@ -90,6 +91,8 @@ namespace Client_ASP.Controllers
                     FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
                     return RedirectToAction("Index", "Home");
                 }
+                else
+                    ViewBag.RegisterError = register.ErrorCode.ToString();
             }
 
             // If we got this far, something failed, redisplay form

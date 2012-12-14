@@ -25,27 +25,24 @@
 			    </a>
 			    <a class="brand" href="/">RFA</a>
 			    <div class="nav-collapse collapse">
+                    @if (Session["Username"] != null)
+                    {
+                        <p class="navbar-text pull-right">
+                        Logged in as <a href="#" class="navbar-link">@Session["UserName"]</a>
+                        </p>
+                    }
                     <ul class="nav">
 					    <li class="active"><a href="/">Home</a></li>
                         @if (Session["Username"] == null)
                         {
-                            <li><a href="/Account/LogOn">LogOn</a></li>
-                            <li><a href="/Account/Register">Register</a></li>
+                            <li>@Html.ActionLink("LogOn", "LogOn", "Account")</li>
+                            <li>@Html.ActionLink("Register", "Register", "Account")</li>
+                        }
+                        else
+                        {
+                           <li>@Html.ActionLink("LogOff", "LogOff", "Account")</li>
                         }
 				    </ul>
-                    <div class="btn-group">
-					@if (Session["Username"] != null)
-     {
-                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                            @Session["Username"]
-                            <span class="caret"></span>
-					    </a>
-					    <ul class="dropdown-menu">
-						    <li><a href="#"><i class="icon-user"></i> Profile</a></li>
-						    <li><a href="/Account/LogOff"><i class="icon-off"></i> Logoff</a></li>
-					    </ul>
-     }
-				    </div>
                 </div>
             </div>
         </div>
@@ -53,25 +50,30 @@
     <div class="container-fluid" style="margin-top: 50px;">
         <div class="row-fluid">
 	        @if (Session["Username"] != null)
-         {
-	            <div class="span2">
-		            <div class="well sidebar-nav">
+            {
+	        <div class="span2">
+		        <div class="well sidebar-nav">
                     <ul class="nav nav-list">
+                        
                         <li class="header"><b>RSS</b></li>
                         <li><a href="#">Add Feed</a></li>
                         <li><a href="#">Feed List</a></li>
                         <li><a href="#">Settings</a></li>
+                        
                         <li class="divider"></li>
+                        
                         <li class="header"><b>Users</b></li>
-                        <li><a href="/Account/UserList">User List</a></li>
+                        <li>@Html.ActionLink("User List", "UserList", "Account")</li>
                         <li><a href="#">Account Settings</a></li>
                     </ul>
-                    </div>
-	            </div>
-         }
-	        <div class="span10">
-                @RenderBody()
+                </div>
 	        </div>
+            <div class="span10">@RenderBody()</div>
+            }
+	        else
+               {<div class="span12">@RenderBody()</div>}
+                
+	        
         </div>
     </div>
 </body>
