@@ -10,25 +10,21 @@ namespace Client_ASP.Controllers
     [Authorize]
     public class FeedsController : Controller
     {
-        public FeedsController() : base()
-        {
-            
-        }
-        //
-        // GET: /Feeds/
-
-        public ActionResult Index()
+        public ActionResult List()
         {
             return View();
         }
 
-        //
-        // GET: /Feeds/Details/5
-
-        public ActionResult Details(int id)
+        public ActionResult Feed(int id)
         {
             return View();
         }
+
+        public ActionResult Item(int id)
+        {
+            return View();
+        }
+
 
         //
         // GET: /Feeds/Create

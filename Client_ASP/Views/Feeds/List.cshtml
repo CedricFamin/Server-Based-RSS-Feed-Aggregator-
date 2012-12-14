@@ -1,10 +1,10 @@
 ﻿@{
-    ViewBag.Title = "UserList";
+    ViewBag.Title = "Feeds List";
 }
 <div class="row-fluid">
 	<div class="box span12">
 		<div class="box-header">
-			<h2><i class="icon-list"></i><span class="break"></span>@ViewBag.Title</h2>
+			<h2><i class="icon-th"></i><span class="break"></span>@ViewBag.Title</h2>
 			<div class="box-icon">
 				<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
 				<a href="#" class="btn-close"><i class="icon-remove"></i></a>
@@ -14,16 +14,17 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Login</th>
+                        <th>Feed name</th>
+                        <th>State</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                @foreach (var x in ViewBag.list.Value)
-                {
                     <tr>
-                        <td>@x.Username</td>
+                        <td>@Html.ActionLink("Fictive Feed", "Feed", "Feeds", new{id = 0}, null)</td>
+                        <td>0 new</td>
+                        <td>@Html.ActionLink("X", "DeleteFeed", "Feeds", new{id = 0}, null)</td>
                     </tr>
-                }
                 </tbody>
             </table>
         </div>

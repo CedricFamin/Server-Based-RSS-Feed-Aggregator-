@@ -142,7 +142,19 @@
     </None>
     <Content Include="Views\Account\UserList.cshtml" />
     <Content Include="Views\Feeds\Create.cshtml" />
+    <Content Include="Views\Feeds\List.cshtml" />
+    <Content Include="Views\Feeds\Feed.cshtml" />
+    <Content Include="Views\Feeds\Item.cshtml" />
     <None Include="Web References\AccServ\Account.disco" />
+    <None Include="Web References\AccServ\Account4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\AccServ\WebResultOfArrayOfAccountDataYxjpQ34D.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\AccServ\WebResultOfTupleOfSessionAccountDatav7M43KXC5F2dSckg.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
     <None Include="Web References\FeedServ\FeedsService.disco" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -167,7 +179,6 @@
     <Content Include="Views\Account\ChangePasswordSuccess.cshtml" />
     <Content Include="Views\Account\LogOn.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LogOnPartial.cshtml" />
@@ -184,12 +195,6 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Web References\AccServ\WebResult.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\AccServ\WebResultOfArrayOfUserhd3s_SOtL.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\AccServ\WebResultOfTupleOfSessionUserokBDsykR5F2dSckg.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\FeedServ\FeedsService.wsdl" />

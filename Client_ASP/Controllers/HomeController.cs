@@ -11,17 +11,6 @@ namespace Client_ASP.Controllers
     {
         public ActionResult Index()
         {
-            if (Session["Username"] != null)
-                ViewBag.auth = true;
-            else
-                ViewBag.auth = false;
-
-            ViewBag.Message = "RSS Feed Aggregator";
-            return View();
-        }
-
-        public ActionResult About()
-        {
             return View();
         }
     }

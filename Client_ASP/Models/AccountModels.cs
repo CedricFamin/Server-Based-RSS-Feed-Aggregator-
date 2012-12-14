@@ -7,7 +7,6 @@ using System.Web.Security;
 
 namespace Client_ASP.Models
 {
-
     public class ChangePasswordModel
     {
         [Required]

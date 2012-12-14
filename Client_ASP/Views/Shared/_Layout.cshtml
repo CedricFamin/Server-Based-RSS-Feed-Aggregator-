@@ -25,15 +25,15 @@
 			    </a>
 			    <a class="brand" href="/">RFA</a>
 			    <div class="nav-collapse collapse">
-                    @if (Session["Username"] != null)
+                    @if (User.Identity.IsAuthenticated == true)
                     {
                         <p class="navbar-text pull-right">
-                        Logged in as <a href="#" class="navbar-link">@Session["UserName"]</a>
+                        Logged in as <a href="#" class="navbar-link">@User.Identity.Name</a>
                         </p>
                     }
                     <ul class="nav">
 					    <li class="active"><a href="/">Home</a></li>
-                        @if (Session["Username"] == null)
+                        @if (User.Identity.IsAuthenticated == false)
                         {
                             <li>@Html.ActionLink("LogOn", "LogOn", "Account")</li>
                             <li>@Html.ActionLink("Register", "Register", "Account")</li>
@@ -49,7 +49,7 @@
     </div>
     <div class="container-fluid" style="margin-top: 50px;">
         <div class="row-fluid">
-	        @if (Session["Username"] != null)
+	        @if (User.Identity.IsAuthenticated)
             {
 	        <div class="span2">
 		        <div class="well sidebar-nav">
@@ -57,8 +57,7 @@
                         
                         <li class="header"><b>RSS</b></li>
                         <li>@Html.ActionLink("Add new feed", "Create", "Feeds")</li>
-                        <li><a href="#">Feed List</a></li>
-                        <li><a href="#">Settings</a></li>
+                        <li>@Html.ActionLink("Feed List", "List", "Feeds")</li>
                         
                         <li class="divider"></li>
                         
@@ -70,8 +69,10 @@
 	        </div>
             <div class="span10">@RenderBody()</div>
             }
-	        else
-               {<div class="span12">@RenderBody()</div>}
+            else
+            {
+                <div class="span12">@RenderBody()</div>
+            }
                 
 	        
         </div>

@@ -7,6 +7,7 @@
       <xsd:import schemaLocation="http://localhost:3972/Services/Account.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Server.Utils" />
       <xsd:import schemaLocation="http://localhost:3972/Services/Account.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System" />
       <xsd:import schemaLocation="http://localhost:3972/Services/Account.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Server.EntityFramwork" />
+      <xsd:import schemaLocation="http://localhost:3972/Services/Account.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Server.Services" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="Account_Register_InputMessage">
