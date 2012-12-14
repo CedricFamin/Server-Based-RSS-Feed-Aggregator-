@@ -7,7 +7,6 @@ using System.Web.Security;
 
 namespace Client_ASP.Models
 {
-
     public class ChangePasswordModel
     {
         [Required]
@@ -30,7 +29,7 @@ namespace Client_ASP.Models
     public class LogOnModel
     {
         [Required]
-        [Display(Name = "User name")]
+        [Display(Name = "Username")]
         public string UserName { get; set; }
 
         [Required]
@@ -45,7 +44,7 @@ namespace Client_ASP.Models
     public class RegisterModel
     {
         [Required]
-        [Display(Name = "User name")]
+        [Display(Name = "Username")]
         public string UserName { get; set; }
 
         [Required]

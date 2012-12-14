@@ -32,5 +32,15 @@ namespace Client_ASP.Properties {
                 return ((string)(this["Client_ASP_AccServ_Account"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:3972/Services/FeedsService.svc")]
+        public string Client_ASP_FeedServ_FeedsService {
+            get {
+                return ((string)(this["Client_ASP_FeedServ_FeedsService"]));
+            }
+        }
     }
 }

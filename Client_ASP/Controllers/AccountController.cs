@@ -17,6 +17,10 @@ namespace Client_ASP.Controllers
 
         public ActionResult LogOn()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return new RedirectResult("/Home/Index");
+            }
             return View();
         }
 
@@ -26,6 +30,11 @@ namespace Client_ASP.Controllers
         [HttpPost]
         public ActionResult LogOn(LogOnModel model, string returnUrl)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             ViewBag.LogOnError = null;
             if (ModelState.IsValid)
             {
@@ -33,7 +42,8 @@ namespace Client_ASP.Controllers
                 AccServ.WebResult logon = acc.Login(model.UserName, model.Password);
                 if (logon.ErrorCode == AccServ.WebResultErrorCodeList.SUCCESS)
                 {
-                    Session["Username"] = model.UserName;
+                    FormsAuthentication.SetAuthCookie(model.UserName, false);
+
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                         && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
                     {
@@ -56,11 +66,10 @@ namespace Client_ASP.Controllers
 
         //
         // GET: /Account/LogOff
-
+        [Authorize]
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
-            Session["Username"] = null;
             return RedirectToAction("Index", "Home");
         }
 
@@ -69,6 +78,8 @@ namespace Client_ASP.Controllers
 
         public ActionResult Register()
         {
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction("Index", "Home");
             return View();
         }
 
@@ -78,6 +89,10 @@ namespace Client_ASP.Controllers
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction("Index", "Home");
+
+            ViewBag.RegisterError = null;
             if (ModelState.IsValid)
             {
                 AccServ.Account acc = new AccServ.Account();
@@ -86,10 +101,11 @@ namespace Client_ASP.Controllers
                 // Attempt to register the user
                 if (register.ErrorCode.ToString() == "SUCCESS")
                 {
-                    Session["Username"] = model.UserName;
-                    FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
+                    FormsAuthentication.SetAuthCookie(model.UserName, false);
                     return RedirectToAction("Index", "Home");
                 }
+                else
+                    ViewBag.RegisterError = register.ErrorCode.ToString();
             }
 
             // If we got this far, something failed, redisplay form
@@ -145,6 +161,7 @@ namespace Client_ASP.Controllers
         //
         // GET: /Account/ChangePasswordSuccess
 
+        [Authorize]
         public ActionResult ChangePasswordSuccess()
         {
             return View();
@@ -152,12 +169,12 @@ namespace Client_ASP.Controllers
 
         //
         // GET: /Account/UserList
-        
+
+        [Authorize]
         public ActionResult UserList()
         {
             AccServ.Account acc = new AccServ.Account();
-            AccServ.WebResult list = acc.UserList("");
-            ViewBag.list = list;
+            ViewBag.list = acc.UserList("");
             return View();
         }
 

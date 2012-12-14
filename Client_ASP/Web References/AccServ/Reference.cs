@@ -134,11 +134,11 @@ namespace Client_ASP.AccServ {
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Account/Login", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public WebResultOfTupleOfSessionUserokBDsykR5F2dSckg Login([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string username, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string password) {
+        public WebResultOfTupleOfSessionAccountDatav7M43KXC5F2dSckg Login([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string username, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string password) {
             object[] results = this.Invoke("Login", new object[] {
                         username,
                         password});
-            return ((WebResultOfTupleOfSessionUserokBDsykR5F2dSckg)(results[0]));
+            return ((WebResultOfTupleOfSessionAccountDatav7M43KXC5F2dSckg)(results[0]));
         }
         
         /// <remarks/>
@@ -196,7 +196,7 @@ namespace Client_ASP.AccServ {
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Account/Update", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public WebResult Update([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string session_key, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] User updateUser) {
+        public WebResult Update([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string session_key, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] AccountData updateUser) {
             object[] results = this.Invoke("Update", new object[] {
                         session_key,
                         updateUser});
@@ -204,12 +204,12 @@ namespace Client_ASP.AccServ {
         }
         
         /// <remarks/>
-        public void UpdateAsync(string session_key, User updateUser) {
+        public void UpdateAsync(string session_key, AccountData updateUser) {
             this.UpdateAsync(session_key, updateUser, null);
         }
         
         /// <remarks/>
-        public void UpdateAsync(string session_key, User updateUser, object userState) {
+        public void UpdateAsync(string session_key, AccountData updateUser, object userState) {
             if ((this.UpdateOperationCompleted == null)) {
                 this.UpdateOperationCompleted = new System.Threading.SendOrPostCallback(this.OnUpdateOperationCompleted);
             }
@@ -262,10 +262,10 @@ namespace Client_ASP.AccServ {
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Account/UserList", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public WebResultOfArrayOfUserhd3s_SOtL UserList([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string session_key) {
+        public WebResultOfArrayOfAccountDataYxjpQ34D UserList([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string session_key) {
             object[] results = this.Invoke("UserList", new object[] {
                         session_key});
-            return ((WebResultOfArrayOfUserhd3s_SOtL)(results[0]));
+            return ((WebResultOfArrayOfAccountDataYxjpQ34D)(results[0]));
         }
         
         /// <remarks/>
@@ -309,8 +309,8 @@ namespace Client_ASP.AccServ {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(WebResultOfArrayOfUserhd3s_SOtL))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(WebResultOfTupleOfSessionUserokBDsykR5F2dSckg))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(WebResultOfArrayOfAccountDataYxjpQ34D))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(WebResultOfTupleOfSessionAccountDatav7M43KXC5F2dSckg))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.450")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -373,6 +373,18 @@ namespace Client_ASP.AccServ {
         
         /// <remarks/>
         ALREADY_LOGUED,
+        
+        /// <remarks/>
+        CANNOT_CREATE_FEED,
+        
+        /// <remarks/>
+        CANNOT_GET_FEED,
+        
+        /// <remarks/>
+        ITEM_NOT_FOUND,
+        
+        /// <remarks/>
+        PARAMETER_ERROR,
     }
     
     /// <remarks/>
@@ -380,36 +392,23 @@ namespace Client_ASP.AccServ {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/Server.EntityFramwork")]
-    public partial class User {
-        
-        private string emailField;
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/Server.Services")]
+    public partial class AccountData {
         
         private int idField;
         
         private bool idFieldSpecified;
         
+        private bool isSuperUserField;
+        
+        private bool isSuperUserFieldSpecified;
+        
         private string passwordField;
-        
-        private bool superuserField;
-        
-        private bool superuserFieldSpecified;
         
         private string usernameField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string email {
-            get {
-                return this.emailField;
-            }
-            set {
-                this.emailField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public int id {
+        public int Id {
             get {
                 return this.idField;
             }
@@ -420,7 +419,7 @@ namespace Client_ASP.AccServ {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool idSpecified {
+        public bool IdSpecified {
             get {
                 return this.idFieldSpecified;
             }
@@ -430,8 +429,29 @@ namespace Client_ASP.AccServ {
         }
         
         /// <remarks/>
+        public bool IsSuperUser {
+            get {
+                return this.isSuperUserField;
+            }
+            set {
+                this.isSuperUserField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool IsSuperUserSpecified {
+            get {
+                return this.isSuperUserFieldSpecified;
+            }
+            set {
+                this.isSuperUserFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string password {
+        public string Password {
             get {
                 return this.passwordField;
             }
@@ -441,29 +461,8 @@ namespace Client_ASP.AccServ {
         }
         
         /// <remarks/>
-        public bool superuser {
-            get {
-                return this.superuserField;
-            }
-            set {
-                this.superuserField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool superuserSpecified {
-            get {
-                return this.superuserFieldSpecified;
-            }
-            set {
-                this.superuserFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string username {
+        public string Username {
             get {
                 return this.usernameField;
             }
@@ -576,11 +575,11 @@ namespace Client_ASP.AccServ {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/System")]
-    public partial class TupleOfSessionUserokBDsykR {
+    public partial class TupleOfSessionAccountDatav7M43KXC {
         
         private Session m_Item1Field;
         
-        private User m_Item2Field;
+        private AccountData m_Item2Field;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
@@ -595,7 +594,7 @@ namespace Client_ASP.AccServ {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public User m_Item2 {
+        public AccountData m_Item2 {
             get {
                 return this.m_Item2Field;
             }
@@ -611,14 +610,14 @@ namespace Client_ASP.AccServ {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/Server.Utils")]
-    public partial class WebResultOfArrayOfUserhd3s_SOtL : WebResult {
+    public partial class WebResultOfArrayOfAccountDataYxjpQ34D : WebResult {
         
-        private User[] valueField;
+        private AccountData[] valueField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)]
-        [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Server.EntityFramwork")]
-        public User[] Value {
+        [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Server.Services")]
+        public AccountData[] Value {
             get {
                 return this.valueField;
             }
@@ -634,13 +633,13 @@ namespace Client_ASP.AccServ {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/Server.Utils")]
-    public partial class WebResultOfTupleOfSessionUserokBDsykR5F2dSckg : WebResult {
+    public partial class WebResultOfTupleOfSessionAccountDatav7M43KXC5F2dSckg : WebResult {
         
-        private TupleOfSessionUserokBDsykR valueField;
+        private TupleOfSessionAccountDatav7M43KXC valueField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public TupleOfSessionUserokBDsykR Value {
+        public TupleOfSessionAccountDatav7M43KXC Value {
             get {
                 return this.valueField;
             }
@@ -694,10 +693,10 @@ namespace Client_ASP.AccServ {
         }
         
         /// <remarks/>
-        public WebResultOfTupleOfSessionUserokBDsykR5F2dSckg Result {
+        public WebResultOfTupleOfSessionAccountDatav7M43KXC5F2dSckg Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((WebResultOfTupleOfSessionUserokBDsykR5F2dSckg)(this.results[0]));
+                return ((WebResultOfTupleOfSessionAccountDatav7M43KXC5F2dSckg)(this.results[0]));
             }
         }
     }
@@ -798,10 +797,10 @@ namespace Client_ASP.AccServ {
         }
         
         /// <remarks/>
-        public WebResultOfArrayOfUserhd3s_SOtL Result {
+        public WebResultOfArrayOfAccountDataYxjpQ34D Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((WebResultOfArrayOfUserhd3s_SOtL)(this.results[0]));
+                return ((WebResultOfArrayOfAccountDataYxjpQ34D)(this.results[0]));
             }
         }
     }

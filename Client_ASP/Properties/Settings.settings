@@ -5,5 +5,8 @@
     <Setting Name="Client_ASP_AccServ_Account" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://localhost:3972/Services/Account.svc</Value>
     </Setting>
+    <Setting Name="Client_ASP_FeedServ_FeedsService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://localhost:3972/Services/FeedsService.svc</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
