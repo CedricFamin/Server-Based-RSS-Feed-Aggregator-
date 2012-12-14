@@ -17,6 +17,7 @@ namespace Client_WPF.ViewModel
         public ICommand RefreshFeeds { get; private set; }
         public ICommand AddFeed { get; private set; }
         public ICommand RemoveFeed { get; private set; }
+        public ICommand LoadFeedItems { get; private set; }
         
         private List<RssFeed> rootFeeds = null;
         public List<RssFeed> RootFeeds
@@ -25,11 +26,25 @@ namespace Client_WPF.ViewModel
             private set { rootFeeds = value; RaisePropertyChange("RootFeeds"); }
         }
 
+        private List<RssFeed> itemFeeds = null;
+        public List<RssFeed> ItemFeeds
+        {
+            get { return itemFeeds; }
+            private set { itemFeeds = value; RaisePropertyChange("ItemFeeds"); }
+        }
+
         private string urlFeed = "";
         public string UrlFeed
         {
             get { return urlFeed; }
             set { urlFeed = value; RaisePropertyChange("UrlFeed"); }
+        }
+
+        private RssFeed currentFeed = null;
+        public RssFeed CurrentFeed
+        {
+            get { return currentFeed; }
+            set { currentFeed = value; RaisePropertyChange("CurrentFeed"); }
         }
 
         #endregion
@@ -43,6 +58,7 @@ namespace Client_WPF.ViewModel
             RefreshFeeds = new RelayCommand((param) => FeedsManager.GetAllRootFeeds());
             AddFeed = new RelayCommand((param) => AddFeedBody());
             RemoveFeed = new RelayCommand((param) => FeedsManager.RemoveFeed(param as RssFeed));
+            LoadFeedItems = new RelayCommand((param) => FeedsManager.LoadFeedItems(param as RssFeed));
 
             RootFeeds = new List<RssFeed>();
         }
@@ -54,6 +70,8 @@ namespace Client_WPF.ViewModel
             {
                 RootFeeds = (sender as FeedManagerDataModel).RootFeeds;
             }
+            else if (e.PropertyName == "ItemFeeds")
+                ItemFeeds = (sender as FeedManagerDataModel).ItemFeeds;
         }
 
         

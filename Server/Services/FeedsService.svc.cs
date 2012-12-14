@@ -113,6 +113,7 @@ namespace Server.Services
                 title = feed.Title.Text,
                 url = uri.ToString(),
                 link = feed.Links[0].ToString(),
+                id_parent = parentId
             };
 
             db.Feeds.InsertOnSubmit(dbFeed);
@@ -188,13 +189,17 @@ namespace Server.Services
 
             if (user == null)
                 return new WebResult<List<RssFeed>>(WebResult.ErrorCodeList.NOT_LOGUED);
-
+            if (feed == null)
+                return new WebResult<List<RssFeed>>(WebResult.ErrorCodeList.PARAMETER_ERROR);
             List<RssFeed> feeds = new List<RssFeed>();
 
             var dbFeeds = from f in db.Feeds where f.id_parent == feed.Id select f;
-            foreach (var dbFeed in dbFeeds)
+            if (dbFeeds != null)
             {
-                feeds.Add(new RssFeed(dbFeed));
+                foreach (var dbFeed in dbFeeds)
+                {
+                    feeds.Add(new RssFeed(dbFeed));
+                }
             }
 
             return new WebResult<List<RssFeed>>(feeds);

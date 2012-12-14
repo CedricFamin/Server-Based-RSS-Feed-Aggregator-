@@ -22,6 +22,7 @@ namespace Server.Utils
             CANNOT_CREATE_FEED,
             CANNOT_GET_FEED,
             ITEM_NOT_FOUND,
+            PARAMETER_ERROR,
         }
 
         public WebResult()

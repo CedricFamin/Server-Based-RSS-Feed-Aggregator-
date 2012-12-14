@@ -59,6 +59,11 @@
 							</DockPanel>
 						</DataTemplate>
 					</ListView.Resources>
+					<i:Interaction.Triggers>
+						<i:EventTrigger EventName="SelectionChanged">
+							<i:InvokeCommandAction Command="{Binding LoadFeedItems, Mode=OneWay}" CommandParameter="{Binding SelectedItem, ElementName=listView}"/>
+						</i:EventTrigger>
+					</i:Interaction.Triggers>
 				</ListView>
 				<Border DockPanel.Dock="Bottom" BorderThickness="5,0,0,0" BorderBrush="{DynamicResource borderColor1}" Padding="10" Margin="10,0,0,0" >
 					<StackPanel DataContext="{Binding SelectedItem, ElementName=listView}">
@@ -84,6 +89,18 @@
 							</Button>
 						</Grid>
 						<TextBlock TextWrapping="Wrap" Text="{Binding Description}" HorizontalAlignment="Left" Foreground="{DynamicResource DefaultColor}"/>
+						<ListBox ItemsSource="{Binding DataContext.ItemFeeds, ElementName=LayoutRoot}" ItemTemplate="{DynamicResource ItemTemplate}">
+							<ListBox.Resources>
+								<DataTemplate x:Key="ItemTemplate">
+									<Grid>
+										<TextBlock Margin="0,0,0,4.04" TextWrapping="Wrap" Text="{Binding Title}" d:LayoutOverrides="Width, Height" Foreground="{DynamicResource DefaultColor}"/>
+									</Grid>
+								</DataTemplate>
+							</ListBox.Resources>
+							<ListBox.Background>
+								<SolidColorBrush Color="Black" Opacity="0.2"/>
+							</ListBox.Background>
+						</ListBox>
 					</StackPanel>
 				</Border>
 			</DockPanel>

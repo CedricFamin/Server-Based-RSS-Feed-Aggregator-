@@ -34,6 +34,13 @@ namespace Client_WPF.DataModel
             get { return rootFeeds; }
             private set { rootFeeds = value; RaisePropertyChange("RootFeeds"); }
         }
+
+        private List<RssFeed> itemFeeds = null;
+        public List<RssFeed> ItemFeeds
+        {
+            get { return itemFeeds; }
+            private set { itemFeeds = value; RaisePropertyChange("ItemFeeds"); }
+        }
         #endregion
 
         #region CTor
@@ -45,6 +52,7 @@ namespace Client_WPF.DataModel
             FeedsClient.GetFeedsCompleted += new EventHandler<GetFeedsCompletedEventArgs>(FeedsClient_GetFeedsCompleted);
             FeedsClient.AddNewFeedCompleted += new EventHandler<AddNewFeedCompletedEventArgs>(FeedsClient_AddNewFeedCompleted);
             FeedsClient.UnfollowFeedCompleted += new EventHandler<UnfollowFeedCompletedEventArgs>(FeedsClient_UnfollowFeedCompleted);
+            FeedsClient.GetFeedItemsCompleted += new EventHandler<GetFeedItemsCompletedEventArgs>(FeedsClient_GetFeedItemsCompleted);
         }
         #endregion
 
@@ -81,6 +89,17 @@ namespace Client_WPF.DataModel
                 }
             }
         }
+
+        void FeedsClient_GetFeedItemsCompleted(object sender, GetFeedItemsCompletedEventArgs e)
+        {
+            if (e.Error == null)
+            {
+                if (e.Result.ErrorCode == WebResult.ErrorCodeList.SUCCESS)
+                {
+                    ItemFeeds = e.Result.Value.ToList();
+                }
+            }
+        }
         #endregion
 
         #region Action
@@ -93,7 +112,15 @@ namespace Client_WPF.DataModel
         public void AddNewFeed(string url)
         {
             UserData.ShowConnexionModel_IFN();
-            FeedsClient.AddNewFeedAsync(UserData.GetConnectionString(), new Uri(url));
+            try
+            {
+                FeedsClient.AddNewFeedAsync(UserData.GetConnectionString(), new Uri(url));
+            }
+            catch (Exception)
+            {
+                
+            }
+            
         }
 
         public void RemoveFeed(RssFeed feed)
@@ -103,5 +130,11 @@ namespace Client_WPF.DataModel
         }
         #endregion
 
+
+        public void LoadFeedItems(RssFeed rssFeed)
+        {
+            UserData.ShowConnexionModel_IFN();
+            FeedsClient.GetFeedItemsAsync(UserData.GetConnectionString(), rssFeed);
+        }
     }
 }
