@@ -74,7 +74,10 @@
 				<MenuItem Header="MenuItem" d:LayoutOverrides="Height" Grid.Column="3" HorizontalAlignment="Right" Template="{DynamicResource MenuItemSearchControlTemplate}"/>
 			</Menu>
 			<ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="1">
-				<Border BorderThickness="10,10,10,0" Background="#FF505050" CornerRadius="10">
+				<Border BorderThickness="10,10,10,0" CornerRadius="10">
+					<Border.Background>
+						<ImageBrush ImageSource="Images/background.jpg"/>
+					</Border.Background>
 					<Border.BorderBrush>
 						<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
 							<GradientStop Color="Black" Offset="0"/>

@@ -152,6 +152,7 @@
     <Resource Include="Images\1355008452_zoom.png" />
     <Resource Include="Images\1355008732_magnifyingglass.png" />
     <Resource Include="Images\1355429745_rss_feeds.png" />
+    <Resource Include="Images\background.jpg" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\RSSService\" />
