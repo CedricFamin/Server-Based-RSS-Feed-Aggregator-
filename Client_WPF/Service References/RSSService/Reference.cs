@@ -98,6 +98,9 @@ namespace Client_WPF.RSSService {
             
             [System.Runtime.Serialization.EnumMemberAttribute()]
             PARAMETER_ERROR = 11,
+            
+            [System.Runtime.Serialization.EnumMemberAttribute()]
+            INVALID_PARAMETER = 12,
         }
     }
     

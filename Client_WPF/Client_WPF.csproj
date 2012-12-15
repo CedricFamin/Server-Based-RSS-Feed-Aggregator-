@@ -38,6 +38,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Expression.Interactions" />
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -69,6 +70,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\FeedDetailsViewModel.cs" />
     <Compile Include="ViewModel\FeedsManagerViewModel.cs" />
     <Compile Include="View\FeedsManager.xaml.cs">
       <DependentUpon>FeedsManager.xaml</DependentUpon>
@@ -125,7 +127,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\DataSources\Server.EntityFramwork.User.datasource" />
     <None Include="Properties\DataSources\Server.Utils.WebResult.datasource" />
     <None Include="Properties\Settings.settings">
@@ -168,16 +172,19 @@
     <None Include="Service References\RSSService\Account2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\RSSService\Account4.xsd">
+    <None Include="Service References\RSSService\Account3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\RSSService\Account5.xsd">
+    <None Include="Service References\RSSService\Account4.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\RSSService\Client_WPF.RSSService.WebResult.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\RSSService\Client_WPF.RSSService.WebResultOfArrayOfAccountDataYxjpQ34D.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RSSService\Client_WPF.RSSService.WebResultOfTupleOfstringAccountDatalrs4Oh3P5F2dSckg.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
   </ItemGroup>
@@ -192,6 +199,8 @@
     <Resource Include="View\1355455076_interact.png" />
     <Resource Include="View\1355456206_plus_64.png" />
     <Resource Include="View\1355463466_Close_Box_Red.png" />
+    <Resource Include="View\1355592700_Next.png" />
+    <Resource Include="View\1355592710_Delete.png" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\FeedService\" />
@@ -219,9 +228,6 @@
     <None Include="Service References\RSSService\Account.disco" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\RSSService\Client_WPF.RSSService.WebResultOfTupleOfstringAccountDatalrs4Oh3P5F2dSckg.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="Service References\RSSService\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>

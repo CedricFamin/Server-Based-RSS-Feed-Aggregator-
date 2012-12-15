@@ -12,7 +12,7 @@ namespace Client_WPF.DataModel
     {
         #region Common
         static private string ConnectionString = null;
-        static private AccountClient accountClient = new AccountClient();
+        static private AccountClient accountClient = null;
         private static AccountData user { get; set; }
 
         static public AccountData User
@@ -25,6 +25,8 @@ namespace Client_WPF.DataModel
         {
             get
             {
+                if (accountClient == null)
+                    accountClient = new AccountClient();
                 if (accountClient.State == CommunicationState.Closed)
                     accountClient.Open();
                 return accountClient;

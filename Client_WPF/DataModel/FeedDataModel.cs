@@ -46,12 +46,21 @@ namespace Client_WPF.DataModel
         #region CTor
         public FeedManagerDataModel()
         {
-            UserData = new UserDataModel();
+            try
+            {
+                UserData = new UserDataModel();
 
-            FeedsClient.GetFeedsCompleted += new EventHandler<GetFeedsCompletedEventArgs>(FeedsClient_GetFeedsCompleted);
-            FeedsClient.AddNewFeedCompleted += new EventHandler<AddNewFeedCompletedEventArgs>(FeedsClient_AddNewFeedCompleted);
-            FeedsClient.UnfollowFeedCompleted += new EventHandler<UnfollowFeedCompletedEventArgs>(FeedsClient_UnfollowFeedCompleted);
-            FeedsClient.GetFeedItemsCompleted += new EventHandler<GetFeedItemsCompletedEventArgs>(FeedsClient_GetFeedItemsCompleted);
+                FeedsClient.GetFeedsCompleted += new EventHandler<GetFeedsCompletedEventArgs>(FeedsClient_GetFeedsCompleted);
+                FeedsClient.AddNewFeedCompleted += new EventHandler<AddNewFeedCompletedEventArgs>(FeedsClient_AddNewFeedCompleted);
+                FeedsClient.UnfollowFeedCompleted += new EventHandler<UnfollowFeedCompletedEventArgs>(FeedsClient_UnfollowFeedCompleted);
+                FeedsClient.GetFeedItemsCompleted += new EventHandler<GetFeedItemsCompletedEventArgs>(FeedsClient_GetFeedItemsCompleted);
+            }
+            catch (Exception)
+            {
+                
+                // HACK BIZARRE BUG DE BLEND
+            }
+            
         }
         #endregion
 
@@ -135,5 +144,10 @@ namespace Client_WPF.DataModel
             UserData.ShowConnexionModel_IFN();
             FeedsClient.GetFeedItemsAsync(UserData.GetConnectionString(), rssFeed);
         }
+    }
+
+    class FeedDetailsDataModel : BindableObject
+    {
+
     }
 }

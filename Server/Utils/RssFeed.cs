@@ -23,9 +23,9 @@ namespace Server.Utils
             {
                 // Mandatory section
                 title = feed.Title.Text,
-                link = feed.Links[0].ToString(),
+                link = feed.Links[0].Uri.AbsoluteUri,
                 description = feed.Description.Text,
-                url = uri.ToString(),
+                url = uri.AbsoluteUri,
 
                 // Not mandatory
                 lastBuildDate = feed.LastUpdatedTime.DateTime,
@@ -52,12 +52,12 @@ namespace Server.Utils
             {
                 id_channel = chan.id,
                 title = item.Title != null ? item.Title.Text : null,
-                link = item.Links.Count > 0 ? item.Links[0].ToString() : null,
+                link = item.Links.Count > 0 ? item.Links[0].Uri.AbsoluteUri : null,
                 pubDate = item.PublishDate.DateTime,
                 description = item.Summary != null ? item.Summary.Text : null,
                 guid = item.Id != null ? item.Id : null,
-                author = item.Authors.Count > 0 ? item.Authors[0].ToString() : null,
-                category = item.Categories.Count > 0 ? item.Categories[0].ToString() : null,
+                author = item.Authors.Count > 0 ? item.Authors[0].Email : null,
+                category = item.Categories.Count > 0 ? item.Categories[0].Name : null,
                 comments = null // DO NOT USE
             };
 

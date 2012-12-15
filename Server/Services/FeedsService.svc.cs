@@ -68,11 +68,11 @@ namespace Server.Services
             EntityFramwork.User user = _sessionWrapper.GetUser(connectionKey);
             if (user == null) return new WebResult(WebResult.ErrorCodeList.NOT_LOGUED);
 
-            EntityFramwork.ChannelXUser cxu = (from item in db.ChannelXUsers where item.User == user && item.id_channel == feed.Id select item).SingleOrDefault();
+            var cxu = from item in db.ChannelXUsers where item.User == user && item.id_channel == feed.Id select item;
 
             if (cxu != null)
             {
-                db.ChannelXUsers.DeleteOnSubmit(cxu);
+                db.ChannelXUsers.DeleteAllOnSubmit(cxu);
                 db.SubmitChanges();
                 return new WebResult();
             }

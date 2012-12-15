@@ -61,7 +61,7 @@
 			<i:InvokeCommandAction Command="{Binding ShowConnectionDialog}"/>
 		</i:EventTrigger>
 	</i:Interaction.Triggers>
-	<ScrollViewer ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
+	<ScrollViewer ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Top">
 		<Grid DataContext="{Binding Source={StaticResource MenuViewModelDataSource}}">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="24"/>
@@ -73,9 +73,7 @@
 				<MenuItem Header="About" Style="{DynamicResource MenuItemStyle}" Grid.Column="2" />
 				<MenuItem Header="MenuItem" d:LayoutOverrides="Height" Grid.Column="3" HorizontalAlignment="Right" Template="{DynamicResource MenuItemSearchControlTemplate}"/>
 			</Menu>
-			<ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="1">
-				<local:FeedsManager/>
-			</ScrollViewer>
+			<local:FeedsManager Grid.RowSpan="2" d:LayoutOverrides="Width, Height" Grid.Row="1"/>
 		</Grid>
 	</ScrollViewer>
 </Window>

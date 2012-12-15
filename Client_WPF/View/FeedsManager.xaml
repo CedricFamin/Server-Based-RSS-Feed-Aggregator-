@@ -4,6 +4,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:Client_WPF_ViewModel="clr-namespace:Client_WPF.ViewModel" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+	xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
 	mc:Ignorable="d"
 	x:Class="Client_WPF.FeedsManager"
 	x:Name="UserControl"
@@ -26,8 +27,12 @@
 					<GradientStop Color="#FF505050" Offset="1"/>
 				</LinearGradientBrush>
 			</Border.BorderBrush>
-			<DockPanel>
-				<StackPanel VerticalAlignment="Top" DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition/>
+				</Grid.RowDefinitions>
+				<StackPanel VerticalAlignment="Top" Orientation="Horizontal" HorizontalAlignment="Center" d:LayoutOverrides="VerticalAlignment">
 					<TextBlock TextWrapping="Wrap" Text="Add new feed : " Foreground="{DynamicResource DefaultColor}"/>
 					<TextBox x:Name="feed_url" Width="200" Background="{DynamicResource DefaultBackground}" Text="{Binding UrlFeed}" Foreground="{DynamicResource DefaultColor}"/>
 					<Button Content="Button" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="21" Height="21">
@@ -51,59 +56,63 @@
 						</i:Interaction.Triggers>
 					</Button>
 				</StackPanel>
-				<ListView x:Name="listView" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" ItemsSource="{Binding Channels}" Width="200" SelectionMode="Single" ItemTemplate="{DynamicResource DataTemplate}">
+				<ListView Grid.Row="1" x:Name="listView" ItemsSource="{Binding Channels}" SelectionMode="Single" ItemTemplate="{DynamicResource DataTemplate}" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 					<ListView.Resources>
 						<DataTemplate x:Key="DataTemplate">
-							<DockPanel Height="20" Width="Auto">
-								<TextBlock Margin="0" TextWrapping="Wrap" Foreground="{DynamicResource DefaultColor}" Text="{Binding Title}" HorizontalAlignment="Stretch" d:LayoutOverrides="HorizontalAlignment" Width="Auto"/>
-							</DockPanel>
+							<Border Margin="10" Padding="10">
+								<Border.ContextMenu>
+									<ContextMenu>
+										<MenuItem CommandParameter="{Binding Mode=OneWay}" Command="{Binding RemoveFeed, Mode=OneWay, Source={StaticResource FeedsManagerViewModelDataSource}}" Header="Remove"/>
+									</ContextMenu>
+								</Border.ContextMenu>
+								<Border.Background>
+									<SolidColorBrush Color="Black" Opacity="0.3"/>
+								</Border.Background>
+								<StackPanel>
+									<Grid Height="Auto" Width="Auto">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition/>
+											<ColumnDefinition Width="Auto"/>
+										</Grid.ColumnDefinitions>
+										<TextBlock Margin="0" TextWrapping="Wrap" Foreground="{DynamicResource DefaultColor}" FontWeight="Bold" FontSize="18.667" d:LayoutOverrides="Width, Height"><InlineUIContainer>
+												<TextBlock TextWrapping="Wrap" Text="{Binding Title}"/>
+											</InlineUIContainer><InlineUIContainer>
+												<TextBlock TextWrapping="Wrap" Text=" : "/>
+											</InlineUIContainer><InlineUIContainer>
+												<TextBlock TextWrapping="Wrap" Text="{Binding Link}" Cursor="Hand"/>
+											</InlineUIContainer></TextBlock>
+										<StackPanel Grid.Column="1" Orientation="Horizontal" d:LayoutOverrides="Width" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
+											<Button Content="Button" Margin="0" d:LayoutOverrides="HorizontalAlignment" Width="24" BorderBrush="{x:Null}" Foreground="{x:Null}" Height="Auto">
+												<Button.Background>
+													<ImageBrush ImageSource="1355592700_Next.png"/>
+												</Button.Background>
+											</Button>
+											<Button Content="Button" Margin="0" Width="24" Height="Auto" BorderBrush="{x:Null}" Foreground="{x:Null}" VerticalAlignment="Stretch">
+												<Button.Background>
+													<ImageBrush ImageSource="1355592710_Delete.png"/>
+												</Button.Background>
+											</Button>
+										</StackPanel>
+									</Grid>
+									<TextBlock Text="{Binding Description}" Foreground="{DynamicResource DefaultColor}" ScrollViewer.VerticalScrollBarVisibility="Disabled" TextWrapping="Wrap" Margin="0" VerticalAlignment="Stretch"/>
+								</StackPanel>
+							</Border>
 						</DataTemplate>
 					</ListView.Resources>
 					<i:Interaction.Triggers>
 						<i:EventTrigger EventName="SelectionChanged">
+							<i:Interaction.Behaviors>
+								<ei:ConditionBehavior>
+									<ei:ConditionalExpression>
+										<ei:ComparisonCondition LeftOperand="{Binding CurrentChannel}" Operator="NotEqual" RightOperand="null"/>
+									</ei:ConditionalExpression>
+								</ei:ConditionBehavior>
+							</i:Interaction.Behaviors>
 							<i:InvokeCommandAction Command="{Binding LoadFeedItems, Mode=OneWay}" CommandParameter="{Binding SelectedItem, ElementName=listView}"/>
 						</i:EventTrigger>
 					</i:Interaction.Triggers>
 				</ListView>
-				<Border DockPanel.Dock="Bottom" BorderThickness="5,0,0,0" Padding="10" Margin="10,0,0,0" >
-					<StackPanel DataContext="{Binding SelectedItem, ElementName=listView}">
-						<TextBox TextWrapping="Wrap" Foreground="{DynamicResource DefaultColor}" FontSize="18.667" FontWeight="Bold" Text="{Binding Title}" BorderBrush="{x:Null}" Background="{x:Null}" SelectionBrush="{x:Null}"/>
-						<Grid>
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="Auto"/>
-								<ColumnDefinition/>
-								<ColumnDefinition Width="Auto"/>
-							</Grid.ColumnDefinitions>
-							<Button Content="Button" Grid.Column="3" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top" Width="20" Height="20" BorderBrush="{x:Null}">
-								<Button.Foreground>
-									<ImageBrush/>
-								</Button.Foreground>
-								<i:Interaction.Triggers>
-									<i:EventTrigger EventName="Click">
-										<i:InvokeCommandAction Command="{Binding DataContext.RemoveFeed, ElementName=UserControl}" CommandParameter="{Binding Mode=OneWay}"/>
-									</i:EventTrigger>
-								</i:Interaction.Triggers>
-								<Button.Background>
-									<ImageBrush ImageSource="1355463466_Close_Box_Red.png"/>
-								</Button.Background>
-							</Button>
-						</Grid>
-						<TextBlock TextWrapping="Wrap" Text="{Binding Description}" HorizontalAlignment="Left" Foreground="{DynamicResource DefaultColor}"/>
-						<ListBox ItemsSource="{Binding DataContext.Items, ElementName=LayoutRoot}" ItemTemplate="{DynamicResource ItemTemplate}">
-							<ListBox.Resources>
-								<DataTemplate x:Key="ItemTemplate">
-									<Grid>
-										<TextBlock Margin="0,0,0,4.04" TextWrapping="Wrap" Text="{Binding Title}" d:LayoutOverrides="Width, Height" Foreground="{DynamicResource DefaultColor}"/>
-									</Grid>
-								</DataTemplate>
-							</ListBox.Resources>
-							<ListBox.Background>
-								<SolidColorBrush Color="Black" Opacity="0.2"/>
-							</ListBox.Background>
-						</ListBox>
-					</StackPanel>
-				</Border>
-			</DockPanel>
+			</Grid>
 		</Border>
 	</Grid>
 </UserControl>
