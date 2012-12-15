@@ -30,6 +30,7 @@ namespace Client_WPF.Behavior
         void AssociatedObject_LoadCompleted(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
             mshtml.HTMLDocument document = AssociatedObject.Document as mshtml.HTMLDocument;
+
             if (document != null && document.body != null)
             {
                 mshtml.IHTMLElement2 body = (mshtml.IHTMLElement2)document.body;

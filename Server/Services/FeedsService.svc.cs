@@ -116,7 +116,7 @@ namespace Server.Services
 
             EntityFramwork.ItemRead ir = new EntityFramwork.ItemRead()
             {
-                User = user,
+                id_user = user.id,
                 id_item = item.Id
             };
             db.ItemReads.InsertOnSubmit(ir);

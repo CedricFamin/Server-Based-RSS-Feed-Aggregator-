@@ -177,6 +177,14 @@ namespace Client_WPF.DataModel
         }
         #endregion
 
+        public FeedDetailsDataModel()
+        {
+            UserData = new UserDataModel();
+            UserData.ShowConnexionModel_IFN();
+
+            FeedsClient.ReadItemCompleted += new EventHandler<ReadItemCompletedEventArgs>(FeedsClient_ReadItemCompleted);
+        }
+
         public FeedDetailsDataModel(Channel rootChan)
         {
             if (rootChan == null)
@@ -188,6 +196,13 @@ namespace Client_WPF.DataModel
             RootChannel = rootChan;
             FeedsClient.GetFeedItemsCompleted += new EventHandler<GetFeedItemsCompletedEventArgs>(FeedsClient_GetFeedItemsCompleted);
             FeedsClient.GetFeedItemsAsync(UserData.GetConnectionString(), rootChan);
+            FeedsClient.ReadItemCompleted += new EventHandler<ReadItemCompletedEventArgs>(FeedsClient_ReadItemCompleted);
+        }
+
+        #region db result
+        void FeedsClient_ReadItemCompleted(object sender, ReadItemCompletedEventArgs e)
+        {
+            
         }
 
         void FeedsClient_GetFeedItemsCompleted(object sender, GetFeedItemsCompletedEventArgs e)
@@ -200,5 +215,15 @@ namespace Client_WPF.DataModel
                 }
             }
         }
+        #endregion
+
+        #region action
+        public void ReadItem(Item item)
+        {
+            UserData.ShowConnexionModel_IFN();
+            FeedsClient.ReadItemAsync(UserData.GetConnectionString(), item);
+            item.Read = true;
+        }
+        #endregion
     }
 }

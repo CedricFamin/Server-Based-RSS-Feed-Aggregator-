@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using Client_WPF.FeedService;
 using Client_WPF.DataModel;
+using System.Windows.Input;
+using Client_WPF.Utils;
 
 namespace Client_WPF.ViewModel
 {
@@ -15,6 +17,8 @@ namespace Client_WPF.ViewModel
         #endregion
 
         #region Properties
+        public ICommand ReadItem { get; private set; }
+
         public Channel RootChannel { get; private set; }
         public List<Item> Items
         {
@@ -53,6 +57,9 @@ namespace Client_WPF.ViewModel
                                     " ac ultricies quis, imperdiet lobortis tellus.";
                 Items.Add(item);
             }
+
+            ReadItem = new RelayCommand((param) => ReadItemBody(param as Item));
+            feedDetailsDataModel = new FeedDetailsDataModel();
         }
 
         public FeedDetailsViewModel(Channel channel)
@@ -61,6 +68,13 @@ namespace Client_WPF.ViewModel
             feedDetailsDataModel = new FeedDetailsDataModel(channel);
             feedDetailsDataModel.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(feedDetailsDataModel_PropertyChanged);
             Items = feedDetailsDataModel.Items;
+
+            ReadItem = new RelayCommand((param) => ReadItemBody(param as Item));
+        }
+
+        private void ReadItemBody(Item item)
+        {
+            feedDetailsDataModel.ReadItem(item);
         }
 
         void feedDetailsDataModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
