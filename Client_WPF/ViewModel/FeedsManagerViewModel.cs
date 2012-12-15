@@ -18,6 +18,7 @@ namespace Client_WPF.ViewModel
         public ICommand AddFeed { get; private set; }
         public ICommand RemoveFeed { get; private set; }
         public ICommand LoadFeedItems { get; private set; }
+        public ICommand OpenFeedDetails { get; private set; }
         
         private List<Channel> channels = null;
         public List<Channel> Channels
@@ -59,6 +60,11 @@ namespace Client_WPF.ViewModel
             AddFeed = new RelayCommand((param) => AddFeedBody());
             RemoveFeed = new RelayCommand((param) => FeedsManager.RemoveFeed(param as Channel));
             LoadFeedItems = new RelayCommand((param) => FeedsManager.LoadFeedItems(param as Channel));
+
+            OpenFeedDetails = new RelayCommand((param) => (new ChannelDetails()
+            {
+                DataContext = new FeedDetailsViewModel(param as Channel)
+            }).Show());
 
             Channels = new List<Channel>();
         }

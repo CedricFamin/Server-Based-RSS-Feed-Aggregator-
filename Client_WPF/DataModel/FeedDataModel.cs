@@ -149,5 +149,56 @@ namespace Client_WPF.DataModel
     class FeedDetailsDataModel : BindableObject
     {
 
+        #region Common
+        private FeedsServiceClient feedsClient = null;
+        private FeedsServiceClient FeedsClient
+        {
+            get
+            {
+                if (feedsClient == null)
+                    feedsClient = new FeedsServiceClient();
+                if (feedsClient.State == CommunicationState.Closed)
+                    feedsClient.Open();
+                return feedsClient;
+            }
+        }
+        #endregion
+
+        #region PPties
+        private UserDataModel UserData { get; set; }
+        public Channel RootChannel { get; set; }
+
+        private List<Item> items;
+
+        public List<Item> Items
+        {
+            get { return items; }
+            set { items = value; RaisePropertyChange("Items"); }
+        }
+        #endregion
+
+        public FeedDetailsDataModel(Channel rootChan)
+        {
+            if (rootChan == null)
+                throw new NullReferenceException();
+
+            UserData = new UserDataModel();
+            UserData.ShowConnexionModel_IFN();
+
+            RootChannel = rootChan;
+            FeedsClient.GetFeedItemsCompleted += new EventHandler<GetFeedItemsCompletedEventArgs>(FeedsClient_GetFeedItemsCompleted);
+            FeedsClient.GetFeedItemsAsync(UserData.GetConnectionString(), rootChan);
+        }
+
+        void FeedsClient_GetFeedItemsCompleted(object sender, GetFeedItemsCompletedEventArgs e)
+        {
+            if (e.Error == null)
+            {
+                if (e.Result.ErrorCode == WebResult.ErrorCodeList.SUCCESS)
+                {
+                    Items = e.Result.Value.ToList();
+                }
+            }
+        }
     }
 }

@@ -61,19 +61,17 @@
 			<i:InvokeCommandAction Command="{Binding ShowConnectionDialog}"/>
 		</i:EventTrigger>
 	</i:Interaction.Triggers>
-	<ScrollViewer ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Top">
-		<Grid DataContext="{Binding Source={StaticResource MenuViewModelDataSource}}">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="24"/>
-				<RowDefinition/>
-			</Grid.RowDefinitions>
-			<Menu Height="24" Style="{DynamicResource MenuStyle1}" Foreground="{DynamicResource DefaultColor}" ItemsPanel="{DynamicResource ItemsPanelTemplate}" DataContext="{Binding Mode=OneWay}" Margin="0,0,6,0" VerticalAlignment="Top">
-				<MenuItem Header="Account" Style="{DynamicResource MenuItemStyle}" Grid.Column="0" />
-				<MenuItem Header="Feeds" Style="{DynamicResource MenuItemStyle}" Grid.Column="1" />
-				<MenuItem Header="About" Style="{DynamicResource MenuItemStyle}" Grid.Column="2" />
-				<MenuItem Header="MenuItem" d:LayoutOverrides="Height" Grid.Column="3" HorizontalAlignment="Right" Template="{DynamicResource MenuItemSearchControlTemplate}"/>
-			</Menu>
-			<local:FeedsManager Grid.RowSpan="2" d:LayoutOverrides="Width, Height" Grid.Row="1"/>
-		</Grid>
-	</ScrollViewer>
+	<Grid DataContext="{Binding Source={StaticResource MenuViewModelDataSource}}">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="24"/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+		<Menu Height="24" Style="{DynamicResource MenuStyle1}" Foreground="{DynamicResource DefaultColor}" ItemsPanel="{DynamicResource ItemsPanelTemplate}" DataContext="{Binding Mode=OneWay}" Margin="0,0,6,0" VerticalAlignment="Top">
+			<MenuItem Header="Account" Style="{DynamicResource MenuItemStyle}" Grid.Column="0" />
+			<MenuItem Header="Feeds" Style="{DynamicResource MenuItemStyle}" Grid.Column="1" />
+			<MenuItem Header="About" Style="{DynamicResource MenuItemStyle}" Grid.Column="2" />
+			<MenuItem Header="MenuItem" d:LayoutOverrides="Height" Grid.Column="3" HorizontalAlignment="Right" Template="{DynamicResource MenuItemSearchControlTemplate}"/>
+		</Menu>
+		<local:FeedsManager Grid.RowSpan="2" d:LayoutOverrides="Width, Height" Grid.Row="1"/>
+	</Grid>
 </Window>

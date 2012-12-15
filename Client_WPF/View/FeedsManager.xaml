@@ -17,7 +17,7 @@
 	</UserControl.DataContext>
 
 	<Grid x:Name="LayoutRoot">
-		<Border BorderThickness="10,10,10,0" CornerRadius="10" d:LayoutOverrides="Width, Height">
+		<Border CornerRadius="10" d:LayoutOverrides="Width, Height">
 			<Border.Background>
 				<ImageBrush ImageSource="/Client_WPF;component/Images/background.jpg"/>
 			</Border.Background>
@@ -56,62 +56,69 @@
 						</i:Interaction.Triggers>
 					</Button>
 				</StackPanel>
-				<ListView Grid.Row="1" x:Name="listView" ItemsSource="{Binding Channels}" SelectionMode="Single" ItemTemplate="{DynamicResource DataTemplate}" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-					<ListView.Resources>
-						<DataTemplate x:Key="DataTemplate">
-							<Border Margin="10" Padding="10">
-								<Border.ContextMenu>
-									<ContextMenu>
-										<MenuItem CommandParameter="{Binding Mode=OneWay}" Command="{Binding RemoveFeed, Mode=OneWay, Source={StaticResource FeedsManagerViewModelDataSource}}" Header="Remove"/>
-									</ContextMenu>
-								</Border.ContextMenu>
-								<Border.Background>
-									<SolidColorBrush Color="Black" Opacity="0.3"/>
-								</Border.Background>
-								<StackPanel>
-									<Grid Height="Auto" Width="Auto">
-										<Grid.ColumnDefinitions>
-											<ColumnDefinition/>
-											<ColumnDefinition Width="Auto"/>
-										</Grid.ColumnDefinitions>
-										<TextBlock Margin="0" TextWrapping="Wrap" Foreground="{DynamicResource DefaultColor}" FontWeight="Bold" FontSize="18.667" d:LayoutOverrides="Width, Height"><InlineUIContainer>
-												<TextBlock TextWrapping="Wrap" Text="{Binding Title}"/>
-											</InlineUIContainer><InlineUIContainer>
-												<TextBlock TextWrapping="Wrap" Text=" : "/>
-											</InlineUIContainer><InlineUIContainer>
-												<TextBlock TextWrapping="Wrap" Text="{Binding Link}" Cursor="Hand"/>
-											</InlineUIContainer></TextBlock>
-										<StackPanel Grid.Column="1" Orientation="Horizontal" d:LayoutOverrides="Width" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
-											<Button Content="Button" Margin="0" d:LayoutOverrides="HorizontalAlignment" Width="24" BorderBrush="{x:Null}" Foreground="{x:Null}" Height="Auto">
-												<Button.Background>
-													<ImageBrush ImageSource="1355592700_Next.png"/>
-												</Button.Background>
-											</Button>
-											<Button Content="Button" Margin="0" Width="24" Height="Auto" BorderBrush="{x:Null}" Foreground="{x:Null}" VerticalAlignment="Stretch">
-												<Button.Background>
-													<ImageBrush ImageSource="1355592710_Delete.png"/>
-												</Button.Background>
-											</Button>
-										</StackPanel>
-									</Grid>
-									<TextBlock Text="{Binding Description}" Foreground="{DynamicResource DefaultColor}" ScrollViewer.VerticalScrollBarVisibility="Disabled" TextWrapping="Wrap" Margin="0" VerticalAlignment="Stretch"/>
-								</StackPanel>
-							</Border>
-						</DataTemplate>
-					</ListView.Resources>
-					<i:Interaction.Triggers>
-						<i:EventTrigger EventName="SelectionChanged">
-							<i:Interaction.Behaviors>
-								<ei:ConditionBehavior>
-									<ei:ConditionalExpression>
-										<ei:ComparisonCondition LeftOperand="{Binding CurrentChannel}" Operator="NotEqual" RightOperand="null"/>
-									</ei:ConditionalExpression>
-								</ei:ConditionBehavior>
-							</i:Interaction.Behaviors>
-							<i:InvokeCommandAction Command="{Binding LoadFeedItems, Mode=OneWay}" CommandParameter="{Binding SelectedItem, ElementName=listView}"/>
-						</i:EventTrigger>
-					</i:Interaction.Triggers>
-				</ListView>
+				<ScrollViewer Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Auto" >
+					<ListView x:Name="listView" ItemsSource="{Binding Channels}" SelectionMode="Single" ItemTemplate="{DynamicResource DataTemplate}" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Top" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+						<ListView.Resources>
+							<DataTemplate x:Key="DataTemplate">
+								<Border Margin="10" Padding="10">
+									<Border.ContextMenu>
+										<ContextMenu>
+											<MenuItem CommandParameter="{Binding Mode=OneWay}" Command="{Binding RemoveFeed, Mode=OneWay, Source={StaticResource FeedsManagerViewModelDataSource}}" Header="Remove"/>
+										</ContextMenu>
+									</Border.ContextMenu>
+									<Border.Background>
+										<SolidColorBrush Color="Black" Opacity="0.3"/>
+									</Border.Background>
+									<StackPanel>
+										<Grid Height="Auto" Width="Auto">
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition/>
+												<ColumnDefinition Width="Auto"/>
+											</Grid.ColumnDefinitions>
+											<TextBlock Margin="0" TextWrapping="Wrap" Foreground="{DynamicResource DefaultColor}" FontWeight="Bold" FontSize="18.667" d:LayoutOverrides="Width, Height"><InlineUIContainer>
+													<TextBlock TextWrapping="Wrap" Text="{Binding Title}"/>
+												</InlineUIContainer><InlineUIContainer>
+													<TextBlock TextWrapping="Wrap" Text=" : "/>
+												</InlineUIContainer><InlineUIContainer>
+													<TextBlock TextWrapping="Wrap" Text="{Binding Link}" Cursor="Hand"/>
+												</InlineUIContainer></TextBlock>
+											<StackPanel Grid.Column="1" Orientation="Horizontal" d:LayoutOverrides="Width" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
+												<Button Content="Button" Margin="0" d:LayoutOverrides="HorizontalAlignment" Width="24" BorderBrush="{x:Null}" Foreground="{x:Null}" Height="Auto">
+													<i:Interaction.Triggers>
+														<i:EventTrigger EventName="Click">
+															<i:InvokeCommandAction CommandParameter="{Binding Mode=OneWay}" Command="{Binding OpenFeedDetails, Source={StaticResource FeedsManagerViewModelDataSource}}"/>
+														</i:EventTrigger>
+													</i:Interaction.Triggers>
+													<Button.Background>
+														<ImageBrush ImageSource="1355592700_Next.png"/>
+													</Button.Background>
+												</Button>
+												<Button Content="Button" Margin="0" Width="24" Height="Auto" BorderBrush="{x:Null}" Foreground="{x:Null}" VerticalAlignment="Stretch">
+													<Button.Background>
+														<ImageBrush ImageSource="1355592710_Delete.png"/>
+													</Button.Background>
+												</Button>
+											</StackPanel>
+										</Grid>
+										<TextBlock Text="{Binding Description}" Foreground="{DynamicResource DefaultColor}" ScrollViewer.VerticalScrollBarVisibility="Disabled" TextWrapping="Wrap" Margin="0" VerticalAlignment="Stretch"/>
+									</StackPanel>
+								</Border>
+							</DataTemplate>
+						</ListView.Resources>
+						<i:Interaction.Triggers>
+							<i:EventTrigger EventName="SelectionChanged">
+								<i:Interaction.Behaviors>
+									<ei:ConditionBehavior>
+										<ei:ConditionalExpression>
+											<ei:ComparisonCondition LeftOperand="{Binding CurrentChannel}" Operator="NotEqual" RightOperand="null"/>
+										</ei:ConditionalExpression>
+									</ei:ConditionBehavior>
+								</i:Interaction.Behaviors>
+								<i:InvokeCommandAction Command="{Binding LoadFeedItems, Mode=OneWay}" CommandParameter="{Binding SelectedItem, ElementName=listView}"/>
+							</i:EventTrigger>
+						</i:Interaction.Triggers>
+					</ListView>
+				</ScrollViewer>
 			</Grid>
 		</Border>
 	</Grid>

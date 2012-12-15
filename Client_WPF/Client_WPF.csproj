@@ -39,11 +39,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Expression.Interactions" />
+    <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -63,6 +67,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Behavior\ApplyEffectBehavior.cs" />
+    <Compile Include="Behavior\WebBrowserUtilityBehavior.cs" />
+    <Compile Include="Converter\StringToHtmlPageConveter.cs" />
     <Compile Include="DataModel\FeedDataModel.cs" />
     <Compile Include="DataModel\UserDataModel.cs" />
     <Compile Include="Service References\RSSService\Reference.cs">
@@ -72,6 +78,9 @@
     </Compile>
     <Compile Include="ViewModel\FeedDetailsViewModel.cs" />
     <Compile Include="ViewModel\FeedsManagerViewModel.cs" />
+    <Compile Include="View\ChannelDetails.xaml.cs">
+      <DependentUpon>ChannelDetails.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\FeedsManager.xaml.cs">
       <DependentUpon>FeedsManager.xaml</DependentUpon>
     </Compile>
@@ -88,6 +97,10 @@
     <Compile Include="View\LoginModal.xaml.cs">
       <DependentUpon>LoginModal.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\ChannelDetails.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\FeedsManager.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
