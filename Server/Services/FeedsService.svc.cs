@@ -95,11 +95,33 @@ namespace Server.Services
             var dbItems = from item in db.Items where item.id_channel == feed.Id select item;
             foreach (var dbItem in dbItems)
             {
-                items.Add(new Item(dbItem));
+                items.Add(new Item(dbItem, user));
             }
 
             return new WebResult<List<Item>>(items);
+        }
 
+        [OperationContract]
+        public WebResult ReadItem(string connectionKey, Item item)
+        {
+            if (item == null)
+                return new WebResult<List<Item>>(WebResult.ErrorCodeList.INVALID_PARAMETER);
+
+            EntityFramwork.User user = _sessionWrapper.GetUser(connectionKey);
+            if (user == null) return new WebResult<List<Item>>(WebResult.ErrorCodeList.NOT_LOGUED);
+
+            var alreadyRead = (from dbItem in db.ItemReads where dbItem.id_item == item.Id && dbItem.User == user select item).SingleOrDefault() != null;
+            if (alreadyRead)
+                return new WebResult();
+
+            EntityFramwork.ItemRead ir = new EntityFramwork.ItemRead()
+            {
+                User = user,
+                id_item = item.Id
+            };
+            db.ItemReads.InsertOnSubmit(ir);
+            db.SubmitChanges();
+            return new WebResult();
         }
     }
 }

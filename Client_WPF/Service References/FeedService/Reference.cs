@@ -99,6 +99,9 @@ namespace Client_WPF.FeedService {
             
             [System.Runtime.Serialization.EnumMemberAttribute()]
             PARAMETER_ERROR = 11,
+            
+            [System.Runtime.Serialization.EnumMemberAttribute()]
+            INVALID_PARAMETER = 12,
         }
     }
     
@@ -381,6 +384,9 @@ namespace Client_WPF.FeedService {
         private System.Nullable<System.DateTime> PubDateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ReadField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TitleField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -511,6 +517,19 @@ namespace Client_WPF.FeedService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Read {
+            get {
+                return this.ReadField;
+            }
+            set {
+                if ((this.ReadField.Equals(value) != true)) {
+                    this.ReadField = value;
+                    this.RaisePropertyChanged("Read");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Title {
             get {
                 return this.TitleField;
@@ -568,6 +587,14 @@ namespace Client_WPF.FeedService {
         System.IAsyncResult BeginGetFeedItems(string connectionKey, Client_WPF.FeedService.Channel feed, System.AsyncCallback callback, object asyncState);
         
         Client_WPF.FeedService.WebResultOfArrayOfItemMeg_PnYqa EndGetFeedItems(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/FeedsService/ReadItem", ReplyAction="http://tempuri.org/FeedsService/ReadItemResponse")]
+        Client_WPF.FeedService.WebResult ReadItem(string connectionKey, Client_WPF.FeedService.Item item);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/FeedsService/ReadItem", ReplyAction="http://tempuri.org/FeedsService/ReadItemResponse")]
+        System.IAsyncResult BeginReadItem(string connectionKey, Client_WPF.FeedService.Item item, System.AsyncCallback callback, object asyncState);
+        
+        Client_WPF.FeedService.WebResult EndReadItem(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -652,6 +679,25 @@ namespace Client_WPF.FeedService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class ReadItemCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public ReadItemCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Client_WPF.FeedService.WebResult Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Client_WPF.FeedService.WebResult)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class FeedsServiceClient : System.ServiceModel.ClientBase<Client_WPF.FeedService.FeedsService>, Client_WPF.FeedService.FeedsService {
         
         private BeginOperationDelegate onBeginAddNewFeedDelegate;
@@ -677,6 +723,12 @@ namespace Client_WPF.FeedService {
         private EndOperationDelegate onEndGetFeedItemsDelegate;
         
         private System.Threading.SendOrPostCallback onGetFeedItemsCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginReadItemDelegate;
+        
+        private EndOperationDelegate onEndReadItemDelegate;
+        
+        private System.Threading.SendOrPostCallback onReadItemCompletedDelegate;
         
         public FeedsServiceClient() {
         }
@@ -704,6 +756,8 @@ namespace Client_WPF.FeedService {
         public event System.EventHandler<UnfollowFeedCompletedEventArgs> UnfollowFeedCompleted;
         
         public event System.EventHandler<GetFeedItemsCompletedEventArgs> GetFeedItemsCompleted;
+        
+        public event System.EventHandler<ReadItemCompletedEventArgs> ReadItemCompleted;
         
         public Client_WPF.FeedService.WebResultOfChannelMeg_PnYqa AddNewFeed(string connectionKey, System.Uri uri) {
             return base.Channel.AddNewFeed(connectionKey, uri);
@@ -909,6 +963,58 @@ namespace Client_WPF.FeedService {
             base.InvokeAsync(this.onBeginGetFeedItemsDelegate, new object[] {
                         connectionKey,
                         feed}, this.onEndGetFeedItemsDelegate, this.onGetFeedItemsCompletedDelegate, userState);
+        }
+        
+        public Client_WPF.FeedService.WebResult ReadItem(string connectionKey, Client_WPF.FeedService.Item item) {
+            return base.Channel.ReadItem(connectionKey, item);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginReadItem(string connectionKey, Client_WPF.FeedService.Item item, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginReadItem(connectionKey, item, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Client_WPF.FeedService.WebResult EndReadItem(System.IAsyncResult result) {
+            return base.Channel.EndReadItem(result);
+        }
+        
+        private System.IAsyncResult OnBeginReadItem(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string connectionKey = ((string)(inValues[0]));
+            Client_WPF.FeedService.Item item = ((Client_WPF.FeedService.Item)(inValues[1]));
+            return this.BeginReadItem(connectionKey, item, callback, asyncState);
+        }
+        
+        private object[] OnEndReadItem(System.IAsyncResult result) {
+            Client_WPF.FeedService.WebResult retVal = this.EndReadItem(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnReadItemCompleted(object state) {
+            if ((this.ReadItemCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.ReadItemCompleted(this, new ReadItemCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void ReadItemAsync(string connectionKey, Client_WPF.FeedService.Item item) {
+            this.ReadItemAsync(connectionKey, item, null);
+        }
+        
+        public void ReadItemAsync(string connectionKey, Client_WPF.FeedService.Item item, object userState) {
+            if ((this.onBeginReadItemDelegate == null)) {
+                this.onBeginReadItemDelegate = new BeginOperationDelegate(this.OnBeginReadItem);
+            }
+            if ((this.onEndReadItemDelegate == null)) {
+                this.onEndReadItemDelegate = new EndOperationDelegate(this.OnEndReadItem);
+            }
+            if ((this.onReadItemCompletedDelegate == null)) {
+                this.onReadItemCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnReadItemCompleted);
+            }
+            base.InvokeAsync(this.onBeginReadItemDelegate, new object[] {
+                        connectionKey,
+                        item}, this.onEndReadItemDelegate, this.onReadItemCompletedDelegate, userState);
         }
     }
 }

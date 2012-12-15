@@ -46,7 +46,7 @@ namespace Server.Data
     [DataContract]
     public class Item
     {
-        public Item(EntityFramwork.Item dbItem)
+        public Item(EntityFramwork.Item dbItem, EntityFramwork.User user)
         {
             Id = dbItem.id;
             IdChannel = dbItem.id_channel;
@@ -57,7 +57,13 @@ namespace Server.Data
             Author = dbItem.author;
             Category = dbItem.category;
             Comments = dbItem.comments;
+
+            using (var db = new EntityFramwork.ServerDataContext())
+            {
+                Read = (from item in db.ItemReads where item.id_item == Id && item.User == user select item).SingleOrDefault() != null;
+            }
         }
+
         #region DataMember
         [DataMember]
         public int Id { get; set; }
@@ -79,6 +85,8 @@ namespace Server.Data
         public string Category { get; set; }
         [DataMember]
         public string Comments { get; set; }
+        [DataMember]
+        public bool Read { get; set; }
         #endregion
     }
 

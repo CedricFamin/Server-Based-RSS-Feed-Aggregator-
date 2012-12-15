@@ -32,6 +32,12 @@
   <wsdl:message name="FeedsService_GetFeedItems_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetFeedItemsResponse" />
   </wsdl:message>
+  <wsdl:message name="FeedsService_ReadItem_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReadItem" />
+  </wsdl:message>
+  <wsdl:message name="FeedsService_ReadItem_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReadItemResponse" />
+  </wsdl:message>
   <wsdl:portType name="FeedsService">
     <wsdl:operation name="AddNewFeed">
       <wsdl:input wsaw:Action="http://tempuri.org/FeedsService/AddNewFeed" message="tns:FeedsService_AddNewFeed_InputMessage" />
@@ -48,6 +54,10 @@
     <wsdl:operation name="GetFeedItems">
       <wsdl:input wsaw:Action="http://tempuri.org/FeedsService/GetFeedItems" message="tns:FeedsService_GetFeedItems_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/FeedsService/GetFeedItemsResponse" message="tns:FeedsService_GetFeedItems_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReadItem">
+      <wsdl:input wsaw:Action="http://tempuri.org/FeedsService/ReadItem" message="tns:FeedsService_ReadItem_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/FeedsService/ReadItemResponse" message="tns:FeedsService_ReadItem_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_FeedsService" type="tns:FeedsService">
@@ -81,6 +91,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetFeedItems">
       <soap:operation soapAction="http://tempuri.org/FeedsService/GetFeedItems" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReadItem">
+      <soap:operation soapAction="http://tempuri.org/FeedsService/ReadItem" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

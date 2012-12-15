@@ -67,6 +67,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Behavior\ApplyEffectBehavior.cs" />
+    <Compile Include="Behavior\ToggleImageBackgroundBehavior.cs" />
     <Compile Include="Behavior\WebBrowserUtilityBehavior.cs" />
     <Compile Include="Converter\StringToHtmlPageConveter.cs" />
     <Compile Include="DataModel\FeedDataModel.cs" />
@@ -214,6 +215,8 @@
     <Resource Include="View\1355463466_Close_Box_Red.png" />
     <Resource Include="View\1355592700_Next.png" />
     <Resource Include="View\1355592710_Delete.png" />
+    <Resource Include="View\1355603513_099354-rss-cube.png" />
+    <Resource Include="View\1355603527_rss.png" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\FeedService\" />

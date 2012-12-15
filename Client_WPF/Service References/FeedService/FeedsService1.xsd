@@ -37,6 +37,7 @@
       <xs:element minOccurs="0" name="IdChannel" type="xs:int" />
       <xs:element minOccurs="0" name="Link" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PubDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Read" type="xs:boolean" />
       <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>

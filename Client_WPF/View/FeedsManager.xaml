@@ -35,7 +35,7 @@
 				<StackPanel VerticalAlignment="Top" Orientation="Horizontal" HorizontalAlignment="Center" d:LayoutOverrides="VerticalAlignment">
 					<TextBlock TextWrapping="Wrap" Text="Add new feed : " Foreground="{DynamicResource DefaultColor}"/>
 					<TextBox x:Name="feed_url" Width="200" Background="{DynamicResource DefaultBackground}" Text="{Binding UrlFeed}" Foreground="{DynamicResource DefaultColor}"/>
-					<Button Content="Button" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="21" Height="21">
+					<Button Content="Button" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="21" Height="21" Style="{DynamicResource ButtonImageStyle}">
 						<Button.Background>
 							<ImageBrush ImageSource="1355456206_plus_64.png"/>
 						</Button.Background>
@@ -45,7 +45,7 @@
 							</i:EventTrigger>
 						</i:Interaction.Triggers>
 					</Button>
-					<Button Content="Button" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="21" Height="21">
+					<Button Content="Button" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="21" Height="21" Style="{DynamicResource ButtonImageStyle}">
 						<Button.Background>
 							<ImageBrush ImageSource="1355455076_interact.png"/>
 						</Button.Background>
@@ -83,7 +83,7 @@
 													<TextBlock TextWrapping="Wrap" Text="{Binding Link}" Cursor="Hand"/>
 												</InlineUIContainer></TextBlock>
 											<StackPanel Grid.Column="1" Orientation="Horizontal" d:LayoutOverrides="Width" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
-												<Button Content="Button" Margin="0" d:LayoutOverrides="HorizontalAlignment" Width="24" BorderBrush="{x:Null}" Foreground="{x:Null}" Height="Auto">
+												<Button Content="Button" Margin="0" d:LayoutOverrides="HorizontalAlignment" Width="24" BorderBrush="{x:Null}" Foreground="{x:Null}" Height="Auto" Style="{DynamicResource ButtonImageStyle}">
 													<i:Interaction.Triggers>
 														<i:EventTrigger EventName="Click">
 															<i:InvokeCommandAction CommandParameter="{Binding Mode=OneWay}" Command="{Binding OpenFeedDetails, Source={StaticResource FeedsManagerViewModelDataSource}}"/>
@@ -93,7 +93,7 @@
 														<ImageBrush ImageSource="1355592700_Next.png"/>
 													</Button.Background>
 												</Button>
-												<Button Content="Button" Margin="0" Width="24" Height="Auto" BorderBrush="{x:Null}" Foreground="{x:Null}" VerticalAlignment="Stretch">
+												<Button Content="Button" Margin="0" Width="24" Height="Auto" BorderBrush="{x:Null}" Foreground="{x:Null}" VerticalAlignment="Stretch" Style="{DynamicResource ButtonImageStyle}">
 													<Button.Background>
 														<ImageBrush ImageSource="1355592710_Delete.png"/>
 													</Button.Background>
