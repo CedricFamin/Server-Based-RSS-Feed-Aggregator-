@@ -38,6 +38,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Expression.Effects" />
     <Reference Include="Microsoft.Expression.Interactions" />
     <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -220,6 +221,8 @@
     <Resource Include="View\1355603527_rss.png" />
     <Resource Include="View\1355616256_maximize.png" />
     <Resource Include="View\1355616266_minimize.png" />
+    <Resource Include="View\1355619391_Share This.png" />
+    <Resource Include="View\1355619796_view_text.png" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\FeedService\" />
