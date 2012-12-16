@@ -208,21 +208,18 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\1355008452_zoom.png" />
-    <Resource Include="Images\1355008732_magnifyingglass.png" />
-    <Resource Include="Images\1355429745_rss_feeds.png" />
+    <Resource Include="Images\add.png" />
     <Resource Include="Images\background.jpg" />
-    <Resource Include="View\1355455076_interact.png" />
-    <Resource Include="View\1355456206_plus_64.png" />
-    <Resource Include="View\1355463466_Close_Box_Red.png" />
-    <Resource Include="View\1355592700_Next.png" />
-    <Resource Include="View\1355592710_Delete.png" />
-    <Resource Include="View\1355603513_099354-rss-cube.png" />
-    <Resource Include="View\1355603527_rss.png" />
-    <Resource Include="View\1355616256_maximize.png" />
-    <Resource Include="View\1355616266_minimize.png" />
-    <Resource Include="View\1355619391_Share This.png" />
-    <Resource Include="View\1355619796_view_text.png" />
+    <Resource Include="Images\delete.png" />
+    <Resource Include="Images\details.png" />
+    <Resource Include="Images\icone.png" />
+    <Resource Include="Images\maximize.png" />
+    <Resource Include="Images\minimize.png" />
+    <Resource Include="Images\refresh.png" />
+    <Resource Include="Images\rss_off.png" />
+    <Resource Include="Images\rss_on.png" />
+    <Resource Include="Images\search.png" />
+    <Resource Include="Images\share.png" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\FeedService\" />

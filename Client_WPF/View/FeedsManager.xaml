@@ -3,7 +3,8 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:Client_WPF_ViewModel="clr-namespace:Client_WPF.ViewModel" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+	xmlns:Client_WPF_ViewModel="clr-namespace:Client_WPF.ViewModel" 
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
 	xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
 	xmlns:ee="http://schemas.microsoft.com/expression/2010/effects"
 	mc:Ignorable="d"
@@ -30,7 +31,7 @@
 			<TextBox x:Name="feed_url" Width="200" Background="{DynamicResource DefaultBackground}" Text="{Binding UrlFeed}" Foreground="{DynamicResource DefaultColor}"/>
 			<Button Content="Button" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="21" Height="21" Style="{DynamicResource ButtonImageStyle}">
 				<Button.Background>
-					<ImageBrush ImageSource="1355456206_plus_64.png"/>
+					<ImageBrush ImageSource="/Client_WPF;component/Images/add.png"/>
 				</Button.Background>
 				<i:Interaction.Triggers>
 					<i:EventTrigger EventName="Click">
@@ -40,7 +41,7 @@
 			</Button>
 			<Button Content="Button" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="21" Height="21" Style="{DynamicResource ButtonImageStyle}">
 				<Button.Background>
-					<ImageBrush ImageSource="1355455076_interact.png"/>
+					<ImageBrush ImageSource="/Client_WPF;component/Images/refresh.png"/>
 				</Button.Background>
 				<i:Interaction.Triggers>
 					<i:EventTrigger EventName="Click">
@@ -83,12 +84,12 @@
 												</i:EventTrigger>
 											</i:Interaction.Triggers>
 											<Button.Background>
-												<ImageBrush ImageSource="1355619796_view_text.png"/>
+												<ImageBrush ImageSource="/Client_WPF;component/Images/details.png"/>
 											</Button.Background>
 										</Button>
 										<Button Content="Button" Width="24" Style="{DynamicResource ButtonImageStyle}" BorderBrush="{x:Null}" Height="24" Foreground="{x:Null}">
 											<Button.Background>
-												<ImageBrush ImageSource="1355619391_Share This.png"/>
+												<ImageBrush ImageSource="/Client_WPF;component/Images/share.png"/>
 											</Button.Background>
 										</Button>
 										<Button Content="Button" Margin="0" Width="24" Height="Auto" BorderBrush="{x:Null}" Foreground="{x:Null}" VerticalAlignment="Stretch" Style="{DynamicResource ButtonImageStyle}">
@@ -98,7 +99,7 @@
 												</i:EventTrigger>
 											</i:Interaction.Triggers>
 											<Button.Background>
-												<ImageBrush ImageSource="1355463466_Close_Box_Red.png"/>
+												<ImageBrush ImageSource="/Client_WPF;component/Images/delete.png"/>
 											</Button.Background>
 										</Button>
 									</StackPanel>

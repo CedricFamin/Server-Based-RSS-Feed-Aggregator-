@@ -5,7 +5,7 @@
 	x:Class="Client_WPF.ChannelDetails"
 	x:Name="Window"
 	Title="{Binding WindowTitle, Mode=OneWay}"
-	Width="640" Height="480" Icon="/Client_WPF;component/Images/1355429745_rss_feeds.png">
+	Width="640" Height="480" Icon="/Client_WPF;component/Images/icone.png">
 	<Window.Resources>
 		<Client_WPF_Converter:StringToHtmlPageConverter x:Key="StringToHtmlPageConverter"/>
 		<Client_WPF_ViewModel:FeedDetailsViewModel x:Key="FeedDetailsViewModelDataSource" d:IsDataSource="True"/>
@@ -39,10 +39,10 @@
 								<StackPanel Grid.Column="1" Margin="0,0,0,0.415" Orientation="Horizontal" d:LayoutOverrides="Height">
 									<Button Content="Button" HorizontalAlignment="Right" Margin="0,0,2,0" Width="24" Height="24" d:LayoutOverrides="Height" Style="{DynamicResource ButtonImageStyle}" BorderBrush="{x:Null}" Foreground="{x:Null}">
 										<Button.Background>
-											<ImageBrush ImageSource="1355616256_maximize.png"/>
+											<ImageBrush ImageSource="/Client_WPF;component/Images/maximize.png"/>
 										</Button.Background>
 										<i:Interaction.Behaviors>
-											<Client_WPF_Behavior:ToggleImageBackgroundBehavior BGImageOff="1355616256_maximize.png" BGImageOn="1355616266_minimize.png"/>
+											<Client_WPF_Behavior:ToggleImageBackgroundBehavior BGImageOff="/Client_WPF;component/Images/maximize.png" BGImageOn="/Client_WPF;component/Images/minimize.png"/>
 											<Client_WPF_Behavior:ToggleVisibilityBehavior Target="{Binding ElementName=webBrowser, Mode=OneWay}"/>
 										</i:Interaction.Behaviors>
 									</Button>
@@ -53,10 +53,10 @@
 											</i:EventTrigger>
 										</i:Interaction.Triggers>
 										<i:Interaction.Behaviors>
-											<Client_WPF_Behavior:ToggleImageBackgroundBehavior BGImageOff="1355603513_099354-rss-cube.png" BGImageOn="1355603527_rss.png" IsOn="{Binding Read}"/>
+											<Client_WPF_Behavior:ToggleImageBackgroundBehavior BGImageOff="/Client_WPF;component/Images/rss_off.png" BGImageOn="/Client_WPF;component/Images/rss_on.png" IsOn="{Binding Read}"/>
 										</i:Interaction.Behaviors>
 										<Button.Background>
-											<ImageBrush ImageSource="1355603513_099354-rss-cube.png"/>
+											<ImageBrush ImageSource="/Client_WPF;component/Images/rss_off.png"/>
 										</Button.Background>
 									</Button>
 								</StackPanel>
