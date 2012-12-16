@@ -59,7 +59,7 @@ namespace Client_WPF.ViewModel
             }
 
             ReadItem = new RelayCommand((param) => ReadItemBody(param as Item));
-            feedDetailsDataModel = new FeedDetailsDataModel();
+            //feedDetailsDataModel = new FeedDetailsDataModel();
         }
 
         public FeedDetailsViewModel(Channel channel)

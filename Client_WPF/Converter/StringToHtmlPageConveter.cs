@@ -9,8 +9,8 @@ namespace Client_WPF.Converter
     public class StringToHtmlPageConverter : IValueConverter
     {
 
-        private string header = "<html><head></head><body>";
-        private string footer = "</body></html>";
+        private string header = "<! doctype html><html><head><meta charset='UTF-8'/></head><body><div>";
+        private string footer = "</div></body></html>";
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
