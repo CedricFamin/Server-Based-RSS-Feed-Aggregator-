@@ -20,6 +20,12 @@
   <wsdl:message name="FeedsService_GetFeeds_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetFeedsResponse" />
   </wsdl:message>
+  <wsdl:message name="FeedsService_GetAllFeeds_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllFeeds" />
+  </wsdl:message>
+  <wsdl:message name="FeedsService_GetAllFeeds_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllFeedsResponse" />
+  </wsdl:message>
   <wsdl:message name="FeedsService_UnfollowFeed_InputMessage">
     <wsdl:part name="parameters" element="tns:UnfollowFeed" />
   </wsdl:message>
@@ -47,6 +53,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/FeedsService/GetFeeds" message="tns:FeedsService_GetFeeds_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/FeedsService/GetFeedsResponse" message="tns:FeedsService_GetFeeds_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetAllFeeds">
+      <wsdl:input wsaw:Action="http://tempuri.org/FeedsService/GetAllFeeds" message="tns:FeedsService_GetAllFeeds_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/FeedsService/GetAllFeedsResponse" message="tns:FeedsService_GetAllFeeds_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="UnfollowFeed">
       <wsdl:input wsaw:Action="http://tempuri.org/FeedsService/UnfollowFeed" message="tns:FeedsService_UnfollowFeed_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/FeedsService/UnfollowFeedResponse" message="tns:FeedsService_UnfollowFeed_OutputMessage" />
@@ -73,6 +83,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetFeeds">
       <soap:operation soapAction="http://tempuri.org/FeedsService/GetFeeds" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllFeeds">
+      <soap:operation soapAction="http://tempuri.org/FeedsService/GetAllFeeds" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

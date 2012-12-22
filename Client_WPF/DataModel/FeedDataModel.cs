@@ -35,6 +35,13 @@ namespace Client_WPF.DataModel
             private set { channels = value; RaisePropertyChange("Channels"); }
         }
 
+        private List<Channel> allChannels = null;
+        public List<Channel> AllChannels
+        {
+            get { return allChannels; }
+            private set { allChannels = value; RaisePropertyChange("AllChannels"); }
+        }
+
         private List<Item> item = null;
         public List<Item> Items
         {
@@ -54,6 +61,7 @@ namespace Client_WPF.DataModel
                 FeedsClient.AddNewFeedCompleted += new EventHandler<AddNewFeedCompletedEventArgs>(FeedsClient_AddNewFeedCompleted);
                 FeedsClient.UnfollowFeedCompleted += new EventHandler<UnfollowFeedCompletedEventArgs>(FeedsClient_UnfollowFeedCompleted);
                 FeedsClient.GetFeedItemsCompleted += new EventHandler<GetFeedItemsCompletedEventArgs>(FeedsClient_GetFeedItemsCompleted);
+                feedsClient.GetAllFeedsCompleted += new EventHandler<GetAllFeedsCompletedEventArgs>(feedsClient_GetAllFeedsCompleted);
             }
             catch (Exception)
             {
@@ -61,6 +69,17 @@ namespace Client_WPF.DataModel
                 // HACK BIZARRE BUG DE BLEND
             }
             
+        }
+
+        void feedsClient_GetAllFeedsCompleted(object sender, GetAllFeedsCompletedEventArgs e)
+        {
+            if (e.Error == null)
+            {
+                if (e.Result.ErrorCode == WebResult.ErrorCodeList.SUCCESS)
+                {
+                    AllChannels = e.Result.Value.ToList();
+                }
+            }
         }
         #endregion
 
@@ -115,6 +134,7 @@ namespace Client_WPF.DataModel
         {
             UserData.ShowConnexionModel_IFN();
             FeedsClient.GetFeedsAsync(UserData.GetConnectionString());
+            FeedsClient.GetAllFeedsAsync();
         }
 
         public void AddNewFeed(string url)

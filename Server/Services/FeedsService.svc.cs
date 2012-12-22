@@ -61,6 +61,21 @@ namespace Server.Services
 
             return new WebResult<List<Channel>>(chans);
         }
+
+        [OperationContract]
+        public WebResult<List<Channel>> GetAllFeeds()
+        {
+      
+            List<Channel> chans = new List<Channel>();
+
+            var dbChans = db.Channels.ToList();
+            foreach (var dbChan in dbChans)
+            {
+                chans.Add(new Channel(dbChan));
+            }
+
+            return new WebResult<List<Channel>>(chans);
+        }
         
         [OperationContract]
         public WebResult UnfollowFeed(string connectionKey, Channel feed)

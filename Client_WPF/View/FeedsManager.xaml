@@ -50,78 +50,173 @@
 				</i:Interaction.Triggers>
 			</Button>
 		</StackPanel>
-		<ScrollViewer Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Auto" >
-			<ItemsControl x:Name="listView" ItemsSource="{Binding Channels}" ItemTemplate="{DynamicResource DataTemplate}" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Top" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
-				<ItemsControl.Resources>
-					<DataTemplate x:Key="DataTemplate">
-						<Border Margin="10" Padding="10">
-							<Border.ContextMenu>
-								<ContextMenu>
-									<MenuItem CommandParameter="{Binding Mode=OneWay}" Command="{Binding RemoveFeed, Mode=OneWay, Source={StaticResource FeedsManagerViewModelDataSource}}" Header="Remove"/>
-								</ContextMenu>
-							</Border.ContextMenu>
-							<Border.Background>
-								<SolidColorBrush Color="Black" Opacity="0.3"/>
-							</Border.Background>
-							<StackPanel>
-								<Grid Height="Auto" Width="Auto">
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition/>
-										<ColumnDefinition Width="Auto"/>
-									</Grid.ColumnDefinitions>
-									<TextBlock Margin="0" TextWrapping="Wrap" Foreground="{DynamicResource DefaultColor}" FontWeight="Bold" FontSize="18.667" d:LayoutOverrides="Width, Height"><InlineUIContainer>
-											<TextBlock TextWrapping="Wrap" Text="{Binding Title}"/>
-										</InlineUIContainer><InlineUIContainer>
-											<TextBlock TextWrapping="Wrap" Text=" : "/>
-										</InlineUIContainer><InlineUIContainer>
-											<TextBlock TextWrapping="Wrap" Text="{Binding Link}" Cursor="Hand"/>
-										</InlineUIContainer></TextBlock>
-									<StackPanel Grid.Column="1" Orientation="Horizontal" d:LayoutOverrides="Width" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
-										<Button Content="Button" Margin="0" d:LayoutOverrides="HorizontalAlignment" Width="24" BorderBrush="{x:Null}" Foreground="{x:Null}" Height="28" Style="{DynamicResource ButtonImageStyle}" VerticalAlignment="Center">
-											<i:Interaction.Triggers>
-												<i:EventTrigger EventName="Click">
-													<i:InvokeCommandAction CommandParameter="{Binding Mode=OneWay}" Command="{Binding OpenFeedDetails, Source={StaticResource FeedsManagerViewModelDataSource}}"/>
-												</i:EventTrigger>
-											</i:Interaction.Triggers>
-											<Button.Background>
-												<ImageBrush ImageSource="/Client_WPF;component/Images/details.png"/>
-											</Button.Background>
-										</Button>
-										<Button Content="Button" Width="24" Style="{DynamicResource ButtonImageStyle}" BorderBrush="{x:Null}" Height="24" Foreground="{x:Null}">
-											<Button.Background>
-												<ImageBrush ImageSource="/Client_WPF;component/Images/share.png"/>
-											</Button.Background>
-										</Button>
-										<Button Content="Button" Margin="0" Width="24" Height="Auto" BorderBrush="{x:Null}" Foreground="{x:Null}" VerticalAlignment="Stretch" Style="{DynamicResource ButtonImageStyle}">
-											<i:Interaction.Triggers>
-												<i:EventTrigger EventName="Click">
-													<i:InvokeCommandAction CommandParameter="{Binding Mode=OneWay}" Command="{Binding RemoveFeed, Mode=OneWay, Source={StaticResource FeedsManagerViewModelDataSource}}"/>
-												</i:EventTrigger>
-											</i:Interaction.Triggers>
-											<Button.Background>
-												<ImageBrush ImageSource="/Client_WPF;component/Images/delete.png"/>
-											</Button.Background>
-										</Button>
+		<TabControl Margin="0" Grid.Row="1" Background="{x:Null}">
+			<TabItem Header="My Feeds">
+				<TabItem.Background>
+					<LinearGradientBrush EndPoint="0,1" Opacity="0.2" StartPoint="0,0">
+						<GradientStop Color="#FFF3F3F3" Offset="0"/>
+						<GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+						<GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+						<GradientStop Color="#FFCDCDCD" Offset="1"/>
+					</LinearGradientBrush>
+				</TabItem.Background>
+				<ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" >
+					<ItemsControl x:Name="listView" ItemsSource="{Binding Channels}" ItemTemplate="{DynamicResource DataTemplate}" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Top" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+						<ItemsControl.Resources>
+							<DataTemplate x:Key="DataTemplate">
+								<Border Margin="10" Padding="10">
+									<Border.ContextMenu>
+										<ContextMenu>
+											<MenuItem CommandParameter="{Binding Mode=OneWay}" Command="{Binding RemoveFeed, Mode=OneWay, Source={StaticResource FeedsManagerViewModelDataSource}}" Header="Remove"/>
+										</ContextMenu>
+									</Border.ContextMenu>
+									<Border.Background>
+										<SolidColorBrush Color="Black" Opacity="0.3"/>
+									</Border.Background>
+									<StackPanel>
+										<Grid Height="Auto" Width="Auto">
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition/>
+												<ColumnDefinition Width="Auto"/>
+											</Grid.ColumnDefinitions>
+											<TextBlock Margin="0" TextWrapping="Wrap" Foreground="{DynamicResource DefaultColor}" FontWeight="Bold" FontSize="18.667" d:LayoutOverrides="Width, Height"><InlineUIContainer>
+													<TextBlock TextWrapping="Wrap" Text="{Binding Title}"/>
+												</InlineUIContainer><InlineUIContainer>
+													<TextBlock TextWrapping="Wrap" Text=" : "/>
+												</InlineUIContainer><InlineUIContainer>
+													<TextBlock TextWrapping="Wrap" Text="{Binding Link}" Cursor="Hand"/>
+												</InlineUIContainer></TextBlock>
+											<StackPanel Grid.Column="1" Orientation="Horizontal" d:LayoutOverrides="Width" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
+												<Button Content="Button" Margin="0" d:LayoutOverrides="HorizontalAlignment" Width="24" BorderBrush="{x:Null}" Foreground="{x:Null}" Height="28" Style="{DynamicResource ButtonImageStyle}" VerticalAlignment="Center">
+													<i:Interaction.Triggers>
+														<i:EventTrigger EventName="Click">
+															<i:InvokeCommandAction CommandParameter="{Binding Mode=OneWay}" Command="{Binding OpenFeedDetails, Source={StaticResource FeedsManagerViewModelDataSource}}"/>
+														</i:EventTrigger>
+													</i:Interaction.Triggers>
+													<Button.Background>
+														<ImageBrush ImageSource="/Client_WPF;component/Images/details.png"/>
+													</Button.Background>
+												</Button>
+												<Button Content="Button" Width="24" Style="{DynamicResource ButtonImageStyle}" BorderBrush="{x:Null}" Height="24" Foreground="{x:Null}">
+													<Button.Background>
+														<ImageBrush ImageSource="/Client_WPF;component/Images/share.png"/>
+													</Button.Background>
+												</Button>
+												<Button Content="Button" Margin="0" Width="24" Height="Auto" BorderBrush="{x:Null}" Foreground="{x:Null}" VerticalAlignment="Stretch" Style="{DynamicResource ButtonImageStyle}">
+													<i:Interaction.Triggers>
+														<i:EventTrigger EventName="Click">
+															<i:InvokeCommandAction CommandParameter="{Binding Mode=OneWay}" Command="{Binding RemoveFeed, Mode=OneWay, Source={StaticResource FeedsManagerViewModelDataSource}}"/>
+														</i:EventTrigger>
+													</i:Interaction.Triggers>
+													<Button.Background>
+														<ImageBrush ImageSource="/Client_WPF;component/Images/delete.png"/>
+													</Button.Background>
+												</Button>
+											</StackPanel>
+										</Grid>
+										<TextBlock Text="{Binding Description}" Foreground="{DynamicResource DefaultColor}" ScrollViewer.VerticalScrollBarVisibility="Disabled" TextWrapping="Wrap" Margin="0" VerticalAlignment="Stretch"/>
 									</StackPanel>
-								</Grid>
-								<TextBlock Text="{Binding Description}" Foreground="{DynamicResource DefaultColor}" ScrollViewer.VerticalScrollBarVisibility="Disabled" TextWrapping="Wrap" Margin="0" VerticalAlignment="Stretch"/>
-							</StackPanel>
-						</Border>
-					</DataTemplate>
-				</ItemsControl.Resources>
-				<i:Interaction.Triggers>
-					<i:EventTrigger EventName="SelectionChanged">
-						<i:Interaction.Behaviors>
-							<ei:ConditionBehavior>
-								<ei:ConditionalExpression>
-									<ei:ComparisonCondition LeftOperand="{Binding CurrentChannel}" Operator="NotEqual" RightOperand="null"/>
-								</ei:ConditionalExpression>
-							</ei:ConditionBehavior>
-						</i:Interaction.Behaviors>
-						<i:InvokeCommandAction Command="{Binding LoadFeedItems, Mode=OneWay}" CommandParameter="{Binding SelectedItem, ElementName=listView}"/>
-					</i:EventTrigger>
-				</i:Interaction.Triggers>
-			</ItemsControl>
-		</ScrollViewer>
+								</Border>
+							</DataTemplate>
+						</ItemsControl.Resources>
+						<i:Interaction.Triggers>
+							<i:EventTrigger EventName="SelectionChanged">
+								<i:Interaction.Behaviors>
+									<ei:ConditionBehavior>
+										<ei:ConditionalExpression>
+											<ei:ComparisonCondition LeftOperand="{Binding CurrentChannel}" Operator="NotEqual" RightOperand="null"/>
+										</ei:ConditionalExpression>
+									</ei:ConditionBehavior>
+								</i:Interaction.Behaviors>
+								<i:InvokeCommandAction Command="{Binding LoadFeedItems, Mode=OneWay}" CommandParameter="{Binding SelectedItem, ElementName=listView}"/>
+							</i:EventTrigger>
+						</i:Interaction.Triggers>
+					</ItemsControl>
+				</ScrollViewer>
+			</TabItem>
+			<TabItem Header="All Feeds">
+				<TabItem.Background>
+					<LinearGradientBrush EndPoint="0,1" Opacity="0.2" StartPoint="0,0">
+						<GradientStop Color="#FFF3F3F3" Offset="0"/>
+						<GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+						<GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+						<GradientStop Color="#FFCDCDCD" Offset="1"/>
+					</LinearGradientBrush>
+				</TabItem.Background>
+				<ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" >
+					<ItemsControl x:Name="listView1" ItemsSource="{Binding AllChannels}" ItemTemplate="{DynamicResource DataTemplate}" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Top" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+						<ItemsControl.Resources>
+							<DataTemplate x:Key="DataTemplate">
+								<Border Margin="10" Padding="10">
+									<Border.ContextMenu>
+										<ContextMenu>
+											<MenuItem CommandParameter="{Binding Mode=OneWay}" Command="{Binding RemoveFeed, Mode=OneWay, Source={StaticResource FeedsManagerViewModelDataSource}}" Header="Remove"/>
+										</ContextMenu>
+									</Border.ContextMenu>
+									<Border.Background>
+										<SolidColorBrush Color="Black" Opacity="0.3"/>
+									</Border.Background>
+									<StackPanel>
+										<Grid Height="Auto" Width="Auto">
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition/>
+												<ColumnDefinition Width="Auto"/>
+											</Grid.ColumnDefinitions>
+											<TextBlock Margin="0" TextWrapping="Wrap" Foreground="{DynamicResource DefaultColor}" FontWeight="Bold" FontSize="18.667" d:LayoutOverrides="Width, Height"><InlineUIContainer>
+													<TextBlock TextWrapping="Wrap" Text="{Binding Title}"/>
+												</InlineUIContainer><InlineUIContainer>
+													<TextBlock TextWrapping="Wrap" Text=" : "/>
+												</InlineUIContainer><InlineUIContainer>
+													<TextBlock TextWrapping="Wrap" Text="{Binding Link}" Cursor="Hand"/>
+												</InlineUIContainer></TextBlock>
+											<StackPanel Grid.Column="1" Orientation="Horizontal" d:LayoutOverrides="Width" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
+												<Button Content="Button" Margin="0" d:LayoutOverrides="HorizontalAlignment" Width="24" BorderBrush="{x:Null}" Foreground="{x:Null}" Height="28" Style="{DynamicResource ButtonImageStyle}" VerticalAlignment="Center">
+													<i:Interaction.Triggers>
+														<i:EventTrigger EventName="Click">
+															<i:InvokeCommandAction CommandParameter="{Binding Mode=OneWay}" Command="{Binding OpenFeedDetails, Source={StaticResource FeedsManagerViewModelDataSource}}"/>
+														</i:EventTrigger>
+													</i:Interaction.Triggers>
+													<Button.Background>
+														<ImageBrush ImageSource="/Client_WPF;component/Images/details.png"/>
+													</Button.Background>
+												</Button>
+												<Button Content="Button" Width="24" Style="{DynamicResource ButtonImageStyle}" BorderBrush="{x:Null}" Height="24" Foreground="{x:Null}">
+													<Button.Background>
+														<ImageBrush ImageSource="/Client_WPF;component/Images/share.png"/>
+													</Button.Background>
+												</Button>
+												<Button Content="Button" Margin="0" Width="24" Height="Auto" BorderBrush="{x:Null}" Foreground="{x:Null}" VerticalAlignment="Stretch" Style="{DynamicResource ButtonImageStyle}">
+													<i:Interaction.Triggers>
+														<i:EventTrigger EventName="Click">
+															<i:InvokeCommandAction CommandParameter="{Binding Mode=OneWay}" Command="{Binding RemoveFeed, Mode=OneWay, Source={StaticResource FeedsManagerViewModelDataSource}}"/>
+														</i:EventTrigger>
+													</i:Interaction.Triggers>
+													<Button.Background>
+														<ImageBrush ImageSource="/Client_WPF;component/Images/delete.png"/>
+													</Button.Background>
+												</Button>
+											</StackPanel>
+										</Grid>
+										<TextBlock Text="{Binding Description}" Foreground="{DynamicResource DefaultColor}" ScrollViewer.VerticalScrollBarVisibility="Disabled" TextWrapping="Wrap" Margin="0" VerticalAlignment="Stretch"/>
+									</StackPanel>
+								</Border>
+							</DataTemplate>
+						</ItemsControl.Resources>
+						<i:Interaction.Triggers>
+							<i:EventTrigger EventName="SelectionChanged">
+								<i:Interaction.Behaviors>
+									<ei:ConditionBehavior>
+										<ei:ConditionalExpression>
+											<ei:ComparisonCondition LeftOperand="{Binding CurrentChannel}" Operator="NotEqual" RightOperand="null"/>
+										</ei:ConditionalExpression>
+									</ei:ConditionBehavior>
+								</i:Interaction.Behaviors>
+								<i:InvokeCommandAction Command="{Binding LoadFeedItems, Mode=OneWay}" CommandParameter="{Binding SelectedItem, ElementName=listView}"/>
+							</i:EventTrigger>
+						</i:Interaction.Triggers>
+					</ItemsControl>
+				</ScrollViewer>
+			</TabItem>
+		</TabControl>
 	</Grid>
 </UserControl>

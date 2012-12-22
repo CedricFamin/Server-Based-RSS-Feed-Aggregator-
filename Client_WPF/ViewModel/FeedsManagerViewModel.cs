@@ -27,6 +27,13 @@ namespace Client_WPF.ViewModel
             private set { channels = value; RaisePropertyChange("Channels"); }
         }
 
+        private List<Channel> allChannels = null;
+        public List<Channel> AllChannels
+        {
+            get { return allChannels; }
+            private set { allChannels = value; RaisePropertyChange("AllChannels"); }
+        }
+
         private List<Item> items = null;
         public List<Item> Items
         {
@@ -78,6 +85,8 @@ namespace Client_WPF.ViewModel
             }
             else if (e.PropertyName == "Items")
                 Items = (sender as FeedManagerDataModel).Items;
+            else if (e.PropertyName == "AllChannels")
+                AllChannels = (sender as FeedManagerDataModel).AllChannels;
         }
 
         

@@ -572,6 +572,14 @@ namespace Client_WPF.FeedService {
         
         Client_WPF.FeedService.WebResultOfArrayOfChannelMeg_PnYqa EndGetFeeds(System.IAsyncResult result);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/FeedsService/GetAllFeeds", ReplyAction="http://tempuri.org/FeedsService/GetAllFeedsResponse")]
+        Client_WPF.FeedService.WebResultOfArrayOfChannelMeg_PnYqa GetAllFeeds();
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/FeedsService/GetAllFeeds", ReplyAction="http://tempuri.org/FeedsService/GetAllFeedsResponse")]
+        System.IAsyncResult BeginGetAllFeeds(System.AsyncCallback callback, object asyncState);
+        
+        Client_WPF.FeedService.WebResultOfArrayOfChannelMeg_PnYqa EndGetAllFeeds(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/FeedsService/UnfollowFeed", ReplyAction="http://tempuri.org/FeedsService/UnfollowFeedResponse")]
         Client_WPF.FeedService.WebResult UnfollowFeed(string connectionKey, Client_WPF.FeedService.Channel feed);
         
@@ -627,6 +635,25 @@ namespace Client_WPF.FeedService {
         private object[] results;
         
         public GetFeedsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Client_WPF.FeedService.WebResultOfArrayOfChannelMeg_PnYqa Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Client_WPF.FeedService.WebResultOfArrayOfChannelMeg_PnYqa)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetAllFeedsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetAllFeedsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
@@ -712,6 +739,12 @@ namespace Client_WPF.FeedService {
         
         private System.Threading.SendOrPostCallback onGetFeedsCompletedDelegate;
         
+        private BeginOperationDelegate onBeginGetAllFeedsDelegate;
+        
+        private EndOperationDelegate onEndGetAllFeedsDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetAllFeedsCompletedDelegate;
+        
         private BeginOperationDelegate onBeginUnfollowFeedDelegate;
         
         private EndOperationDelegate onEndUnfollowFeedDelegate;
@@ -752,6 +785,8 @@ namespace Client_WPF.FeedService {
         public event System.EventHandler<AddNewFeedCompletedEventArgs> AddNewFeedCompleted;
         
         public event System.EventHandler<GetFeedsCompletedEventArgs> GetFeedsCompleted;
+        
+        public event System.EventHandler<GetAllFeedsCompletedEventArgs> GetAllFeedsCompleted;
         
         public event System.EventHandler<UnfollowFeedCompletedEventArgs> UnfollowFeedCompleted;
         
@@ -859,6 +894,54 @@ namespace Client_WPF.FeedService {
             }
             base.InvokeAsync(this.onBeginGetFeedsDelegate, new object[] {
                         connectionKey}, this.onEndGetFeedsDelegate, this.onGetFeedsCompletedDelegate, userState);
+        }
+        
+        public Client_WPF.FeedService.WebResultOfArrayOfChannelMeg_PnYqa GetAllFeeds() {
+            return base.Channel.GetAllFeeds();
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetAllFeeds(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetAllFeeds(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Client_WPF.FeedService.WebResultOfArrayOfChannelMeg_PnYqa EndGetAllFeeds(System.IAsyncResult result) {
+            return base.Channel.EndGetAllFeeds(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetAllFeeds(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetAllFeeds(callback, asyncState);
+        }
+        
+        private object[] OnEndGetAllFeeds(System.IAsyncResult result) {
+            Client_WPF.FeedService.WebResultOfArrayOfChannelMeg_PnYqa retVal = this.EndGetAllFeeds(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetAllFeedsCompleted(object state) {
+            if ((this.GetAllFeedsCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetAllFeedsCompleted(this, new GetAllFeedsCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetAllFeedsAsync() {
+            this.GetAllFeedsAsync(null);
+        }
+        
+        public void GetAllFeedsAsync(object userState) {
+            if ((this.onBeginGetAllFeedsDelegate == null)) {
+                this.onBeginGetAllFeedsDelegate = new BeginOperationDelegate(this.OnBeginGetAllFeeds);
+            }
+            if ((this.onEndGetAllFeedsDelegate == null)) {
+                this.onEndGetAllFeedsDelegate = new EndOperationDelegate(this.OnEndGetAllFeeds);
+            }
+            if ((this.onGetAllFeedsCompletedDelegate == null)) {
+                this.onGetAllFeedsCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetAllFeedsCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetAllFeedsDelegate, null, this.onEndGetAllFeedsDelegate, this.onGetAllFeedsCompletedDelegate, userState);
         }
         
         public Client_WPF.FeedService.WebResult UnfollowFeed(string connectionKey, Client_WPF.FeedService.Channel feed) {
