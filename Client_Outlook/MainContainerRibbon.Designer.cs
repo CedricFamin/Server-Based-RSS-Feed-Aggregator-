@@ -7,16 +7,9 @@
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        public MainContainerRibbon()
-            : base(Globals.Factory.GetRibbonFactory())
+        public MainContainerRibbon() : base(Globals.Factory.GetRibbonFactory())
         {
             InitializeComponent();
-            button1.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(button1_Click);
-        }
-
-        void button1_Click(object sender, Microsoft.Office.Tools.Ribbon.RibbonControlEventArgs e)
-        {
-           
         }
 
         /// <summary> 
@@ -40,28 +33,64 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainContainerRibbon));
             this.RssFeed = this.Factory.CreateRibbonTab();
             this.group1 = this.Factory.CreateRibbonGroup();
-            this.button1 = this.Factory.CreateRibbonButton();
+            this.ToggleVIewButton = this.Factory.CreateRibbonButton();
+            this.group2 = this.Factory.CreateRibbonGroup();
+            this.EmailEditBox = this.Factory.CreateRibbonEditBox();
+            this.PasswordEditBox = this.Factory.CreateRibbonEditBox();
+            this.ConnectButton = this.Factory.CreateRibbonButton();
             this.RssFeed.SuspendLayout();
             this.group1.SuspendLayout();
+            this.group2.SuspendLayout();
             // 
             // RssFeed
             // 
             this.RssFeed.Groups.Add(this.group1);
+            this.RssFeed.Groups.Add(this.group2);
             this.RssFeed.Label = "Rss Feed";
             this.RssFeed.Name = "RssFeed";
             // 
             // group1
             // 
-            this.group1.Items.Add(this.button1);
-            this.group1.Label = "group1";
+            this.group1.Items.Add(this.ToggleVIewButton);
             this.group1.Name = "group1";
             // 
-            // button1
+            // ToggleVIewButton
             // 
-            this.button1.Label = "button1";
-            this.button1.Name = "button1";
+            this.ToggleVIewButton.Image = ((System.Drawing.Image)(resources.GetObject("ToggleVIewButton.Image")));
+            this.ToggleVIewButton.Label = "Show/Hide";
+            this.ToggleVIewButton.Name = "ToggleVIewButton";
+            this.ToggleVIewButton.ShowImage = true;
+            this.ToggleVIewButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.ToggleVIewButton_Click_1);
+            // 
+            // group2
+            // 
+            this.group2.Items.Add(this.EmailEditBox);
+            this.group2.Items.Add(this.PasswordEditBox);
+            this.group2.Items.Add(this.ConnectButton);
+            this.group2.Label = "Account";
+            this.group2.Name = "group2";
+            // 
+            // EmailEditBox
+            // 
+            this.EmailEditBox.Label = "Email :";
+            this.EmailEditBox.Name = "EmailEditBox";
+            this.EmailEditBox.Text = null;
+            // 
+            // PasswordEditBox
+            // 
+            this.PasswordEditBox.Label = "Password :";
+            this.PasswordEditBox.Name = "PasswordEditBox";
+            this.PasswordEditBox.Text = null;
+            // 
+            // ConnectButton
+            // 
+            this.ConnectButton.Image = ((System.Drawing.Image)(resources.GetObject("ConnectButton.Image")));
+            this.ConnectButton.Label = "Connect";
+            this.ConnectButton.Name = "ConnectButton";
+            this.ConnectButton.ShowImage = true;
             // 
             // MainContainerRibbon
             // 
@@ -72,6 +101,8 @@
             this.RssFeed.PerformLayout();
             this.group1.ResumeLayout(false);
             this.group1.PerformLayout();
+            this.group2.ResumeLayout(false);
+            this.group2.PerformLayout();
 
         }
 
@@ -79,7 +110,11 @@
 
         internal Microsoft.Office.Tools.Ribbon.RibbonTab RssFeed;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup group1;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton button1;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton ToggleVIewButton;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup group2;
+        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox EmailEditBox;
+        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox PasswordEditBox;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton ConnectButton;
     }
 
     partial class ThisRibbonCollection

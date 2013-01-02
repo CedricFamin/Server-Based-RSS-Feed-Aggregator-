@@ -16,27 +16,28 @@ namespace Client_Outlook
    
     public partial class ThisAddIn
     {
-        Microsoft.Office.Tools.CustomTaskPane taskPane;
+        public Microsoft.Office.Tools.CustomTaskPane TaskPane { get; private set; }
+
         Outlook.Explorer explorer;
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
             explorer = this.Application.ActiveExplorer();
 
-            taskPane = Globals.ThisAddIn.CustomTaskPanes.Add(new MainContainer(), "Demo", explorer);
-            taskPane.Visible = true;
-            taskPane.Width = 245;
+            TaskPane = Globals.ThisAddIn.CustomTaskPanes.Add(new MainContainer(), "Demo", explorer);
+            TaskPane.Visible = false;
+            TaskPane.Width = 245;
 
             //You can set the docking position of the Panel
-            taskPane.DockPosition = Microsoft.Office.Core.MsoCTPDockPosition.msoCTPDockPositionRight;
+            TaskPane.DockPosition = Microsoft.Office.Core.MsoCTPDockPosition.msoCTPDockPositionRight;
 
             //You can also restrict the docking position change.
-            taskPane.DockPositionRestrict = Microsoft.Office.Core.MsoCTPDockPositionRestrict.msoCTPDockPositionRestrictNone;
+            TaskPane.DockPositionRestrict = Microsoft.Office.Core.MsoCTPDockPositionRestrict.msoCTPDockPositionRestrictNone;
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
-            this.CustomTaskPanes.Remove(taskPane);
+            this.CustomTaskPanes.Remove(TaskPane);
             this.Application = null;
         }
 
