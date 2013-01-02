@@ -35,7 +35,7 @@
 				</Button.Background>
 				<i:Interaction.Triggers>
 					<i:EventTrigger EventName="Click">
-						<i:InvokeCommandAction Command="{Binding AddFeed, Mode=OneWay}"/>
+						<i:InvokeCommandAction Command="{Binding AddFeed, Mode=OneWay}" CommandParameter="{Binding Text, ElementName=feed_url}"/>
 					</i:EventTrigger>
 				</i:Interaction.Triggers>
 			</Button>
@@ -202,18 +202,6 @@
 								</Border>
 							</DataTemplate>
 						</ItemsControl.Resources>
-						<i:Interaction.Triggers>
-							<i:EventTrigger EventName="SelectionChanged">
-								<i:Interaction.Behaviors>
-									<ei:ConditionBehavior>
-										<ei:ConditionalExpression>
-											<ei:ComparisonCondition LeftOperand="{Binding CurrentChannel}" Operator="NotEqual" RightOperand="null"/>
-										</ei:ConditionalExpression>
-									</ei:ConditionBehavior>
-								</i:Interaction.Behaviors>
-								<i:InvokeCommandAction Command="{Binding LoadFeedItems, Mode=OneWay}" CommandParameter="{Binding SelectedItem, ElementName=listView}"/>
-							</i:EventTrigger>
-						</i:Interaction.Triggers>
 					</ItemsControl>
 				</ScrollViewer>
 			</TabItem>

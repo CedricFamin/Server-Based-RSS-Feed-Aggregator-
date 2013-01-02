@@ -64,7 +64,7 @@ namespace Client_WPF.ViewModel
             FeedsManager.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(FeedsManager_PropertyChanged);
 
             RefreshFeeds = new RelayCommand((param) => FeedsManager.GetAllRootFeeds());
-            AddFeed = new RelayCommand((param) => AddFeedBody());
+            AddFeed = new RelayCommand((param) => AddFeedBody(param as string));
             RemoveFeed = new RelayCommand((param) => FeedsManager.RemoveFeed(param as Channel));
             LoadFeedItems = new RelayCommand((param) => FeedsManager.LoadFeedItems(param as Channel));
 
@@ -90,9 +90,9 @@ namespace Client_WPF.ViewModel
         }
 
         
-        private void AddFeedBody()
+        private void AddFeedBody(string url)
         {
-            FeedsManager.AddNewFeed(UrlFeed);
+            FeedsManager.AddNewFeed(url);
         }
     }
 }
