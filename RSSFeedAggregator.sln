@@ -16,6 +16,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client_Outlook", "Client_Ou
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client_WinPhone", "Client_WinPhone\Client_WinPhone.csproj", "{900AD1F9-E12E-439C-96ED-E5664FE8C2B6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{1B04BD2D-61AD-4E1E-934E-B287A84C668C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{04F1074D-3054-4B87-98FC-8D448ED0DB30} = {04F1074D-3054-4B87-98FC-8D448ED0DB30}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -90,6 +95,16 @@ Global
 		{900AD1F9-E12E-439C-96ED-E5664FE8C2B6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{900AD1F9-E12E-439C-96ED-E5664FE8C2B6}.Release|Mixed Platforms.Deploy.0 = Release|Any CPU
 		{900AD1F9-E12E-439C-96ED-E5664FE8C2B6}.Release|x86.ActiveCfg = Release|Any CPU
+		{1B04BD2D-61AD-4E1E-934E-B287A84C668C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B04BD2D-61AD-4E1E-934E-B287A84C668C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B04BD2D-61AD-4E1E-934E-B287A84C668C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{1B04BD2D-61AD-4E1E-934E-B287A84C668C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{1B04BD2D-61AD-4E1E-934E-B287A84C668C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1B04BD2D-61AD-4E1E-934E-B287A84C668C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B04BD2D-61AD-4E1E-934E-B287A84C668C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B04BD2D-61AD-4E1E-934E-B287A84C668C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{1B04BD2D-61AD-4E1E-934E-B287A84C668C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{1B04BD2D-61AD-4E1E-934E-B287A84C668C}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

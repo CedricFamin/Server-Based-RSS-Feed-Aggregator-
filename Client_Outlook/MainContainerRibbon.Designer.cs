@@ -91,6 +91,7 @@
             this.ConnectButton.Label = "Connect";
             this.ConnectButton.Name = "ConnectButton";
             this.ConnectButton.ShowImage = true;
+            this.ConnectButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.ConnectButton_Click);
             // 
             // MainContainerRibbon
             // 
