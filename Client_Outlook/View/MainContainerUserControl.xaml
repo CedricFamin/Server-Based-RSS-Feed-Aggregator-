@@ -1,12 +1,18 @@
-﻿<UserControl x:Class="Client_Outlook.View.MainContainerUserControl"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Client_Outlook_ViewModel="clr-namespace:Client_Outlook.ViewModel" x:Class="Client_Outlook.View.MainContainerUserControl" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+	<UserControl.Resources>
+		<Client_Outlook_ViewModel:FeedManagerViewModel x:Key="FeedManagerViewModelDataSource" d:IsDataSource="True"/>
+	</UserControl.Resources>
+	<UserControl.DataContext>
+		<Binding Mode="OneWay" Source="{StaticResource FeedManagerViewModelDataSource}"/>
+	</UserControl.DataContext>
     <Grid>
-    	<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="GROS TEST QUI POUTRE" VerticalAlignment="Top"/>
-            
+    	<ItemsControl ItemsSource="{Binding Channels}"/>
     </Grid>
 </UserControl>

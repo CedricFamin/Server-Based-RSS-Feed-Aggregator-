@@ -9,7 +9,7 @@ using Common.FeedService;
 
 namespace Client_Outlook.ViewModel
 {
-    class RibbonViewModel : BindableObject
+    public class RibbonViewModel : BindableObject
     {
         #region DataModel
         private UserDataModel _userData = null;
@@ -86,7 +86,7 @@ namespace Client_Outlook.ViewModel
 
         private void RefreshFeedsBody()
         {
-            FeedManager.GetAllRootFeeds();
+            FeedManagerViewModel.Instance.GetAllRootFeeds();
         }
     }
 }

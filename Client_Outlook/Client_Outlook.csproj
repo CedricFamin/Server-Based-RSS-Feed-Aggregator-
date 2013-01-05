@@ -135,6 +135,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
@@ -195,6 +196,8 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ViewModel\FeedManagerViewModel.cs" />
+    <Compile Include="ViewModel\RibbonVIewModel.cs" />
     <Compile Include="View\MainContainer.cs">
       <SubType>UserControl</SubType>
     </Compile>

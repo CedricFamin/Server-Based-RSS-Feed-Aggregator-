@@ -65,7 +65,7 @@ namespace Client_Outlook
         {
             if (IsConnected)
             {
-                // HOW TO DO THIS ?
+                ViewModel.RefreshFeeds.Execute(null);
             }
         }
     }

@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace Common.Behavior
 {
-    class ToggleVisibilityBehavior : Behavior<Button>
+    public class ToggleVisibilityBehavior : Behavior<Button>
     {
         public bool IsVisible
         {
