@@ -5,6 +5,7 @@ using System.Text;
 using Common.Utils;
 using Common.DataModel;
 using Common.FeedService;
+using System.Windows.Input;
 
 namespace Client_Outlook.ViewModel
 {
@@ -24,12 +25,18 @@ namespace Client_Outlook.ViewModel
         }
         #endregion
 
+        #region Commands
+        public ICommand RemoveFeed { get; private set; }
+        #endregion
+
         #region CTor
         public FeedManagerViewModel()
         {
             FeedManager = new FeedManagerDataModel();
             FeedManager.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(FeedManager_PropertyChanged);
             Instance = this;
+
+            RemoveFeed = new RelayCommand((param) => FeedManager.RemoveFeed(param as Channel));
         }
         #endregion
 

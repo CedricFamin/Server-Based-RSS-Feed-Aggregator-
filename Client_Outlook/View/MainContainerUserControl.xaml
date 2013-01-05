@@ -3,16 +3,93 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:Client_Outlook_ViewModel="clr-namespace:Client_Outlook.ViewModel" x:Class="Client_Outlook.View.MainContainerUserControl" 
+             xmlns:Client_Outlook_ViewModel="clr-namespace:Client_Outlook.ViewModel" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Common_Behavior="clr-namespace:Common.Behavior;assembly=Common" x:Class="Client_Outlook.View.MainContainerUserControl" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="336">
 	<UserControl.Resources>
 		<Client_Outlook_ViewModel:FeedManagerViewModel x:Key="FeedManagerViewModelDataSource" d:IsDataSource="True"/>
+		<Style x:Key="ButtonFocusVisual">
+			<Setter Property="Control.Template">
+				<Setter.Value>
+					<ControlTemplate>
+						<Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<LinearGradientBrush x:Key="ButtonNormalBackground" EndPoint="0,1" StartPoint="0,0">
+			<GradientStop Color="#F3F3F3" Offset="0"/>
+			<GradientStop Color="#EBEBEB" Offset="0.5"/>
+			<GradientStop Color="#DDDDDD" Offset="0.5"/>
+			<GradientStop Color="#CDCDCD" Offset="1"/>
+		</LinearGradientBrush>
+		<SolidColorBrush x:Key="ButtonNormalBorder" Color="#FF707070"/>
+		<Style x:Key="ButtonImageStyle" TargetType="{x:Type Button}">
+			<Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>
+			<Setter Property="Background" Value="{StaticResource ButtonNormalBackground}"/>
+			<Setter Property="BorderBrush" Value="{StaticResource ButtonNormalBorder}"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="Padding" Value="1"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type Button}">
+						<Grid Background="{TemplateBinding Background}">
+							<ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+						</Grid>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsKeyboardFocused" Value="true"/>
+							<Trigger Property="ToggleButton.IsChecked" Value="true"/>
+							<Trigger Property="IsEnabled" Value="false">
+								<Setter Property="Foreground" Value="#ADADAD"/>
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<DataTemplate x:Key="ChannelItemsTemplate">
+			<StackPanel>
+				<Grid Height="Auto" Width="Auto">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition/>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+					<TextBlock Margin="0" TextWrapping="Wrap" Text="{Binding Title}" d:LayoutOverrides="Width, Height"/>
+					<StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
+						<Button Content="Expand" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="48" Height="48" Style="{DynamicResource ButtonImageStyle}" Foreground="{x:Null}">
+							<Button.Background>
+								<ImageBrush ImageSource="../Images/maximize.png"/>
+							</Button.Background>
+							<i:Interaction.Behaviors>
+								<Common_Behavior:ToggleVisibilityBehavior Target="{Binding ElementName=stackPanel, Mode=OneWay}"/>
+								<Common_Behavior:ToggleImageBackgroundBehavior BGImageOff="../Images/maximize.png" BGImageOn="../Images/minimize.png"/>
+							</i:Interaction.Behaviors>
+						</Button>
+						<Button Content="Remove" Width="48" Height="48" HorizontalAlignment="Right" d:LayoutOverrides="Height" Style="{DynamicResource ButtonImageStyle}" Foreground="{x:Null}">
+							<Button.Background>
+								<ImageBrush ImageSource="../Images/delete.png"/>
+							</Button.Background>
+							<i:Interaction.Triggers>
+								<i:EventTrigger EventName="Click">
+									<i:InvokeCommandAction CommandParameter="{Binding Mode=OneWay}" Command="{Binding RemoveFeed, Mode=OneWay, Source={StaticResource FeedManagerViewModelDataSource}}"/>
+								</i:EventTrigger>
+							</i:Interaction.Triggers>
+						</Button>
+					</StackPanel>
+				</Grid>
+				<StackPanel x:Name="stackPanel" Orientation="Vertical" Width="Auto" Visibility="Collapsed">
+					<TextBlock TextWrapping="Wrap" Text="{Binding Description}" d:LayoutOverrides="Width"/>
+				</StackPanel>
+			</StackPanel>
+		</DataTemplate>
 	</UserControl.Resources>
 	<UserControl.DataContext>
 		<Binding Mode="OneWay" Source="{StaticResource FeedManagerViewModelDataSource}"/>
 	</UserControl.DataContext>
     <Grid>
-    	<ItemsControl ItemsSource="{Binding Channels}"/>
+    	<ItemsControl ItemsSource="{Binding Channels}" ItemTemplate="{DynamicResource ChannelItemsTemplate}"/>
     </Grid>
 </UserControl>

@@ -21,7 +21,6 @@ namespace Common.Behavior
             DependencyProperty.Register("IsVisible", typeof(bool), typeof(ToggleVisibilityBehavior), null);
 
 
-
         public UIElement Target
         {
             get { return (UIElement)GetValue(TargetProperty); }
