@@ -6,7 +6,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
 
-namespace Client_WPF.ViewModel
+namespace Common.Utils
 {
     /// <summary>
     /// A basic class for bindable object

@@ -41,14 +41,20 @@
             this.EmailEditBox = this.Factory.CreateRibbonEditBox();
             this.PasswordEditBox = this.Factory.CreateRibbonEditBox();
             this.ConnectButton = this.Factory.CreateRibbonButton();
+            this.Feeds = this.Factory.CreateRibbonGroup();
+            this.FeedEditBox = this.Factory.CreateRibbonEditBox();
+            this.AddFeedButton = this.Factory.CreateRibbonButton();
+            this.RefreshButton = this.Factory.CreateRibbonButton();
             this.RssFeed.SuspendLayout();
             this.group1.SuspendLayout();
             this.group2.SuspendLayout();
+            this.Feeds.SuspendLayout();
             // 
             // RssFeed
             // 
             this.RssFeed.Groups.Add(this.group1);
             this.RssFeed.Groups.Add(this.group2);
+            this.RssFeed.Groups.Add(this.Feeds);
             this.RssFeed.Label = "Rss Feed";
             this.RssFeed.Name = "RssFeed";
             // 
@@ -93,6 +99,32 @@
             this.ConnectButton.ShowImage = true;
             this.ConnectButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.ConnectButton_Click);
             // 
+            // Feeds
+            // 
+            this.Feeds.Items.Add(this.FeedEditBox);
+            this.Feeds.Items.Add(this.AddFeedButton);
+            this.Feeds.Items.Add(this.RefreshButton);
+            this.Feeds.Label = "Feeds";
+            this.Feeds.Name = "Feeds";
+            // 
+            // FeedEditBox
+            // 
+            this.FeedEditBox.Label = "Feed Url";
+            this.FeedEditBox.Name = "FeedEditBox";
+            this.FeedEditBox.Text = null;
+            // 
+            // AddFeedButton
+            // 
+            this.AddFeedButton.Label = "Add Feed";
+            this.AddFeedButton.Name = "AddFeedButton";
+            this.AddFeedButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.AddFeedButton_Click);
+            // 
+            // RefreshButton
+            // 
+            this.RefreshButton.Label = "Refresh";
+            this.RefreshButton.Name = "RefreshButton";
+            this.RefreshButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.RefreshButton_Click);
+            // 
             // MainContainerRibbon
             // 
             this.Name = "MainContainerRibbon";
@@ -104,6 +136,8 @@
             this.group1.PerformLayout();
             this.group2.ResumeLayout(false);
             this.group2.PerformLayout();
+            this.Feeds.ResumeLayout(false);
+            this.Feeds.PerformLayout();
 
         }
 
@@ -116,6 +150,10 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonEditBox EmailEditBox;
         internal Microsoft.Office.Tools.Ribbon.RibbonEditBox PasswordEditBox;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton ConnectButton;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup Feeds;
+        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox FeedEditBox;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton AddFeedButton;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton RefreshButton;
     }
 
     partial class ThisRibbonCollection

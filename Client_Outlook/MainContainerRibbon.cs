@@ -4,32 +4,40 @@ using System.Linq;
 using System.Text;
 using Microsoft.Office.Tools.Ribbon;
 using Common.DataModel;
+using Client_Outlook.ViewModel;
 
 namespace Client_Outlook
 {
     public partial class MainContainerRibbon
     {
 
-        private UserDataModel _userData = null;
+        #region ViewModel
 
-        private UserDataModel UserData
+        private RibbonViewModel _viewModel = null;
+
+        public RibbonViewModel ViewModel
         {
-            get {
-                if (_userData == null)
+            get
+            {
+                if (_viewModel == null)
                 {
-                    _userData = new UserDataModel();
-                    _userData.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(_userData_PropertyChanged);
+                    _viewModel = new RibbonViewModel();
+                    _viewModel.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(_userData_PropertyChanged);
                 }
-                return _userData; 
+                return _viewModel; 
             }
         }
+        #endregion
+
+        #region PPTIES
+        public bool IsConnected { get; private set; }
+        #endregion
 
         void _userData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "IsConnected")
             {
-                bool isConnected = UserData.IsConnected;
-                isConnected = isConnected;
+                IsConnected = ViewModel.IsConnected;
             }
         }
         
@@ -40,7 +48,25 @@ namespace Client_Outlook
 
         private void ConnectButton_Click(object sender, RibbonControlEventArgs e)
         {
-            UserData.Login(EmailEditBox.Text, PasswordEditBox.Text);
+            string[] infos = {EmailEditBox.Text, PasswordEditBox.Text };
+            
+            ViewModel.Connect.Execute(infos as Object); 
+        }
+
+        private void AddFeedButton_Click(object sender, RibbonControlEventArgs e)
+        {
+            if (IsConnected)
+            {
+                ViewModel.AddFeed.Execute(FeedEditBox.Text as Object);
+            }
+        }
+
+        private void RefreshButton_Click(object sender, RibbonControlEventArgs e)
+        {
+            if (IsConnected)
+            {
+                // HOW TO DO THIS ?
+            }
         }
     }
 }

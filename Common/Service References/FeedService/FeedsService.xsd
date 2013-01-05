@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:3972/Services/FeedsService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Server.Utils" />
+  <xs:import schemaLocation="http://localhost:3972/Services/FeedsService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Server.Data" />
+  <xs:element name="AddNewFeed">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="connectionKey" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="uri" nillable="true" type="xs:anyURI" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddNewFeedResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Server.Utils" minOccurs="0" name="AddNewFeedResult" nillable="true" type="q1:WebResultOfChannelMeg_PnYqa" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFeeds">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="connectionKey" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFeedsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Server.Utils" minOccurs="0" name="GetFeedsResult" nillable="true" type="q2:WebResultOfArrayOfChannelMeg_PnYqa" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllFeeds">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllFeedsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Server.Utils" minOccurs="0" name="GetAllFeedsResult" nillable="true" type="q3:WebResultOfArrayOfChannelMeg_PnYqa" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UnfollowFeed">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="connectionKey" nillable="true" type="xs:string" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Server.Data" minOccurs="0" name="feed" nillable="true" type="q4:Channel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UnfollowFeedResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Server.Utils" minOccurs="0" name="UnfollowFeedResult" nillable="true" type="q5:WebResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFeedItems">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="connectionKey" nillable="true" type="xs:string" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Server.Data" minOccurs="0" name="feed" nillable="true" type="q6:Channel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFeedItemsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Server.Utils" minOccurs="0" name="GetFeedItemsResult" nillable="true" type="q7:WebResultOfArrayOfItemMeg_PnYqa" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReadItem">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="connectionKey" nillable="true" type="xs:string" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Server.Data" minOccurs="0" name="item" nillable="true" type="q8:Item" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReadItemResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Server.Utils" minOccurs="0" name="ReadItemResult" nillable="true" type="q9:WebResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

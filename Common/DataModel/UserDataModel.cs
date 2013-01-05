@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Common.RSSService;
 using System.ServiceModel;
-using Client_WPF.ViewModel;
+using Common.Utils;
 
 namespace Common.DataModel
 {
