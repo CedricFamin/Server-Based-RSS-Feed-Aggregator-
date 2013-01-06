@@ -26,7 +26,7 @@ namespace Client_Outlook.ViewModel
             {
                 _feedDetailsDataModel = value;
             }
-        };
+        }
         #endregion
 
         #region Properties

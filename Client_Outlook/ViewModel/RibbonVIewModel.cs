@@ -58,6 +58,7 @@ namespace Client_Outlook.ViewModel
             RefreshFeeds= new RelayCommand((param) => RefreshFeedsBody());
 
             UserData.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(UserData_PropertyChanged);
+            IsConnected = UserData.IsConnected;
         }
 
         void UserData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

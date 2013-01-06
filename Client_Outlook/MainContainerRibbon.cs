@@ -26,6 +26,10 @@ namespace Client_Outlook
                 }
                 return _viewModel; 
             }
+            private set
+            {
+                _viewModel = value;
+            }
         }
         #endregion
 
@@ -55,7 +59,7 @@ namespace Client_Outlook
 
         private void AddFeedButton_Click(object sender, RibbonControlEventArgs e)
         {
-            if (IsConnected)
+            if (ViewModel.IsConnected)
             {
                 ViewModel.AddFeed.Execute(FeedEditBox.Text as Object);
             }
@@ -63,7 +67,7 @@ namespace Client_Outlook
 
         private void RefreshButton_Click(object sender, RibbonControlEventArgs e)
         {
-            if (IsConnected)
+            if (ViewModel.IsConnected)
             {
                 ViewModel.RefreshFeeds.Execute(null);
             }

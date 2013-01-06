@@ -5,13 +5,63 @@ using System.Text;
 using Common.RSSService;
 using System.ServiceModel;
 using Common.Utils;
+using System.IO;
+using System.Configuration;
 
 namespace Common.DataModel
 {
     public class UserDataModel : BindableObject
     {
+        #region Static
+        static string[] GetUserSettings()
+        {
+            string filename = "Applications.settings";
+            string applicationDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            string rssFolder = System.IO.Path.Combine(applicationDataFolder, "RssFeedAggregator");
+            string fileAbsolutePath = System.IO.Path.Combine(rssFolder, filename);
+
+            string[] paths = {fileAbsolutePath, filename, rssFolder};
+            return paths;
+        }
+
+        static public void SaveConnectionString()
+        {
+            //Create the object
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
+            //make changes
+            if (!config.AppSettings.Settings.AllKeys.Contains("ConnectionString"))
+                config.AppSettings.Settings.Add(new KeyValueConfigurationElement("ConnectionString", ConnectionString));
+            else
+                config.AppSettings.Settings["ConnectionString"].Value = ConnectionString;
+
+            //save to apply changes
+            config.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection("appSettings");
+        }
+
+        static private string LoadConnectionString()
+        {
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            if (config.AppSettings.Settings["ConnectionString"] != null)
+                return config.AppSettings.Settings["ConnectionString"].Value;
+            return "";
+        }
+        #endregion
         #region Common
-        static private string ConnectionString = null;
+        static private string _connectionString;
+        static private string ConnectionString { 
+            get
+            {
+                return _connectionString;
+            } 
+            set
+            {
+                _connectionString = value;
+                if (_connectionString != null)
+                    SaveConnectionString();
+            }
+        }
         static private AccountClient accountClient = null;
         private static AccountData user { get; set; }
 
@@ -41,6 +91,8 @@ namespace Common.DataModel
         #region CTor/DTor
         public UserDataModel()
         {
+            if (ConnectionString == null)
+                ConnectionString = LoadConnectionString();
             AccountClient.LoginCompleted += new EventHandler<LoginCompletedEventArgs>(OnEndLogin);
             AccountClient.RegisterCompleted += new EventHandler<RegisterCompletedEventArgs>(OnEndRegister);
         }

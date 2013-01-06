@@ -10,6 +10,7 @@ using Microsoft.Office.Tools;
 using Microsoft.Office.Interop.Outlook;
 using Microsoft.Office.Core;
 using Client_Outlook.View;
+using Common.DataModel;
 
 namespace Client_Outlook
 {
@@ -24,7 +25,7 @@ namespace Client_Outlook
         {
             explorer = this.Application.ActiveExplorer();
 
-            TaskPane = Globals.ThisAddIn.CustomTaskPanes.Add(new MainContainer(), "Demo", explorer);
+            TaskPane = Globals.ThisAddIn.CustomTaskPanes.Add(new MainContainer(), "Rss Feeds", explorer);
             TaskPane.Visible = false;
             TaskPane.Width = 245;
 
@@ -37,6 +38,7 @@ namespace Client_Outlook
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
+            UserDataModel.SaveConnectionString();
             this.CustomTaskPanes.Remove(TaskPane);
             this.Application = null;
         }
