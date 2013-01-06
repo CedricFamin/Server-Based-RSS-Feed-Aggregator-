@@ -13,7 +13,20 @@ namespace Client_Outlook.ViewModel
     {
         #region Fields
         private List<Item> _items;
-        private FeedDetailsDataModel feedDetailsDataModel;
+        private FeedDetailsDataModel _feedDetailsDataModel;
+        private FeedDetailsDataModel feedDetailsDataModel
+        {
+            get
+            {
+                if (_feedDetailsDataModel == null)
+                    _feedDetailsDataModel = new FeedDetailsDataModel();
+                return _feedDetailsDataModel;
+            }
+            set
+            {
+                _feedDetailsDataModel = value;
+            }
+        };
         #endregion
 
         #region Properties
@@ -57,9 +70,8 @@ namespace Client_Outlook.ViewModel
                                     " ac ultricies quis, imperdiet lobortis tellus.";
                 Items.Add(item);
             }
-
+            
             ReadItem = new RelayCommand((param) => ReadItemBody(param as Item));
-            //feedDetailsDataModel = new FeedDetailsDataModel();
         }
 
         public FeedDetailsViewModel(Channel channel)

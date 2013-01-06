@@ -99,7 +99,7 @@
 			</Border>
 		</DataTemplate>
 		<DataTemplate x:Key="ItemsChannelTemplate">
-			<StackPanel>
+			<StackPanel x:Name="stackPanel">
 				<Grid Height="Auto" Width="Auto">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition/>
@@ -143,7 +143,7 @@
 	<UserControl.DataContext>
 		<Binding Mode="OneWay" Source="{StaticResource FeedManagerViewModelDataSource}"/>
 	</UserControl.DataContext>
-    <Grid>
-    	<ItemsControl ItemsSource="{Binding Channels}" ItemTemplate="{DynamicResource ChannelItemsTemplate}"/>
-    </Grid>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+		<ItemsControl ItemsSource="{Binding Channels}" ItemTemplate="{DynamicResource ChannelItemsTemplate}"/>
+	</ScrollViewer>
 </UserControl>

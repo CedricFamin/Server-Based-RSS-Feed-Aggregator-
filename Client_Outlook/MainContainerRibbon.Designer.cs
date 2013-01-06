@@ -115,14 +115,18 @@
             // 
             // AddFeedButton
             // 
+            this.AddFeedButton.Image = ((System.Drawing.Image)(resources.GetObject("AddFeedButton.Image")));
             this.AddFeedButton.Label = "Add Feed";
             this.AddFeedButton.Name = "AddFeedButton";
+            this.AddFeedButton.ShowImage = true;
             this.AddFeedButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.AddFeedButton_Click);
             // 
             // RefreshButton
             // 
+            this.RefreshButton.Image = ((System.Drawing.Image)(resources.GetObject("RefreshButton.Image")));
             this.RefreshButton.Label = "Refresh";
             this.RefreshButton.Name = "RefreshButton";
+            this.RefreshButton.ShowImage = true;
             this.RefreshButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.RefreshButton_Click);
             // 
             // MainContainerRibbon
