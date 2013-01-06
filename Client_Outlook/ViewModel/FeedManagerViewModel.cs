@@ -45,7 +45,7 @@ namespace Client_Outlook.ViewModel
         {
             if (e.PropertyName == "Channels")
             {
-                Channels = (sender as FeedManagerDataModel).Channels;
+                Channels = FeedManager.Channels;
             }
 
         }
@@ -54,6 +54,11 @@ namespace Client_Outlook.ViewModel
         public void GetAllRootFeeds()
         {
             FeedManager.GetAllRootFeeds();
+        }
+
+        public FeedDetailsViewModel GetChannelDetails(Channel channel)
+        {
+            return new FeedDetailsViewModel(channel);
         }
     }
 }

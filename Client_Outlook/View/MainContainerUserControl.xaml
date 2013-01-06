@@ -3,10 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:Client_Outlook_ViewModel="clr-namespace:Client_Outlook.ViewModel" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Common_Behavior="clr-namespace:Common.Behavior;assembly=Common" x:Class="Client_Outlook.View.MainContainerUserControl" 
+             xmlns:Client_Outlook_ViewModel="clr-namespace:Client_Outlook.ViewModel" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Common_Behavior="clr-namespace:Common.Behavior;assembly=Common" xmlns:Client_Outlook_Behavior="clr-namespace:Client_Outlook.Behavior" x:Class="Client_Outlook.View.MainContainerUserControl" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="336">
+             d:DesignHeight="300" d:DesignWidth="336" Background="{DynamicResource BasicBackgroundColor}" Padding="{DynamicResource BasicPadding}">
 	<UserControl.Resources>
+		<Client_Outlook_ViewModel:FeedDetailsViewModel x:Key="FeedDetailsViewModelDataSource" d:IsDataSource="True"/>
 		<Client_Outlook_ViewModel:FeedManagerViewModel x:Key="FeedManagerViewModelDataSource" d:IsDataSource="True"/>
 		<Style x:Key="ButtonFocusVisual">
 			<Setter Property="Control.Template">
@@ -50,41 +51,94 @@
 				</Setter.Value>
 			</Setter>
 		</Style>
+		<Style x:Key="TitleStylle" TargetType="{x:Type TextBlock}">
+			<Setter Property="TextWrapping" Value="NoWrap"/>
+			<Setter Property="TextTrimming" Value="None"/>
+		</Style>
+		<Thickness x:Key="BasicPadding">5,10</Thickness>
 		<DataTemplate x:Key="ChannelItemsTemplate">
+			<Border BorderThickness="0,0,0,1" BorderBrush="#FF9D9D9D" Padding="2,10,2,0" Margin="0,0,0,10" CornerRadius="2">
+				<StackPanel Height="Auto">
+					<Grid Height="Auto" Width="Auto">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition/>
+							<ColumnDefinition/>
+						</Grid.ColumnDefinitions>
+						<TextBlock Margin="0" TextWrapping="Wrap" Text="{Binding Title}" d:LayoutOverrides="Width, Height" FontWeight="Bold" FontSize="21.333" Style="{DynamicResource TitleStylle}"/>
+						<StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
+							<Button Content="Expand" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Right" Height="24" Style="{DynamicResource ButtonImageStyle}" Foreground="{x:Null}" Width="24">
+								<Button.Background>
+									<ImageBrush ImageSource="../Images/maximize.png"/>
+								</Button.Background>
+								<i:Interaction.Behaviors>
+									<Common_Behavior:ToggleVisibilityBehavior Target="{Binding ElementName=stackPanel, Mode=OneWay}"/>
+									<Common_Behavior:ToggleImageBackgroundBehavior BGImageOff="/Client_Outlook;component/Images/maximize.png" BGImageOn="/Client_Outlook;component/Images/minimize.png"/>
+								</i:Interaction.Behaviors>
+							</Button>
+							<Button Content="Remove" Width="24" Height="24" HorizontalAlignment="Right" Style="{DynamicResource ButtonImageStyle}" Foreground="{x:Null}">
+								<Button.Background>
+									<ImageBrush ImageSource="../Images/delete.png"/>
+								</Button.Background>
+								<i:Interaction.Triggers>
+									<i:EventTrigger EventName="Click">
+										<i:InvokeCommandAction CommandParameter="{Binding Mode=OneWay}" Command="{Binding RemoveFeed, Mode=OneWay, Source={StaticResource FeedManagerViewModelDataSource}}"/>
+									</i:EventTrigger>
+								</i:Interaction.Triggers>
+							</Button>
+						</StackPanel>
+					</Grid>
+					<StackPanel x:Name="stackPanel" Orientation="Vertical" Width="Auto" Visibility="Collapsed">
+						<TextBlock TextWrapping="Wrap" Text="{Binding Description}" d:LayoutOverrides="Width" Style="{DynamicResource TitleStylle}"/>
+						<ItemsControl x:Name="itemsControl" Height="Auto" Width="Auto" ItemsSource="{Binding Items}" ItemTemplate="{DynamicResource ItemsChannelTemplate}" Padding="{DynamicResource BasicPadding}">
+							<i:Interaction.Behaviors>
+								<Client_Outlook_Behavior:LoadFeedDetailsBehavior BaseChannel="{Binding Mode=OneWay}" Destination="{Binding DataContext, ElementName=itemsControl}"/>
+							</i:Interaction.Behaviors>
+						</ItemsControl>
+					</StackPanel>
+				</StackPanel>
+			</Border>
+		</DataTemplate>
+		<DataTemplate x:Key="ItemsChannelTemplate">
 			<StackPanel>
 				<Grid Height="Auto" Width="Auto">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition/>
-						<ColumnDefinition/>
+						<ColumnDefinition Width="Auto"/>
 					</Grid.ColumnDefinitions>
-					<TextBlock Margin="0" TextWrapping="Wrap" Text="{Binding Title}" d:LayoutOverrides="Width, Height"/>
-					<StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
-						<Button Content="Expand" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="48" Height="48" Style="{DynamicResource ButtonImageStyle}" Foreground="{x:Null}">
-							<Button.Background>
-								<ImageBrush ImageSource="../Images/maximize.png"/>
-							</Button.Background>
+					<TextBlock Margin="0" TextWrapping="Wrap" Text="{Binding Title}" VerticalAlignment="Top" d:LayoutOverrides="Width"/>
+					<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+						<Button Content="Button" Width="24" Height="24" Style="{DynamicResource ButtonImageStyle}" Foreground="{x:Null}">
 							<i:Interaction.Behaviors>
-								<Common_Behavior:ToggleVisibilityBehavior Target="{Binding ElementName=stackPanel, Mode=OneWay}"/>
-								<Common_Behavior:ToggleImageBackgroundBehavior BGImageOff="../Images/maximize.png" BGImageOn="../Images/minimize.png"/>
+								<Common_Behavior:ToggleVisibilityBehavior Target="{Binding ElementName=webBrowser, Mode=OneWay}"/>
+								<Common_Behavior:ToggleImageBackgroundBehavior BGImageOff="/Client_Outlook;component/Images/maximize.png" BGImageOn="/Client_Outlook;component/Images/minimize.png"/>
 							</i:Interaction.Behaviors>
-						</Button>
-						<Button Content="Remove" Width="48" Height="48" HorizontalAlignment="Right" d:LayoutOverrides="Height" Style="{DynamicResource ButtonImageStyle}" Foreground="{x:Null}">
 							<Button.Background>
-								<ImageBrush ImageSource="../Images/delete.png"/>
+								<ImageBrush ImageSource="/Client_Outlook;component/Images/minimize.png"/>
 							</Button.Background>
+						</Button>
+						<Button Content="Button" Width="24" Height="24" Style="{DynamicResource ButtonImageStyle}" Foreground="{x:Null}">
 							<i:Interaction.Triggers>
 								<i:EventTrigger EventName="Click">
-									<i:InvokeCommandAction CommandParameter="{Binding Mode=OneWay}" Command="{Binding RemoveFeed, Mode=OneWay, Source={StaticResource FeedManagerViewModelDataSource}}"/>
+									<i:InvokeCommandAction CommandParameter="{Binding Mode=OneWay}" Command="{Binding ReadItem, Mode=OneWay, Source={StaticResource FeedDetailsViewModelDataSource}}"/>
 								</i:EventTrigger>
 							</i:Interaction.Triggers>
+							<i:Interaction.Behaviors>
+								<Common_Behavior:ToggleImageBackgroundBehavior BGImageOff="/Client_Outlook;component/Images/rss_off.png" BGImageOn="/Client_Outlook;component/Images/rss_on.png" IsOn="{Binding Read}"/>
+							</i:Interaction.Behaviors>
+							<Button.Background>
+								<ImageBrush ImageSource="/Client_Outlook;component/Images/rss_off.png"/>
+							</Button.Background>
 						</Button>
 					</StackPanel>
 				</Grid>
-				<StackPanel x:Name="stackPanel" Orientation="Vertical" Width="Auto" Visibility="Collapsed">
-					<TextBlock TextWrapping="Wrap" Text="{Binding Description}" d:LayoutOverrides="Width"/>
-				</StackPanel>
+				<WebBrowser x:Name="webBrowser" Height="Auto" Visibility="Collapsed">
+					<i:Interaction.Behaviors>
+						<Common_Behavior:WebBrowserUtilityBehavior HtmlContent="{Binding Description}"/>
+					</i:Interaction.Behaviors>
+				</WebBrowser>
 			</StackPanel>
 		</DataTemplate>
+		<SolidColorBrush x:Key="BasicBackgroundColor" Color="White"/>
 	</UserControl.Resources>
 	<UserControl.DataContext>
 		<Binding Mode="OneWay" Source="{StaticResource FeedManagerViewModelDataSource}"/>

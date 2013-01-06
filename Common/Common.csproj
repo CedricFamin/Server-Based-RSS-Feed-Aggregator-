@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="PresentationFramework.Aero" />
@@ -51,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Behavior\ToggleImageBackgroundBehavior.cs" />
     <Compile Include="Behavior\ToggleVisibilityBehavior.cs" />
+    <Compile Include="Behavior\WebBrowserUtilityBehavior.cs" />
     <Compile Include="DataModel\FeedDataModel.cs" />
     <Compile Include="DataModel\UserDataModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -156,20 +160,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Images\add.png" />
-    <Content Include="Images\background.jpg" />
-    <Content Include="Images\delete.png" />
-    <Content Include="Images\details.png" />
-    <Content Include="Images\icone.png" />
-    <Content Include="Images\maximize.png" />
-    <Content Include="Images\minimize.png" />
-    <Content Include="Images\refresh.png" />
-    <Content Include="Images\rss_off.png" />
-    <Content Include="Images\rss_on.png" />
-    <Content Include="Images\search.png" />
-    <Content Include="Images\share.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
