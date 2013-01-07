@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Client_WPF.DataModel;
+using Common.DataModel;
 using Client_WPF.View;
 using System.Windows.Input;
 using Client_WPF.Utils;
@@ -32,21 +32,42 @@ namespace Client_WPF.ViewModel
 
         #endregion
 
+        public LoginModal ConnectionModal { get; private set; }
+
         #region CTor
         public MenuViewModel()
         {
             UserData = new UserDataModel();
             CloseCommand = new RelayCommand((param) => Application.Current.Shutdown());
             ShowConnectionDialog = new RelayCommand((param) => ShowConnectionModel_IFN());
-
+            UserData.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(UserData_PropertyChanged);
+            
             search = "Search Feeds ...";
+        }
+
+        void UserData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "IsConnected")
+            {
+                if (!(sender as UserDataModel).IsConnected)
+                {
+                    ConnectionModal = new LoginModal();
+                    ConnectionModal.ShowDialog();
+                }
+                else
+                {
+                    ConnectionModal.Close();
+                    ConnectionModal = null;
+                }
+            }
         }
         #endregion
 
         #region private methods
         void ShowConnectionModel_IFN()
         {
-            UserData.ShowConnexionModel_IFN();
+            ConnectionModal = new LoginModal();
+            ConnectionModal.ShowDialog();
         }
         #endregion
 

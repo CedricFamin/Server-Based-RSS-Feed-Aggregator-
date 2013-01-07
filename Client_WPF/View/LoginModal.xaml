@@ -6,8 +6,11 @@
 	<Window.Resources>
 		<Client_WPF_ViewModel:LoginPageViewModel x:Key="LoginPageViewModelDataSource" d:IsDataSource="True"/>
 	</Window.Resources>
+	<Window.DataContext>
+		<Binding Source="{StaticResource LoginPageViewModelDataSource}"/>
+	</Window.DataContext>
 	<i:Interaction.Behaviors>
-		<Client_WPF_Behavior:ApplyEffectBehavior>
+		<Client_WPF_Behavior:ApplyEffectBehavior ApplyEffect="{Binding Logued}">
 			<Client_WPF_Behavior:ApplyEffectBehavior.EffectToApply>
 				<BlurEffect/>
 			</Client_WPF_Behavior:ApplyEffectBehavior.EffectToApply>
@@ -45,7 +48,7 @@
 				</Button>
 				<TextBox x:Name="Login" TextWrapping="Wrap" d:LayoutOverrides="Height" Grid.Column="1" Margin="0,3" Text="{Binding Username}"/>
 				<TextBox x:Name="Password" Margin="0,3" d:LayoutOverrides="Height" Grid.Row="1" Grid.Column="1" Text="{Binding Password}"/>
-				<CheckBox x:Name="Register" Content="CheckBox" HorizontalAlignment="Left" Margin="4,0,0,6" d:LayoutOverrides="Height" Grid.Row="2" Grid.Column="1" IsChecked="{Binding Register}"/>
+				<CheckBox x:Name="Register" HorizontalAlignment="Left" Margin="4,0,0,6" d:LayoutOverrides="Height" Grid.Row="2" Grid.Column="1" IsChecked="{Binding Register}"/>
 			</Grid>
 		</StackPanel>
 	</Border>

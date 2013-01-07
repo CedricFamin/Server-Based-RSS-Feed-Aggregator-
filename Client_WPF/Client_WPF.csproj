@@ -45,6 +45,7 @@
     </Reference>
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
@@ -72,13 +73,6 @@
     <Compile Include="Behavior\ToggleVisibilityBehavior.cs" />
     <Compile Include="Behavior\WebBrowserUtilityBehavior.cs" />
     <Compile Include="Converter\StringToHtmlPageConveter.cs" />
-    <Compile Include="DataModel\FeedDataModel.cs" />
-    <Compile Include="DataModel\UserDataModel.cs" />
-    <Compile Include="Service References\RSSService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="ViewModel\FeedDetailsViewModel.cs" />
     <Compile Include="ViewModel\FeedsManagerViewModel.cs" />
     <Compile Include="View\ChannelDetails.xaml.cs">
@@ -86,11 +80,6 @@
     </Compile>
     <Compile Include="View\FeedsManager.xaml.cs">
       <DependentUpon>FeedsManager.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Service References\FeedService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Utils\CookieBehavior.cs" />
     <Compile Include="Utils\RelayCommand.cs" />
@@ -143,9 +132,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="app.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="app.config" />
     <None Include="Properties\DataSources\Server.EntityFramwork.User.datasource" />
     <None Include="Properties\DataSources\Server.Utils.WebResult.datasource" />
     <None Include="Properties\Settings.settings">
@@ -153,56 +140,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Service References\FeedService\Client_WPF.FeedService.WebResult.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\FeedService\Client_WPF.FeedService.WebResultOfArrayOfChannelMeg_PnYqa.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\FeedService\Client_WPF.FeedService.WebResultOfArrayOfItemMeg_PnYqa.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\FeedService\Client_WPF.FeedService.WebResultOfChannelMeg_PnYqa.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\FeedService\FeedsService.wsdl" />
-    <None Include="Service References\FeedService\FeedsService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\FeedService\FeedsService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\FeedService\FeedsService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\FeedService\FeedsService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\RSSService\Account.wsdl" />
-    <None Include="Service References\RSSService\Account.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\RSSService\Account1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\RSSService\Account2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\RSSService\Account3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\RSSService\Account4.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\RSSService\Client_WPF.RSSService.WebResult.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\RSSService\Client_WPF.RSSService.WebResultOfArrayOfAccountDataYxjpQ34D.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\RSSService\Client_WPF.RSSService.WebResultOfTupleOfstringAccountDatalrs4Oh3P5F2dSckg.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -222,41 +159,14 @@
     <Resource Include="Images\share.png" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\FeedService\" />
-    <WCFMetadataStorage Include="Service References\RSSService\" />
-  </ItemGroup>
-  <ItemGroup>
+    <Folder Include="DataModel\" />
     <Folder Include="Fonts\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\FeedService\FeedsService.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\FeedService\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\FeedService\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\FeedService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\RSSService\Account.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\RSSService\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\RSSService\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\RSSService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{1B04BD2D-61AD-4E1E-934E-B287A84C668C}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Expression\Blend\.NETFramework\v4.0\Microsoft.Expression.Blend.WPF.targets" />

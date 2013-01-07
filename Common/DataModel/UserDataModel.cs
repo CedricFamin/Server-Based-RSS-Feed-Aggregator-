@@ -36,7 +36,7 @@ namespace Common.DataModel
                 config.AppSettings.Settings["ConnectionString"].Value = ConnectionString;
 
             //save to apply changes
-            config.Save(ConfigurationSaveMode.Modified);
+            config.Save(ConfigurationSaveMode.Full);
             ConfigurationManager.RefreshSection("appSettings");
         }
 
@@ -91,6 +91,7 @@ namespace Common.DataModel
         #region CTor/DTor
         public UserDataModel()
         {
+            IsConnected = false;
             if (ConnectionString == null)
                 ConnectionString = LoadConnectionString();
             AccountClient.LoginCompleted += new EventHandler<LoginCompletedEventArgs>(OnEndLogin);
@@ -99,7 +100,7 @@ namespace Common.DataModel
         #endregion
 
         #region Methods
-        public bool IsConnected { get { return ConnectionString != null; } }
+        public bool IsConnected { get; private set; }
 
         public void ShowConnexionModel_IFN()
         {
@@ -146,10 +147,14 @@ namespace Common.DataModel
                 if (args.Result.ErrorCode == WebResult.ErrorCodeList.SUCCESS)
                 {
                     ConnectionString = args.Result.Value.Item1;
-                    RaisePropertyChange("IsConnected");
+                    IsConnected = true;    
                     User = args.Result.Value.Item2;
                     //LoginView.Close();
                 }
+                else
+                    IsConnected = false;
+                RaisePropertyChange("IsConnected");
+                
                 Error = args.Result.ErrorCode;
             }
         }

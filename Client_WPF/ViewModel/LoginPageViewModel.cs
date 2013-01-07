@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using Client_WPF.Utils;
-using Client_WPF.RSSService;
 using System.Net;
 using System.ServiceModel.Channels;
 using System.ServiceModel;
-using Client_WPF.DataModel;
+using Common.DataModel;
 
 namespace Client_WPF.ViewModel
 {
@@ -63,26 +62,24 @@ namespace Client_WPF.ViewModel
                 RaisePropertyChange("Logued");
             }
         }
-
-        private WebResult.ErrorCodeList _error;
-        public WebResult.ErrorCodeList ErrorCode
-        {
-            get { return _error; }
-            set
-            {
-                _error = value;
-                RaisePropertyChange("ErrorCode");
-            }
-        }
         #endregion
 
         #region CTor
         public LoginPageViewModel()
         {
             UserData = new UserDataModel();
+            UserData.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(UserData_PropertyChanged);
             Login = new RelayCommand((param) => LoginBody(param as string[]));
-            _error = 0;
             _logued = false;
+        }
+
+        void UserData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "IsConnected")
+            {
+                Logued = (sender as UserDataModel).IsConnected;
+                RaisePropertyChange("Logued");
+            }
         }
         #endregion
 

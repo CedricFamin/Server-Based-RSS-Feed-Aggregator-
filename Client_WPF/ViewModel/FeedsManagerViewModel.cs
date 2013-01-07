@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Client_WPF.DataModel;
-using Client_WPF.FeedService;
+using Common.DataModel;
+using Common.FeedService;
 using System.Windows.Input;
 using Client_WPF.Utils;
 
