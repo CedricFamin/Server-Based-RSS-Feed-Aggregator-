@@ -12,13 +12,10 @@ namespace Client_Outlook.ViewModel
     public class RibbonViewModel : BindableObject
     {
         #region DataModel
-        private UserDataModel _userData = null;
         private UserDataModel UserData
         {
             get {
-                if (_userData == null)
-                    _userData = new UserDataModel();
-                return _userData; 
+                return UserDataModel.Instance;
             }
         }
 

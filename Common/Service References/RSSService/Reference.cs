@@ -19,6 +19,7 @@ namespace Common.RSSService {
     [System.SerializableAttribute()]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Common.RSSService.WebResultOfTupleOfstringAccountDatalrs4Oh3P5F2dSckg))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Common.RSSService.WebResultOfArrayOfAccountDataYxjpQ34D))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Common.RSSService.WebResultOfboolean))]
     public partial class WebResult : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
@@ -143,6 +144,29 @@ namespace Common.RSSService {
             }
             set {
                 if ((object.ReferenceEquals(this.ValueField, value) != true)) {
+                    this.ValueField = value;
+                    this.RaisePropertyChanged("Value");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="WebResultOfboolean", Namespace="http://schemas.datacontract.org/2004/07/Server.Utils")]
+    [System.SerializableAttribute()]
+    public partial class WebResultOfboolean : Common.RSSService.WebResult {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ValueField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Value {
+            get {
+                return this.ValueField;
+            }
+            set {
+                if ((this.ValueField.Equals(value) != true)) {
                     this.ValueField = value;
                     this.RaisePropertyChanged("Value");
                 }
@@ -294,6 +318,14 @@ namespace Common.RSSService {
         System.IAsyncResult BeginUserList(string session_key, System.AsyncCallback callback, object asyncState);
         
         Common.RSSService.WebResultOfArrayOfAccountDataYxjpQ34D EndUserList(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Account/IsConnected", ReplyAction="http://tempuri.org/Account/IsConnectedResponse")]
+        Common.RSSService.WebResultOfboolean IsConnected(string session_key);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/Account/IsConnected", ReplyAction="http://tempuri.org/Account/IsConnectedResponse")]
+        System.IAsyncResult BeginIsConnected(string session_key, System.AsyncCallback callback, object asyncState);
+        
+        Common.RSSService.WebResultOfboolean EndIsConnected(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -416,6 +448,25 @@ namespace Common.RSSService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class IsConnectedCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public IsConnectedCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Common.RSSService.WebResultOfboolean Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Common.RSSService.WebResultOfboolean)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class AccountClient : System.ServiceModel.ClientBase<Common.RSSService.Account>, Common.RSSService.Account {
         
         private BeginOperationDelegate onBeginRegisterDelegate;
@@ -454,6 +505,12 @@ namespace Common.RSSService {
         
         private System.Threading.SendOrPostCallback onUserListCompletedDelegate;
         
+        private BeginOperationDelegate onBeginIsConnectedDelegate;
+        
+        private EndOperationDelegate onEndIsConnectedDelegate;
+        
+        private System.Threading.SendOrPostCallback onIsConnectedCompletedDelegate;
+        
         public AccountClient() {
         }
         
@@ -484,6 +541,8 @@ namespace Common.RSSService {
         public event System.EventHandler<DeleteCompletedEventArgs> DeleteCompleted;
         
         public event System.EventHandler<UserListCompletedEventArgs> UserListCompleted;
+        
+        public event System.EventHandler<IsConnectedCompletedEventArgs> IsConnectedCompleted;
         
         public Common.RSSService.WebResult Register(string username, string email, string password) {
             return base.Channel.Register(username, email, password);
@@ -793,6 +852,56 @@ namespace Common.RSSService {
             }
             base.InvokeAsync(this.onBeginUserListDelegate, new object[] {
                         session_key}, this.onEndUserListDelegate, this.onUserListCompletedDelegate, userState);
+        }
+        
+        public Common.RSSService.WebResultOfboolean IsConnected(string session_key) {
+            return base.Channel.IsConnected(session_key);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginIsConnected(string session_key, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginIsConnected(session_key, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Common.RSSService.WebResultOfboolean EndIsConnected(System.IAsyncResult result) {
+            return base.Channel.EndIsConnected(result);
+        }
+        
+        private System.IAsyncResult OnBeginIsConnected(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string session_key = ((string)(inValues[0]));
+            return this.BeginIsConnected(session_key, callback, asyncState);
+        }
+        
+        private object[] OnEndIsConnected(System.IAsyncResult result) {
+            Common.RSSService.WebResultOfboolean retVal = this.EndIsConnected(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnIsConnectedCompleted(object state) {
+            if ((this.IsConnectedCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.IsConnectedCompleted(this, new IsConnectedCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void IsConnectedAsync(string session_key) {
+            this.IsConnectedAsync(session_key, null);
+        }
+        
+        public void IsConnectedAsync(string session_key, object userState) {
+            if ((this.onBeginIsConnectedDelegate == null)) {
+                this.onBeginIsConnectedDelegate = new BeginOperationDelegate(this.OnBeginIsConnected);
+            }
+            if ((this.onEndIsConnectedDelegate == null)) {
+                this.onEndIsConnectedDelegate = new EndOperationDelegate(this.OnEndIsConnected);
+            }
+            if ((this.onIsConnectedCompletedDelegate == null)) {
+                this.onIsConnectedCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnIsConnectedCompleted);
+            }
+            base.InvokeAsync(this.onBeginIsConnectedDelegate, new object[] {
+                        session_key}, this.onEndIsConnectedDelegate, this.onIsConnectedCompletedDelegate, userState);
         }
     }
 }

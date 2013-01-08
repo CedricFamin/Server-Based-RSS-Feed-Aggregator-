@@ -106,6 +106,12 @@ namespace Server.Services
         {
             return this._account.UserList(session_key);
         }
+
+        [OperationContract]
+        public WebResult<bool> IsConnected(string session_key)
+        {
+            return this._account.IsConnected(session_key);
+        }
         #endregion
     }
 }

@@ -47,8 +47,12 @@ namespace Server.Implementation
         {
             try
             {
-                
-                User user = (from u in db.Users where u.username == username && u.password == password select u).Single();
+                var users = from u in db.Users where u.username == username && u.password == password select u;
+                if (users.Count() > 1)
+                    return new WebResult<Tuple<string, AccountData>>(WebResult.ErrorCodeList.INTERNAL_ERROR);
+                if (users.Count() == 0)
+                    return new WebResult<Tuple<string, AccountData>>(WebResult.ErrorCodeList.USER_NOT_FOUND);
+                User user = (users).Single();
                 Session session = _sessionWrapper.CreateSession(user);
                 return new WebResult<Tuple<string, AccountData>>(new Tuple<string, AccountData>(session.session_key, new AccountData(user)));
                 
@@ -91,7 +95,12 @@ namespace Server.Implementation
 
             try
             {
-                var userToDelete = (from u in db.Users where u.id == id select u).Single();
+                var users = from u in db.Users where u.id == id select u;
+                if (users.Count() > 1)
+                    return new WebResult<Tuple<string, AccountData>>(WebResult.ErrorCodeList.INTERNAL_ERROR);
+                if (users.Count() == 0)
+                    return new WebResult<Tuple<string, AccountData>>(WebResult.ErrorCodeList.USER_NOT_FOUND);
+                var userToDelete = (users).Single();
                 db.Users.DeleteOnSubmit(userToDelete);
                 db.SubmitChanges();
                 return new WebResult();
@@ -111,6 +120,12 @@ namespace Server.Implementation
                 users.Add(new AccountData(user));
             }
             return new WebResult<List<AccountData>>(users);
+        }
+
+        public WebResult<bool> IsConnected(string session_key)
+        {
+            Session session = _sessionWrapper.GetSession(session_key);
+            return new WebResult<bool>(session != null);
         }
         #endregion
     }

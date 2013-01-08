@@ -20,17 +20,23 @@ namespace Server.Utils
         {
             try
             {
-                return (from s in db.Sessions where s.session_key == sessionKey select s).Single();
+                var sessions = from s in db.Sessions where s.session_key == sessionKey select s;
+                if (sessions.Count() == 1)
+                    return (sessions).Single();
             }
             catch
             {
                 return null;
             }
+            return null;
         }
 
         public User GetUser(Session session)
         {
-            return (from u in db.Users where u.id == session.id_user select u).Single();
+            var users = from u in db.Users where u.id == session.id_user select u;
+            if (users.Count() == 1)
+                return (users).Single();
+            return null;
         }
 
         public Session CreateSession(User user)

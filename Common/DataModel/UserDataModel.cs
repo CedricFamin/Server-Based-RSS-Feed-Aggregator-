@@ -26,17 +26,14 @@ namespace Common.DataModel
 
         static public void SaveConnectionString()
         {
-            //Create the object
+            if (Instance == null)
+                return;
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
-            //make changes
-            if (!config.AppSettings.Settings.AllKeys.Contains("ConnectionString"))
-                config.AppSettings.Settings.Add(new KeyValueConfigurationElement("ConnectionString", ConnectionString));
-            else
-                config.AppSettings.Settings["ConnectionString"].Value = ConnectionString;
+            config.AppSettings.Settings.Remove("ConnectionString");
+            config.AppSettings.Settings.Add("ConnectionString", Instance.ConnectionString);
 
-            //save to apply changes
-            config.Save(ConfigurationSaveMode.Full);
+            config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
         }
 
@@ -47,10 +44,17 @@ namespace Common.DataModel
                 return config.AppSettings.Settings["ConnectionString"].Value;
             return "";
         }
+
+        static private UserDataModel _instance = null;
+        static UserDataModel()
+        {
+            _instance = new UserDataModel();
+        }
+        static public UserDataModel Instance { get { return _instance; } }
         #endregion
         #region Common
-        static private string _connectionString;
-        static private string ConnectionString { 
+        private string _connectionString;
+        private string ConnectionString { 
             get
             {
                 return _connectionString;
@@ -62,16 +66,16 @@ namespace Common.DataModel
                     SaveConnectionString();
             }
         }
-        static private AccountClient accountClient = null;
-        private static AccountData user { get; set; }
+        private AccountClient accountClient = null;
+        static AccountData user { get; set; }
 
-        static public AccountData User
+        public AccountData User
         {
             get { return user; }
             private set { user = value; }
         }
 
-        static private AccountClient AccountClient
+        private AccountClient AccountClient
         {
             get
             {
@@ -83,19 +87,22 @@ namespace Common.DataModel
             }
         }
         #endregion
-
-        public WebResult.ErrorCodeList Error { get; private set; }
         
         //private static LoginModal LoginView = new LoginModal();
 
         #region CTor/DTor
-        public UserDataModel()
+        private UserDataModel()
         {
-            IsConnected = false;
-            if (ConnectionString == null)
-                ConnectionString = LoadConnectionString();
+            
             AccountClient.LoginCompleted += new EventHandler<LoginCompletedEventArgs>(OnEndLogin);
             AccountClient.RegisterCompleted += new EventHandler<RegisterCompletedEventArgs>(OnEndRegister);
+            AccountClient.IsConnectedCompleted += new EventHandler<IsConnectedCompletedEventArgs>(OnIsConnected);
+            IsConnected = false;
+            if (ConnectionString == null)
+            {
+                ConnectionString = LoadConnectionString();
+                AccountClient.IsConnectedAsync(ConnectionString);
+            }
         }
         #endregion
 
@@ -140,6 +147,18 @@ namespace Common.DataModel
         #endregion
 
         #region ResultAsync
+        private void OnIsConnected(object sender, IsConnectedCompletedEventArgs args)
+        {
+            if (args.Error == null)
+            {
+                if (args.Result.ErrorCode == WebResult.ErrorCodeList.SUCCESS)
+                {
+                    IsConnected = args.Result.Value;
+                    RaisePropertyChange("IsConnected");
+                }
+            }
+        }
+
         private void OnEndLogin(object sender, LoginCompletedEventArgs args)
         {
             if (args.Error == null)
@@ -154,8 +173,6 @@ namespace Common.DataModel
                 else
                     IsConnected = false;
                 RaisePropertyChange("IsConnected");
-                
-                Error = args.Result.ErrorCode;
             }
         }
 
@@ -163,7 +180,7 @@ namespace Common.DataModel
         {
             if (args.Error == null)
             {
-                Error = args.Result.ErrorCode;
+
             }
         }
         #endregion

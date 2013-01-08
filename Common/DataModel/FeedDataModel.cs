@@ -55,7 +55,7 @@ namespace Common.DataModel
         {
             try
             {
-                UserData = new UserDataModel();
+                UserData = UserDataModel.Instance;
 
                 FeedsClient.GetFeedsCompleted += new EventHandler<GetFeedsCompletedEventArgs>(FeedsClient_GetFeedsCompleted);
                 FeedsClient.AddNewFeedCompleted += new EventHandler<AddNewFeedCompletedEventArgs>(FeedsClient_AddNewFeedCompleted);
@@ -199,7 +199,7 @@ namespace Common.DataModel
 
         public FeedDetailsDataModel()
         {
-            UserData = new UserDataModel();
+            UserData = UserDataModel.Instance;
             UserData.ShowConnexionModel_IFN();
 
             FeedsClient.ReadItemCompleted += new EventHandler<ReadItemCompletedEventArgs>(FeedsClient_ReadItemCompleted);
@@ -210,7 +210,7 @@ namespace Common.DataModel
             if (rootChan == null)
                 throw new NullReferenceException();
 
-            UserData = new UserDataModel();
+            UserData = UserDataModel.Instance;
             UserData.ShowConnexionModel_IFN();
 
             RootChannel = rootChan;

@@ -67,7 +67,7 @@ namespace Client_WPF.ViewModel
         #region CTor
         public LoginPageViewModel()
         {
-            UserData = new UserDataModel();
+            UserData = UserDataModel.Instance;
             UserData.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(UserData_PropertyChanged);
             Login = new RelayCommand((param) => LoginBody(param as string[]));
             _logued = false;

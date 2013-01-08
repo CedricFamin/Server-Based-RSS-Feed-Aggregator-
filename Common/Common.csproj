@@ -124,6 +124,9 @@
     <None Include="Service References\RSSService\Common.RSSService.WebResultOfArrayOfAccountDataYxjpQ34D.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\RSSService\Common.RSSService.WebResultOfboolean.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\RSSService\Common.RSSService.WebResultOfTupleOfstringAccountDatalrs4Oh3P5F2dSckg.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

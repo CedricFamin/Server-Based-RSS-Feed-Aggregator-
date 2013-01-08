@@ -37,7 +37,6 @@ namespace Client_WPF.ViewModel
         #region CTor
         public MenuViewModel()
         {
-            UserData = new UserDataModel();
             CloseCommand = new RelayCommand((param) => Application.Current.Shutdown());
             ShowConnectionDialog = new RelayCommand((param) => ShowConnectionModel_IFN());
             UserData.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(UserData_PropertyChanged);
@@ -51,12 +50,16 @@ namespace Client_WPF.ViewModel
             {
                 if (!(sender as UserDataModel).IsConnected)
                 {
-                    ConnectionModal = new LoginModal();
-                    ConnectionModal.ShowDialog();
+                    if (ConnectionModal == null)
+                    {
+                        ConnectionModal = new LoginModal();
+                        ConnectionModal.ShowDialog();
+                    }
                 }
                 else
                 {
-                    ConnectionModal.Close();
+                    if (ConnectionModal != null)
+                        ConnectionModal.Close();
                     ConnectionModal = null;
                 }
             }
@@ -66,8 +69,11 @@ namespace Client_WPF.ViewModel
         #region private methods
         void ShowConnectionModel_IFN()
         {
-            ConnectionModal = new LoginModal();
-            ConnectionModal.ShowDialog();
+            if (!UserData.IsConnected && ConnectionModal == null)
+            {
+                ConnectionModal = new LoginModal();
+                ConnectionModal.ShowDialog();
+            }
         }
         #endregion
 
