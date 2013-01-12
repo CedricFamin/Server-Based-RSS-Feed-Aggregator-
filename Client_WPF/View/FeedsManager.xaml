@@ -81,10 +81,6 @@
 											</Grid.ColumnDefinitions>
 											<TextBlock Margin="0" TextWrapping="Wrap" Foreground="{DynamicResource DefaultColor}" FontWeight="Bold" FontSize="18.667" d:LayoutOverrides="Width, Height"><InlineUIContainer>
 													<TextBlock TextWrapping="Wrap" Text="{Binding Title}"/>
-												</InlineUIContainer><InlineUIContainer>
-													<TextBlock TextWrapping="Wrap" Text=" : "/>
-												</InlineUIContainer><InlineUIContainer>
-													<TextBlock TextWrapping="Wrap" Text="{Binding Link}" Cursor="Hand"/>
 												</InlineUIContainer></TextBlock>
 											<StackPanel Grid.Column="1" Orientation="Horizontal" d:LayoutOverrides="Width" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
 												<Button Content="Button" Margin="0" d:LayoutOverrides="HorizontalAlignment" Width="24" BorderBrush="{x:Null}" Foreground="{x:Null}" Height="28" Style="{DynamicResource ButtonImageStyle}" VerticalAlignment="Center">
@@ -164,35 +160,16 @@
 											</Grid.ColumnDefinitions>
 											<TextBlock Margin="0" TextWrapping="Wrap" Foreground="{DynamicResource DefaultColor}" FontWeight="Bold" FontSize="18.667" d:LayoutOverrides="Width, Height"><InlineUIContainer>
 													<TextBlock TextWrapping="Wrap" Text="{Binding Title}"/>
-												</InlineUIContainer><InlineUIContainer>
-													<TextBlock TextWrapping="Wrap" Text=" : "/>
-												</InlineUIContainer><InlineUIContainer>
-													<TextBlock TextWrapping="Wrap" Text="{Binding Link}" Cursor="Hand"/>
 												</InlineUIContainer></TextBlock>
 											<StackPanel Grid.Column="1" Orientation="Horizontal" d:LayoutOverrides="Width" HorizontalAlignment="Right" VerticalAlignment="Center" Height="24">
 												<Button Content="Button" Margin="0" d:LayoutOverrides="HorizontalAlignment" Width="24" BorderBrush="{x:Null}" Foreground="{x:Null}" Height="28" Style="{DynamicResource ButtonImageStyle}" VerticalAlignment="Center">
 													<i:Interaction.Triggers>
 														<i:EventTrigger EventName="Click">
-															<i:InvokeCommandAction CommandParameter="{Binding Mode=OneWay}" Command="{Binding OpenFeedDetails, Source={StaticResource FeedsManagerViewModelDataSource}}"/>
+															<i:InvokeCommandAction CommandParameter="{Binding Url}" Command="{Binding AddFeed, Mode=OneWay, Source={StaticResource FeedsManagerViewModelDataSource}}"/>
 														</i:EventTrigger>
 													</i:Interaction.Triggers>
 													<Button.Background>
-														<ImageBrush ImageSource="/Client_WPF;component/Images/details.png"/>
-													</Button.Background>
-												</Button>
-												<Button Content="Button" Width="24" Style="{DynamicResource ButtonImageStyle}" BorderBrush="{x:Null}" Height="24" Foreground="{x:Null}">
-													<Button.Background>
-														<ImageBrush ImageSource="/Client_WPF;component/Images/share.png"/>
-													</Button.Background>
-												</Button>
-												<Button Content="Button" Margin="0" Width="24" Height="Auto" BorderBrush="{x:Null}" Foreground="{x:Null}" VerticalAlignment="Stretch" Style="{DynamicResource ButtonImageStyle}">
-													<i:Interaction.Triggers>
-														<i:EventTrigger EventName="Click">
-															<i:InvokeCommandAction CommandParameter="{Binding Mode=OneWay}" Command="{Binding RemoveFeed, Mode=OneWay, Source={StaticResource FeedsManagerViewModelDataSource}}"/>
-														</i:EventTrigger>
-													</i:Interaction.Triggers>
-													<Button.Background>
-														<ImageBrush ImageSource="/Client_WPF;component/Images/delete.png"/>
+														<ImageBrush ImageSource="/Client_WPF;component/Images/add.png"/>
 													</Button.Background>
 												</Button>
 											</StackPanel>

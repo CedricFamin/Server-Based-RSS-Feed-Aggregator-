@@ -7,6 +7,7 @@ using Client_WPF.View;
 using System.Windows.Input;
 using Client_WPF.Utils;
 using System.Windows;
+using System.ComponentModel;
 
 namespace Client_WPF.ViewModel
 {
@@ -29,19 +30,28 @@ namespace Client_WPF.ViewModel
         public ICommand ShowConnectionDialog { get; private set; }
 
         private UserDataModel UserData { get;set; }
+        public LoginModal ConnectionModal { get; private set; }
 
+        private PropertyChangedEventHandler PropertyChangedHandler { get; set; }
         #endregion
 
-        public LoginModal ConnectionModal { get; private set; }
+        
 
         #region CTor
         public MenuViewModel()
         {
+            UserData = UserDataModel.Instance;
             CloseCommand = new RelayCommand((param) => Application.Current.Shutdown());
             ShowConnectionDialog = new RelayCommand((param) => ShowConnectionModel_IFN());
-            UserData.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(UserData_PropertyChanged);
+            PropertyChangedHandler = new System.ComponentModel.PropertyChangedEventHandler(UserData_PropertyChanged);
+            UserData.PropertyChanged += PropertyChangedHandler;
             
             search = "Search Feeds ...";
+        }
+
+        ~MenuViewModel()
+        {
+            UserData.PropertyChanged -= PropertyChangedHandler;
         }
 
         void UserData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

@@ -8,6 +8,7 @@ using System.Net;
 using System.ServiceModel.Channels;
 using System.ServiceModel;
 using Common.DataModel;
+using System.ComponentModel;
 
 namespace Client_WPF.ViewModel
 {
@@ -62,15 +63,23 @@ namespace Client_WPF.ViewModel
                 RaisePropertyChange("Logued");
             }
         }
+
+        private PropertyChangedEventHandler PropertyChangedHandler { get; set; }
         #endregion
 
         #region CTor
         public LoginPageViewModel()
         {
             UserData = UserDataModel.Instance;
-            UserData.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(UserData_PropertyChanged);
+            PropertyChangedHandler = new System.ComponentModel.PropertyChangedEventHandler(UserData_PropertyChanged);
+            UserDataModel.Instance.PropertyChanged += PropertyChangedHandler;
             Login = new RelayCommand((param) => LoginBody(param as string[]));
             _logued = false;
+        }
+
+        ~LoginPageViewModel()
+        {
+            UserDataModel.Instance.PropertyChanged -= PropertyChangedHandler;
         }
 
         void UserData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
