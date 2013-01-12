@@ -72,7 +72,6 @@
         #endregion
 
         private System.Windows.Forms.Integration.ElementHost elementHost1;
-        private MainContainerUserControl mainContainerUserControl1;
         private System.Windows.Forms.Integration.ElementHost elementHost2;
         private MainContainerUserControl mainContainerUserControl2;
     }

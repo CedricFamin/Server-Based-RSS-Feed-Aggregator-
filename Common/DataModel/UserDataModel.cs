@@ -45,12 +45,8 @@ namespace Common.DataModel
             return "";
         }
 
-        static private UserDataModel _instance = null;
-        static UserDataModel()
-        {
-            _instance = new UserDataModel();
-        }
-        static public UserDataModel Instance { get { return _instance; } }
+        private static UserDataModel _instance = new UserDataModel();
+        public static UserDataModel Instance { get { return _instance; } }
         #endregion
         #region Common
         private string _connectionString;
@@ -100,7 +96,7 @@ namespace Common.DataModel
             IsConnected = false;
             if (ConnectionString == null)
             {
-                ConnectionString = LoadConnectionString();
+                _connectionString = LoadConnectionString();
                 AccountClient.IsConnectedAsync(ConnectionString);
             }
         }

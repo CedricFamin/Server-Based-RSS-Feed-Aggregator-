@@ -71,6 +71,7 @@
     </Compile>
     <Compile Include="Utils\BindableObject.cs" />
     <Compile Include="Utils\RelayCommand.cs" />
+    <Compile Include="Utils\SingletonBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
