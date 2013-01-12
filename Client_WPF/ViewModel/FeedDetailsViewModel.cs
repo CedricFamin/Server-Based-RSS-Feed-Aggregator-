@@ -5,7 +5,7 @@ using System.Text;
 using Common.FeedService;
 using Common.DataModel;
 using System.Windows.Input;
-using Client_WPF.Utils;
+using Common.Utils;
 
 namespace Client_WPF.ViewModel
 {

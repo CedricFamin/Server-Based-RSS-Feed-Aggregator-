@@ -57,6 +57,7 @@
     <Compile Include="Behavior\ToggleVisibilityBehavior.cs" />
     <Compile Include="Behavior\WebBrowserUtilityBehavior.cs" />
     <Compile Include="DataModel\FeedDataModel.cs" />
+    <Compile Include="DataModel\SearchDataModel.cs" />
     <Compile Include="DataModel\UserDataModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\FeedService\Reference.cs">
@@ -72,6 +73,7 @@
     <Compile Include="Utils\BindableObject.cs" />
     <Compile Include="Utils\RelayCommand.cs" />
     <Compile Include="Utils\SingletonBase.cs" />
+    <Compile Include="Utils\StringExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

@@ -9,6 +9,7 @@ using System.ServiceModel.Channels;
 using System.ServiceModel;
 using Common.DataModel;
 using System.ComponentModel;
+using Common.Utils;
 
 namespace Client_WPF.ViewModel
 {

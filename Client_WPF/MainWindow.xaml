@@ -6,7 +6,7 @@
 
 		<ControlTemplate x:Key="MenuItemSearchControlTemplate" TargetType="{x:Type MenuItem}">
 			<StackPanel Orientation="Horizontal">
-				<TextBox Text="Search feeds ..." Style="{DynamicResource TextBoxSearchStyle}" Foreground="{DynamicResource DefaultColor}"  Width="Auto"  Margin="0" Height="Auto">
+				<TextBox Text="{Binding Search, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource TextBoxSearchStyle}" Foreground="{DynamicResource DefaultColor}"  Width="Auto"  Margin="0" Height="Auto">
 					<TextBox.Background>
 						<LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
 							<GradientStop Color="#FFF6F6F6"/>

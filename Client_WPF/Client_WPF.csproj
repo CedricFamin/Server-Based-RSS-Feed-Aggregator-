@@ -82,7 +82,6 @@
       <DependentUpon>FeedsManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\CookieBehavior.cs" />
-    <Compile Include="Utils\RelayCommand.cs" />
     <Compile Include="ViewModel\BindableObject.cs" />
     <Compile Include="ViewModel\LoginPageViewModel.cs" />
     <Compile Include="ViewModel\MenuViewModel.cs" />

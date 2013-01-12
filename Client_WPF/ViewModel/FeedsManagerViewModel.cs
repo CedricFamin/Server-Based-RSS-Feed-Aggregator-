@@ -5,7 +5,7 @@ using System.Text;
 using Common.DataModel;
 using Common.FeedService;
 using System.Windows.Input;
-using Client_WPF.Utils;
+using Common.Utils;
 
 namespace Client_WPF.ViewModel
 {
@@ -74,6 +74,30 @@ namespace Client_WPF.ViewModel
             }).Show());
 
             Channels = new List<Channel>();
+
+            SearchDataModel.Instance.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(Instance_PropertyChanged);
+        }
+
+        void Instance_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "Search":
+                    SearchDataModel searchInstance = (sender as SearchDataModel);
+                    string searchValue = searchInstance.Search;
+                    if (searchInstance.IsSearchValue(searchValue))
+                    {
+                        AllChannels = (from chan in FeedManagerDataModel.Instance.AllChannels where chan.Title.Contains(searchValue, StringComparison.OrdinalIgnoreCase) select chan).ToList();
+                        Channels = (from chan in FeedManagerDataModel.Instance.Channels where chan.Title.Contains(searchValue) select chan).ToList();
+                    }
+                    else
+                    {
+                        AllChannels = FeedManagerDataModel.Instance.AllChannels;
+                        Channels = FeedManagerDataModel.Instance.Channels;
+                    }
+                        
+                    break;
+            }
         }
         #endregion
 

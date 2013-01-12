@@ -76,7 +76,16 @@ namespace Common.DataModel
             get
             {
                 if (accountClient == null)
-                    accountClient = new AccountClient();
+                {
+                    try
+                    {
+                        accountClient = new AccountClient();
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+                }
                 if (accountClient.State == CommunicationState.Closed)
                     accountClient.Open();
                 return accountClient;
@@ -89,15 +98,22 @@ namespace Common.DataModel
         #region CTor/DTor
         private UserDataModel()
         {
-            
-            AccountClient.LoginCompleted += new EventHandler<LoginCompletedEventArgs>(OnEndLogin);
-            AccountClient.RegisterCompleted += new EventHandler<RegisterCompletedEventArgs>(OnEndRegister);
-            AccountClient.IsConnectedCompleted += new EventHandler<IsConnectedCompletedEventArgs>(OnIsConnected);
-            IsConnected = false;
-            if (ConnectionString == null)
+            try
             {
-                _connectionString = LoadConnectionString();
-                AccountClient.IsConnectedAsync(ConnectionString);
+                AccountClient.LoginCompleted += new EventHandler<LoginCompletedEventArgs>(OnEndLogin);
+                AccountClient.RegisterCompleted += new EventHandler<RegisterCompletedEventArgs>(OnEndRegister);
+                AccountClient.IsConnectedCompleted += new EventHandler<IsConnectedCompletedEventArgs>(OnIsConnected);
+                IsConnected = false;
+                if (ConnectionString == null)
+                {
+                    _connectionString = LoadConnectionString();
+                    AccountClient.IsConnectedAsync(ConnectionString);
+                }
+            }
+            catch (Exception)
+            {
+
+                // HACK BIZARRE BUG DE BLEND
             }
         }
         #endregion

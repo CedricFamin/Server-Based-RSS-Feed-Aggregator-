@@ -8,6 +8,7 @@ using System.Windows.Input;
 using Client_WPF.Utils;
 using System.Windows;
 using System.ComponentModel;
+using Common.Utils;
 
 namespace Client_WPF.ViewModel
 {
@@ -22,14 +23,13 @@ namespace Client_WPF.ViewModel
             {
                 search = value;
                 RaisePropertyChange("Search");
-
+                SearchDataModel.Instance.Search = search;
             }
         }
 
         public ICommand CloseCommand { get; private set; }
         public ICommand ShowConnectionDialog { get; private set; }
 
-        private UserDataModel UserData { get;set; }
         public LoginModal ConnectionModal { get; private set; }
 
         private PropertyChangedEventHandler PropertyChangedHandler { get; set; }
@@ -40,18 +40,17 @@ namespace Client_WPF.ViewModel
         #region CTor
         public MenuViewModel()
         {
-            UserData = UserDataModel.Instance;
             CloseCommand = new RelayCommand((param) => Application.Current.Shutdown());
             ShowConnectionDialog = new RelayCommand((param) => ShowConnectionModel_IFN());
             PropertyChangedHandler = new System.ComponentModel.PropertyChangedEventHandler(UserData_PropertyChanged);
-            UserData.PropertyChanged += PropertyChangedHandler;
+            UserDataModel.Instance.PropertyChanged += PropertyChangedHandler;
             
-            search = "Search Feeds ...";
+            search = SearchDataModel.Instance.Search;
         }
 
         ~MenuViewModel()
         {
-            UserData.PropertyChanged -= PropertyChangedHandler;
+            UserDataModel.Instance.PropertyChanged -= PropertyChangedHandler;
         }
 
         void UserData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -79,7 +78,7 @@ namespace Client_WPF.ViewModel
         #region private methods
         void ShowConnectionModel_IFN()
         {
-            if (!UserData.IsConnected && ConnectionModal == null)
+            if (!UserDataModel.Instance.IsConnected && ConnectionModal == null)
             {
                 ConnectionModal = new LoginModal();
                 ConnectionModal.ShowDialog();
