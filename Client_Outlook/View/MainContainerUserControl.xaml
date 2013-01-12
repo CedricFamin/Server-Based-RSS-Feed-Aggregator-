@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Client_Outlook_ViewModel="clr-namespace:Client_Outlook.ViewModel" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Common_Behavior="clr-namespace:Common.Behavior;assembly=Common" xmlns:Client_Outlook_Behavior="clr-namespace:Client_Outlook.Behavior" x:Class="Client_Outlook.View.MainContainerUserControl" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="336" Background="{DynamicResource BasicBackgroundColor}" Padding="{DynamicResource BasicPadding}">
+             d:DesignHeight="300" d:DesignWidth="336" Background="{DynamicResource MainBG}">
 	<UserControl.Resources>
 		<Client_Outlook_ViewModel:FeedDetailsViewModel x:Key="FeedDetailsViewModelDataSource" d:IsDataSource="True"/>
 		<Client_Outlook_ViewModel:FeedManagerViewModel x:Key="FeedManagerViewModelDataSource" d:IsDataSource="True"/>
@@ -88,7 +88,7 @@
 						</StackPanel>
 					</Grid>
 					<StackPanel x:Name="stackPanel" Orientation="Vertical" Width="Auto" Visibility="Collapsed">
-						<TextBlock TextWrapping="Wrap" Text="{Binding Description}" d:LayoutOverrides="Width" Style="{DynamicResource TitleStylle}"/>
+						<TextBlock TextWrapping="Wrap" Text="{Binding Description}" d:LayoutOverrides="Width" Style="{DynamicResource TitleStylle}" Margin="10,5,10,0"/>
 						<ItemsControl x:Name="itemsControl" Height="Auto" Width="Auto" ItemsSource="{Binding Items}" ItemTemplate="{DynamicResource ItemsChannelTemplate}" Padding="{DynamicResource BasicPadding}">
 							<i:Interaction.Behaviors>
 								<Client_Outlook_Behavior:LoadFeedDetailsBehavior BaseChannel="{Binding Mode=OneWay}" Destination="{Binding DataContext, ElementName=itemsControl}"/>
@@ -139,11 +139,56 @@
 			</StackPanel>
 		</DataTemplate>
 		<SolidColorBrush x:Key="BasicBackgroundColor" Color="White"/>
+		<Style x:Key="MainTitleStyle" TargetType="{x:Type TextBlock}">
+			<Setter Property="TextWrapping" Value="NoWrap"/>
+			<Setter Property="TextTrimming" Value="None"/>
+		</Style>
+		<SolidColorBrush x:Key="MainBG" Color="#FF7C7C7C"/>
+		<Thickness x:Key="BorderThickness">5,6</Thickness>
+		<CornerRadius x:Key="DefaultRadius">5</CornerRadius>
+		<DataTemplate x:Key="DataTemplateAllChannels">
+			<Border BorderThickness="0,0,0,1" BorderBrush="#FF9D9D9D" Padding="2,10,2,0" Margin="0,0,0,10" CornerRadius="2">
+				<StackPanel Height="Auto">
+					<Grid Height="Auto" Width="Auto">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition/>
+							<ColumnDefinition/>
+						</Grid.ColumnDefinitions>
+						<TextBlock Margin="0" TextWrapping="Wrap" Text="{Binding Title}" d:LayoutOverrides="Width, Height" FontWeight="Bold" FontSize="21.333" Style="{DynamicResource TitleStylle}"/>
+						<StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right">
+							<Button Content="Expand" Margin="0" VerticalAlignment="Top" HorizontalAlignment="Right" Height="24" Style="{DynamicResource ButtonImageStyle}" Foreground="{x:Null}" Width="24">
+								<i:Interaction.Triggers>
+									<i:EventTrigger EventName="Click">
+										<i:InvokeCommandAction CommandParameter="{Binding Mode=OneWay}" Command="{Binding AddFollowFeed, Mode=OneWay, Source={StaticResource FeedManagerViewModelDataSource}}"/>
+									</i:EventTrigger>
+								</i:Interaction.Triggers>
+								<Button.Background>
+									<ImageBrush ImageSource="/Client_Outlook;component/Images/add.png"/>
+								</Button.Background>
+							</Button>
+						</StackPanel>
+					</Grid>
+				</StackPanel>
+			</Border>
+		</DataTemplate>
 	</UserControl.Resources>
 	<UserControl.DataContext>
 		<Binding Mode="OneWay" Source="{StaticResource FeedManagerViewModelDataSource}"/>
 	</UserControl.DataContext>
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-		<ItemsControl ItemsSource="{Binding Channels}" ItemTemplate="{DynamicResource ChannelItemsTemplate}"/>
+    <ScrollViewer d:LayoutOverrides="Height" ScrollViewer.VerticalScrollBarVisibility="Auto">
+		<StackPanel Orientation="Vertical">
+			<Border BorderThickness="{DynamicResource BorderThickness}" BorderBrush="{DynamicResource MainBG}" CornerRadius="{DynamicResource DefaultRadius}" Background="White">
+				<StackPanel>
+					<TextBlock TextWrapping="Wrap" Text="My Feeds" Style="{DynamicResource TitleStylle}" HorizontalAlignment="Center" Foreground="#FF626262" FontSize="21.333" FontWeight="Bold"/>
+					<ItemsControl ItemsSource="{Binding Channels}" ItemTemplate="{DynamicResource ChannelItemsTemplate}" d:LayoutOverrides="Width"/>
+				</StackPanel>
+			</Border>
+			<Border BorderThickness="{DynamicResource BorderThickness}" BorderBrush="{DynamicResource MainBG}" CornerRadius="{DynamicResource DefaultRadius}" Background="White">
+				<StackPanel>
+					<TextBlock TextWrapping="Wrap" Text="All Feeds" Style="{DynamicResource TitleStylle}" HorizontalAlignment="Center" Foreground="#FF626262" FontSize="21.333" FontWeight="Bold"/>
+					<ItemsControl ItemsSource="{Binding AllChannels}" ItemTemplate="{DynamicResource DataTemplateAllChannels}" d:LayoutOverrides="Width"/>
+				</StackPanel>
+			</Border>
+		</StackPanel>
 	</ScrollViewer>
 </UserControl>

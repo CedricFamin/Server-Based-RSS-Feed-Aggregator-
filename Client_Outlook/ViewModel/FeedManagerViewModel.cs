@@ -23,10 +23,19 @@ namespace Client_Outlook.ViewModel
             get { return _channels; }
             set { _channels = value; RaisePropertyChange("Channels");  }
         }
+
+        private List<Channel> _allChannels;
+
+        public List<Channel> AllChannels
+        {
+            get { return _allChannels; }
+            set { _allChannels = value; RaisePropertyChange("AllChannels"); }
+        }
         #endregion
 
         #region Commands
         public ICommand RemoveFeed { get; private set; }
+        public ICommand AddFollowFeed { get; private set; }
         #endregion
 
         #region CTor
@@ -36,18 +45,23 @@ namespace Client_Outlook.ViewModel
             FeedManager.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(FeedManager_PropertyChanged);
             Instance = this;
 
-            RemoveFeed = new RelayCommand((param) => FeedManager.RemoveFeed(param as Channel));
+            RemoveFeed      = new RelayCommand((param) => FeedManager.RemoveFeed(param as Channel));
+            AddFollowFeed   = new RelayCommand((param) => FeedManager.AddNewFeed((param as Channel).Url));
         }
         #endregion
 
         #region Property changed
         void FeedManager_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "Channels")
+            switch (e.PropertyName)
             {
-                Channels = FeedManager.Channels;
-            }
-
+                case "Channels":
+                    Channels = FeedManager.Channels;
+                    break;
+                case "AllChannels":
+                    AllChannels = FeedManager.AllChannels;
+                    break;
+            };
         }
         #endregion
 
