@@ -19,14 +19,11 @@ namespace Client_Outlook.ViewModel
             }
         }
 
-        private FeedManagerDataModel _feedManager = null;
         private FeedManagerDataModel FeedManager
         {
             get
             {
-                if (_feedManager == null)
-                    _feedManager = new FeedManagerDataModel();
-                return _feedManager;
+                return FeedManagerDataModel.Instance;
             }
         }
         #endregion

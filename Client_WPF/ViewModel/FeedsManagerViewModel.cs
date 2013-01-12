@@ -60,7 +60,7 @@ namespace Client_WPF.ViewModel
         #region CTor
         public FeedsManagerViewModel()
         {
-            FeedsManager = new FeedManagerDataModel();
+            FeedsManager = FeedManagerDataModel.Instance;
             FeedsManager.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(FeedsManager_PropertyChanged);
 
             RefreshFeeds = new RelayCommand((param) => FeedsManager.GetAllRootFeeds());

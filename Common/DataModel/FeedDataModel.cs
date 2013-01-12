@@ -51,7 +51,9 @@ namespace Common.DataModel
         #endregion
 
         #region CTor
-        public FeedManagerDataModel()
+        private static FeedManagerDataModel instance = new FeedManagerDataModel();
+        public static FeedManagerDataModel Instance { get { return instance; } }
+        private FeedManagerDataModel()
         {
             try
             {

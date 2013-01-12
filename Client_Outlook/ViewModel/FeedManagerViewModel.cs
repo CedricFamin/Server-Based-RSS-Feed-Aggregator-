@@ -41,7 +41,7 @@ namespace Client_Outlook.ViewModel
         #region CTor
         public FeedManagerViewModel()
         {
-            FeedManager = new FeedManagerDataModel();
+            FeedManager = FeedManagerDataModel.Instance;
             FeedManager.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(FeedManager_PropertyChanged);
             Instance = this;
 
