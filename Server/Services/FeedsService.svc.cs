@@ -53,7 +53,7 @@ namespace Server.Services
 
             List<Channel> chans = new List<Channel>();
 
-            var dbChans = from chan in db.ChannelXUsers where chan.User == user select chan.Channel;
+            var dbChans = (from chan in db.ChannelXUsers where chan.User == user select chan.Channel).OrderBy(chan => chan.title);
             foreach (var dbChan in dbChans)
             {
                 chans.Add(new Channel(dbChan));
@@ -68,7 +68,7 @@ namespace Server.Services
       
             List<Channel> chans = new List<Channel>();
 
-            var dbChans = db.Channels.ToList();
+            var dbChans = db.Channels.ToList().OrderBy(chan => chan.title);
             foreach (var dbChan in dbChans)
             {
                 chans.Add(new Channel(dbChan));
