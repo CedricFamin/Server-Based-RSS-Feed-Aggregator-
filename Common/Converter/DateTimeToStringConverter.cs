@@ -8,20 +8,20 @@ using System.Windows;
 
 namespace Common.Converter
 {
-    [ValueConversion(typeof(DateTime), typeof(String))]
+    [ValueConversion(typeof(DateTimeOffset), typeof(String))]
     public class DateConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            DateTime date = (DateTime)value;
-            return date.ToShortDateString() + " " + date.ToShortTimeString();
+            DateTimeOffset date = (DateTimeOffset)value;
+            return date.DateTime.ToShortDateString() + " " + date.DateTime.ToShortTimeString();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             string strValue = value as string;
-            DateTime resultDateTime;
-            if (DateTime.TryParse(strValue, out resultDateTime))
+            DateTimeOffset resultDateTime;
+            if (DateTimeOffset.TryParse(strValue, out resultDateTime))
             {
                 return resultDateTime;
             }

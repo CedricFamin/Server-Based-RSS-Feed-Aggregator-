@@ -26,6 +26,7 @@
     <MetadataFile FileName="FeedsService.wsdl" MetadataType="Wsdl" ID="4bd23468-eaf7-44e9-941e-5d509cec6c7f" SourceId="1" SourceUrl="http://localhost:3972/Services/FeedsService.svc?wsdl" />
     <MetadataFile FileName="FeedsService1.xsd" MetadataType="Schema" ID="20bc03be-a8c7-4be4-8ca1-574b7956f158" SourceId="1" SourceUrl="http://localhost:3972/Services/FeedsService.svc?xsd=xsd3" />
     <MetadataFile FileName="FeedsService2.xsd" MetadataType="Schema" ID="1b3ac589-86c7-4c48-8a30-d619a9c02e53" SourceId="1" SourceUrl="http://localhost:3972/Services/FeedsService.svc?xsd=xsd1" />
+    <MetadataFile FileName="FeedsService4.xsd" MetadataType="Schema" ID="82145aec-080e-43f3-942f-a3c9d3b9472f" SourceId="1" SourceUrl="http://localhost:3972/Services/FeedsService.svc?xsd=xsd4" />
     <MetadataFile FileName="FeedsService3.xsd" MetadataType="Schema" ID="77cfb0ab-7570-41db-85bc-8d81b8ba5e7e" SourceId="1" SourceUrl="http://localhost:3972/Services/FeedsService.svc?xsd=xsd2" />
   </Metadata>
   <Extensions>

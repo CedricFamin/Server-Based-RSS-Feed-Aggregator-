@@ -36,9 +36,6 @@ namespace Server.EntityFramwork
     partial void InsertChannelXUser(ChannelXUser instance);
     partial void UpdateChannelXUser(ChannelXUser instance);
     partial void DeleteChannelXUser(ChannelXUser instance);
-    partial void InsertItem(Item instance);
-    partial void UpdateItem(Item instance);
-    partial void DeleteItem(Item instance);
     partial void InsertItemRead(ItemRead instance);
     partial void UpdateItemRead(ItemRead instance);
     partial void DeleteItemRead(ItemRead instance);
@@ -48,6 +45,9 @@ namespace Server.EntityFramwork
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
+    partial void InsertItem(Item instance);
+    partial void UpdateItem(Item instance);
+    partial void DeleteItem(Item instance);
     #endregion
 		
 		public ServerDataContext() : 
@@ -97,14 +97,6 @@ namespace Server.EntityFramwork
 			}
 		}
 		
-		public System.Data.Linq.Table<Item> Items
-		{
-			get
-			{
-				return this.GetTable<Item>();
-			}
-		}
-		
 		public System.Data.Linq.Table<ItemRead> ItemReads
 		{
 			get
@@ -126,6 +118,14 @@ namespace Server.EntityFramwork
 			get
 			{
 				return this.GetTable<User>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Item> Items
+		{
+			get
+			{
+				return this.GetTable<Item>();
 			}
 		}
 	}
@@ -632,353 +632,6 @@ namespace Server.EntityFramwork
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Item")]
-	public partial class Item : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private int _id_channel;
-		
-		private string _title;
-		
-		private string _link;
-		
-		private System.Nullable<System.DateTime> _pubDate;
-		
-		private string _description;
-		
-		private string _guid;
-		
-		private string _author;
-		
-		private string _category;
-		
-		private string _comments;
-		
-		private EntitySet<ItemRead> _ItemReads;
-		
-		private EntityRef<Channel> _Channel;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void Onid_channelChanging(int value);
-    partial void Onid_channelChanged();
-    partial void OntitleChanging(string value);
-    partial void OntitleChanged();
-    partial void OnlinkChanging(string value);
-    partial void OnlinkChanged();
-    partial void OnpubDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnpubDateChanged();
-    partial void OndescriptionChanging(string value);
-    partial void OndescriptionChanged();
-    partial void OnguidChanging(string value);
-    partial void OnguidChanged();
-    partial void OnauthorChanging(string value);
-    partial void OnauthorChanged();
-    partial void OncategoryChanging(string value);
-    partial void OncategoryChanged();
-    partial void OncommentsChanging(string value);
-    partial void OncommentsChanged();
-    #endregion
-		
-		public Item()
-		{
-			this._ItemReads = new EntitySet<ItemRead>(new Action<ItemRead>(this.attach_ItemReads), new Action<ItemRead>(this.detach_ItemReads));
-			this._Channel = default(EntityRef<Channel>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_channel", DbType="Int NOT NULL")]
-		public int id_channel
-		{
-			get
-			{
-				return this._id_channel;
-			}
-			set
-			{
-				if ((this._id_channel != value))
-				{
-					if (this._Channel.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onid_channelChanging(value);
-					this.SendPropertyChanging();
-					this._id_channel = value;
-					this.SendPropertyChanged("id_channel");
-					this.Onid_channelChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_title", DbType="VarChar(255)")]
-		public string title
-		{
-			get
-			{
-				return this._title;
-			}
-			set
-			{
-				if ((this._title != value))
-				{
-					this.OntitleChanging(value);
-					this.SendPropertyChanging();
-					this._title = value;
-					this.SendPropertyChanged("title");
-					this.OntitleChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_link", DbType="VarChar(255)")]
-		public string link
-		{
-			get
-			{
-				return this._link;
-			}
-			set
-			{
-				if ((this._link != value))
-				{
-					this.OnlinkChanging(value);
-					this.SendPropertyChanging();
-					this._link = value;
-					this.SendPropertyChanged("link");
-					this.OnlinkChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pubDate", DbType="Date")]
-		public System.Nullable<System.DateTime> pubDate
-		{
-			get
-			{
-				return this._pubDate;
-			}
-			set
-			{
-				if ((this._pubDate != value))
-				{
-					this.OnpubDateChanging(value);
-					this.SendPropertyChanging();
-					this._pubDate = value;
-					this.SendPropertyChanged("pubDate");
-					this.OnpubDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="Text", UpdateCheck=UpdateCheck.Never)]
-		public string description
-		{
-			get
-			{
-				return this._description;
-			}
-			set
-			{
-				if ((this._description != value))
-				{
-					this.OndescriptionChanging(value);
-					this.SendPropertyChanging();
-					this._description = value;
-					this.SendPropertyChanged("description");
-					this.OndescriptionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_guid", DbType="VarChar(255)")]
-		public string guid
-		{
-			get
-			{
-				return this._guid;
-			}
-			set
-			{
-				if ((this._guid != value))
-				{
-					this.OnguidChanging(value);
-					this.SendPropertyChanging();
-					this._guid = value;
-					this.SendPropertyChanged("guid");
-					this.OnguidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_author", DbType="VarChar(255)")]
-		public string author
-		{
-			get
-			{
-				return this._author;
-			}
-			set
-			{
-				if ((this._author != value))
-				{
-					this.OnauthorChanging(value);
-					this.SendPropertyChanging();
-					this._author = value;
-					this.SendPropertyChanged("author");
-					this.OnauthorChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_category", DbType="VarChar(255)")]
-		public string category
-		{
-			get
-			{
-				return this._category;
-			}
-			set
-			{
-				if ((this._category != value))
-				{
-					this.OncategoryChanging(value);
-					this.SendPropertyChanging();
-					this._category = value;
-					this.SendPropertyChanged("category");
-					this.OncategoryChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_comments", DbType="VarChar(255)")]
-		public string comments
-		{
-			get
-			{
-				return this._comments;
-			}
-			set
-			{
-				if ((this._comments != value))
-				{
-					this.OncommentsChanging(value);
-					this.SendPropertyChanging();
-					this._comments = value;
-					this.SendPropertyChanged("comments");
-					this.OncommentsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Item_ItemRead", Storage="_ItemReads", ThisKey="id", OtherKey="id_item")]
-		public EntitySet<ItemRead> ItemReads
-		{
-			get
-			{
-				return this._ItemReads;
-			}
-			set
-			{
-				this._ItemReads.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Channel_Item", Storage="_Channel", ThisKey="id_channel", OtherKey="id", IsForeignKey=true)]
-		public Channel Channel
-		{
-			get
-			{
-				return this._Channel.Entity;
-			}
-			set
-			{
-				Channel previousValue = this._Channel.Entity;
-				if (((previousValue != value) 
-							|| (this._Channel.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Channel.Entity = null;
-						previousValue.Items.Remove(this);
-					}
-					this._Channel.Entity = value;
-					if ((value != null))
-					{
-						value.Items.Add(this);
-						this._id_channel = value.id;
-					}
-					else
-					{
-						this._id_channel = default(int);
-					}
-					this.SendPropertyChanged("Channel");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_ItemReads(ItemRead entity)
-		{
-			this.SendPropertyChanging();
-			entity.Item = this;
-		}
-		
-		private void detach_ItemReads(ItemRead entity)
-		{
-			this.SendPropertyChanging();
-			entity.Item = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ItemRead")]
 	public partial class ItemRead : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -991,9 +644,9 @@ namespace Server.EntityFramwork
 		
 		private int _id_item;
 		
-		private EntityRef<Item> _Item;
-		
 		private EntityRef<User> _User;
+		
+		private EntityRef<Item> _Item;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1009,8 +662,8 @@ namespace Server.EntityFramwork
 		
 		public ItemRead()
 		{
-			this._Item = default(EntityRef<Item>);
 			this._User = default(EntityRef<User>);
+			this._Item = default(EntityRef<Item>);
 			OnCreated();
 		}
 		
@@ -1082,40 +735,6 @@ namespace Server.EntityFramwork
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Item_ItemRead", Storage="_Item", ThisKey="id_item", OtherKey="id", IsForeignKey=true)]
-		public Item Item
-		{
-			get
-			{
-				return this._Item.Entity;
-			}
-			set
-			{
-				Item previousValue = this._Item.Entity;
-				if (((previousValue != value) 
-							|| (this._Item.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Item.Entity = null;
-						previousValue.ItemReads.Remove(this);
-					}
-					this._Item.Entity = value;
-					if ((value != null))
-					{
-						value.ItemReads.Add(this);
-						this._id_item = value.id;
-					}
-					else
-					{
-						this._id_item = default(int);
-					}
-					this.SendPropertyChanged("Item");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_ItemRead", Storage="_User", ThisKey="id_user", OtherKey="id", IsForeignKey=true)]
 		public User User
 		{
@@ -1146,6 +765,40 @@ namespace Server.EntityFramwork
 						this._id_user = default(int);
 					}
 					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Item_ItemRead", Storage="_Item", ThisKey="id_item", OtherKey="id", IsForeignKey=true)]
+		public Item Item
+		{
+			get
+			{
+				return this._Item.Entity;
+			}
+			set
+			{
+				Item previousValue = this._Item.Entity;
+				if (((previousValue != value) 
+							|| (this._Item.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Item.Entity = null;
+						previousValue.ItemReads.Remove(this);
+					}
+					this._Item.Entity = value;
+					if ((value != null))
+					{
+						value.ItemReads.Add(this);
+						this._id_item = value.id;
+					}
+					else
+					{
+						this._id_item = default(int);
+					}
+					this.SendPropertyChanged("Item");
 				}
 			}
 		}
@@ -1585,6 +1238,353 @@ namespace Server.EntityFramwork
 		{
 			this.SendPropertyChanging();
 			entity.User = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Item")]
+	public partial class Item : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private int _id_channel;
+		
+		private string _title;
+		
+		private string _link;
+		
+		private System.Nullable<System.DateTimeOffset> _pubDate;
+		
+		private string _description;
+		
+		private string _guid;
+		
+		private string _author;
+		
+		private string _category;
+		
+		private string _comments;
+		
+		private EntitySet<ItemRead> _ItemReads;
+		
+		private EntityRef<Channel> _Channel;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void Onid_channelChanging(int value);
+    partial void Onid_channelChanged();
+    partial void OntitleChanging(string value);
+    partial void OntitleChanged();
+    partial void OnlinkChanging(string value);
+    partial void OnlinkChanged();
+    partial void OnpubDateChanging(System.Nullable<System.DateTimeOffset> value);
+    partial void OnpubDateChanged();
+    partial void OndescriptionChanging(string value);
+    partial void OndescriptionChanged();
+    partial void OnguidChanging(string value);
+    partial void OnguidChanged();
+    partial void OnauthorChanging(string value);
+    partial void OnauthorChanged();
+    partial void OncategoryChanging(string value);
+    partial void OncategoryChanged();
+    partial void OncommentsChanging(string value);
+    partial void OncommentsChanged();
+    #endregion
+		
+		public Item()
+		{
+			this._ItemReads = new EntitySet<ItemRead>(new Action<ItemRead>(this.attach_ItemReads), new Action<ItemRead>(this.detach_ItemReads));
+			this._Channel = default(EntityRef<Channel>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_channel", DbType="Int NOT NULL")]
+		public int id_channel
+		{
+			get
+			{
+				return this._id_channel;
+			}
+			set
+			{
+				if ((this._id_channel != value))
+				{
+					if (this._Channel.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onid_channelChanging(value);
+					this.SendPropertyChanging();
+					this._id_channel = value;
+					this.SendPropertyChanged("id_channel");
+					this.Onid_channelChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_title", DbType="VarChar(255)")]
+		public string title
+		{
+			get
+			{
+				return this._title;
+			}
+			set
+			{
+				if ((this._title != value))
+				{
+					this.OntitleChanging(value);
+					this.SendPropertyChanging();
+					this._title = value;
+					this.SendPropertyChanged("title");
+					this.OntitleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_link", DbType="VarChar(255)")]
+		public string link
+		{
+			get
+			{
+				return this._link;
+			}
+			set
+			{
+				if ((this._link != value))
+				{
+					this.OnlinkChanging(value);
+					this.SendPropertyChanging();
+					this._link = value;
+					this.SendPropertyChanged("link");
+					this.OnlinkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pubDate", DbType="DateTimeOffset")]
+		public System.Nullable<System.DateTimeOffset> pubDate
+		{
+			get
+			{
+				return this._pubDate;
+			}
+			set
+			{
+				if ((this._pubDate != value))
+				{
+					this.OnpubDateChanging(value);
+					this.SendPropertyChanging();
+					this._pubDate = value;
+					this.SendPropertyChanged("pubDate");
+					this.OnpubDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string description
+		{
+			get
+			{
+				return this._description;
+			}
+			set
+			{
+				if ((this._description != value))
+				{
+					this.OndescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._description = value;
+					this.SendPropertyChanged("description");
+					this.OndescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_guid", DbType="VarChar(255)")]
+		public string guid
+		{
+			get
+			{
+				return this._guid;
+			}
+			set
+			{
+				if ((this._guid != value))
+				{
+					this.OnguidChanging(value);
+					this.SendPropertyChanging();
+					this._guid = value;
+					this.SendPropertyChanged("guid");
+					this.OnguidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_author", DbType="VarChar(255)")]
+		public string author
+		{
+			get
+			{
+				return this._author;
+			}
+			set
+			{
+				if ((this._author != value))
+				{
+					this.OnauthorChanging(value);
+					this.SendPropertyChanging();
+					this._author = value;
+					this.SendPropertyChanged("author");
+					this.OnauthorChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_category", DbType="VarChar(255)")]
+		public string category
+		{
+			get
+			{
+				return this._category;
+			}
+			set
+			{
+				if ((this._category != value))
+				{
+					this.OncategoryChanging(value);
+					this.SendPropertyChanging();
+					this._category = value;
+					this.SendPropertyChanged("category");
+					this.OncategoryChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_comments", DbType="VarChar(255)")]
+		public string comments
+		{
+			get
+			{
+				return this._comments;
+			}
+			set
+			{
+				if ((this._comments != value))
+				{
+					this.OncommentsChanging(value);
+					this.SendPropertyChanging();
+					this._comments = value;
+					this.SendPropertyChanged("comments");
+					this.OncommentsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Item_ItemRead", Storage="_ItemReads", ThisKey="id", OtherKey="id_item")]
+		public EntitySet<ItemRead> ItemReads
+		{
+			get
+			{
+				return this._ItemReads;
+			}
+			set
+			{
+				this._ItemReads.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Channel_Item", Storage="_Channel", ThisKey="id_channel", OtherKey="id", IsForeignKey=true)]
+		public Channel Channel
+		{
+			get
+			{
+				return this._Channel.Entity;
+			}
+			set
+			{
+				Channel previousValue = this._Channel.Entity;
+				if (((previousValue != value) 
+							|| (this._Channel.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Channel.Entity = null;
+						previousValue.Items.Remove(this);
+					}
+					this._Channel.Entity = value;
+					if ((value != null))
+					{
+						value.Items.Add(this);
+						this._id_channel = value.id;
+					}
+					else
+					{
+						this._id_channel = default(int);
+					}
+					this.SendPropertyChanged("Channel");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_ItemReads(ItemRead entity)
+		{
+			this.SendPropertyChanging();
+			entity.Item = this;
+		}
+		
+		private void detach_ItemReads(ItemRead entity)
+		{
+			this.SendPropertyChanging();
+			entity.Item = null;
 		}
 	}
 }

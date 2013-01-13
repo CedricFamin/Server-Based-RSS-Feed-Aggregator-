@@ -106,6 +106,9 @@
     <None Include="Service References\FeedService\FeedsService3.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\FeedService\FeedsService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\RSSService\Account.wsdl" />
     <None Include="Service References\RSSService\Account.xsd">
       <SubType>Designer</SubType>

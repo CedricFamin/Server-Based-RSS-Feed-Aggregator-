@@ -37,17 +37,16 @@
 									<RowDefinition Height="Auto"/>
 								</Grid.RowDefinitions>
 								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="Auto"/>
 									<ColumnDefinition Width="*"/>
-									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="Auto"/>
 								</Grid.ColumnDefinitions>
-								<TextBlock TextAlignment="Center" LineHeight="18.667" FontSize="18.667" FontWeight="Bold" HorizontalAlignment="Left" d:LayoutOverrides="Height" Text="{Binding Title}"/>
-								<StackPanel Grid.Column="0" Orientation="Horizontal" Margin="5,0,0,0" Grid.Row="1">
+								<TextBlock TextAlignment="Center" LineHeight="18.667" FontSize="18.667" FontWeight="Bold" HorizontalAlignment="Left" d:LayoutOverrides="Height" Text="{Binding Title}" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"/>
+								<StackPanel Grid.Column="0" Orientation="Horizontal" Grid.Row="1">
 									<TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="(" VerticalAlignment="Center"/>
 									<TextBlock TextWrapping="Wrap" Text="{Binding PubDate, Converter={StaticResource DateConverter}}" Width="Auto" VerticalAlignment="Center"/>
 									<TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" Text=")" VerticalAlignment="Center"/>
 								</StackPanel>
-								<StackPanel Grid.Column="2" Orientation="Horizontal" d:LayoutOverrides="Height" HorizontalAlignment="Right">
+								<StackPanel Grid.Column="1" Orientation="Horizontal" d:LayoutOverrides="Height" HorizontalAlignment="Right">
 									<Button Content="Button" HorizontalAlignment="Right" Margin="0,0,2,0" Width="24" Height="24" d:LayoutOverrides="Height" Style="{DynamicResource ButtonImageStyle}" BorderBrush="{x:Null}" Foreground="{x:Null}">
 										<Button.Background>
 											<ImageBrush ImageSource="/Client_WPF;component/Images/maximize.png"/>

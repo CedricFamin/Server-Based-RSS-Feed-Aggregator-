@@ -24,29 +24,13 @@
       <Association Name="User_ChannelXUser" Member="User" ThisKey="id_user" OtherKey="id" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Item" Member="Items">
-    <Type Name="Item">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="id_channel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="title" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="link" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="pubDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="description" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="guid" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="author" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="category" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="comments" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Association Name="Item_ItemRead" Member="ItemReads" ThisKey="id" OtherKey="id_item" Type="ItemRead" />
-      <Association Name="Channel_Item" Member="Channel" ThisKey="id_channel" OtherKey="id" Type="Channel" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.ItemRead" Member="ItemReads">
     <Type Name="ItemRead">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="id_user" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="id_item" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Item_ItemRead" Member="Item" ThisKey="id_item" OtherKey="id" Type="Item" IsForeignKey="true" />
       <Association Name="User_ItemRead" Member="User" ThisKey="id_user" OtherKey="id" Type="User" IsForeignKey="true" />
+      <Association Name="Item_ItemRead" Member="Item" ThisKey="id_item" OtherKey="id" Type="Item" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Session" Member="Sessions">
@@ -68,6 +52,22 @@
       <Association Name="User_ChannelXUser" Member="ChannelXUsers" ThisKey="id" OtherKey="id_user" Type="ChannelXUser" />
       <Association Name="User_ItemRead" Member="ItemReads" ThisKey="id" OtherKey="id_user" Type="ItemRead" />
       <Association Name="User_Session" Member="Sessions" ThisKey="id" OtherKey="id_user" Type="Session" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Item" Member="Items">
+    <Type Name="Item">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="id_channel" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="title" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="link" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="pubDate" Type="System.DateTimeOffset" DbType="DateTimeOffset" CanBeNull="true" />
+      <Column Name="description" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="guid" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="author" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="category" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="comments" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="Item_ItemRead" Member="ItemReads" ThisKey="id" OtherKey="id_item" Type="ItemRead" />
+      <Association Name="Channel_Item" Member="Channel" ThisKey="id_channel" OtherKey="id" Type="Channel" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

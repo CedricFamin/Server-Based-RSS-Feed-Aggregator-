@@ -381,7 +381,7 @@ namespace Common.FeedService {
         private string LinkField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<System.DateTime> PubDateField;
+        private System.Nullable<System.DateTimeOffset> PubDateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool ReadField;
@@ -504,7 +504,7 @@ namespace Common.FeedService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<System.DateTime> PubDate {
+        public System.Nullable<System.DateTimeOffset> PubDate {
             get {
                 return this.PubDateField;
             }

@@ -74,7 +74,7 @@ namespace Server.Data
         [DataMember]
         public string Link { get; set; }
         [DataMember]
-        public DateTime? PubDate { get; set; }
+        public DateTimeOffset? PubDate { get; set; }
         [DataMember]
         public string Description { get; set; }
         [DataMember]
