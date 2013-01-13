@@ -107,7 +107,7 @@ namespace Server.Services
             
             List<Item> items = new List<Item>();
 
-            var dbItems = from item in db.Items where item.id_channel == feed.Id select item;
+            var dbItems = (from item in db.Items where item.id_channel == feed.Id select item).OrderByDescending(item => item.pubDate);
             foreach (var dbItem in dbItems)
             {
                 items.Add(new Item(dbItem, user));

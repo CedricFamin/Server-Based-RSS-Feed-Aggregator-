@@ -45,16 +45,20 @@
             this.FeedEditBox = this.Factory.CreateRibbonEditBox();
             this.AddFeedButton = this.Factory.CreateRibbonButton();
             this.RefreshButton = this.Factory.CreateRibbonButton();
+            this.Search = this.Factory.CreateRibbonGroup();
+            this.SearchBox = this.Factory.CreateRibbonEditBox();
             this.RssFeed.SuspendLayout();
             this.group1.SuspendLayout();
             this.group2.SuspendLayout();
             this.Feeds.SuspendLayout();
+            this.Search.SuspendLayout();
             // 
             // RssFeed
             // 
             this.RssFeed.Groups.Add(this.group1);
             this.RssFeed.Groups.Add(this.group2);
             this.RssFeed.Groups.Add(this.Feeds);
+            this.RssFeed.Groups.Add(this.Search);
             this.RssFeed.Label = "Rss Feed";
             this.RssFeed.Name = "RssFeed";
             // 
@@ -129,6 +133,18 @@
             this.RefreshButton.ShowImage = true;
             this.RefreshButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.RefreshButton_Click);
             // 
+            // Search
+            // 
+            this.Search.Items.Add(this.SearchBox);
+            this.Search.Label = "Search";
+            this.Search.Name = "Search";
+            // 
+            // SearchBox
+            // 
+            this.SearchBox.Label = "Search";
+            this.SearchBox.Name = "SearchBox";
+            this.SearchBox.TextChanged += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.SearchBox_TextChanged);
+            // 
             // MainContainerRibbon
             // 
             this.Name = "MainContainerRibbon";
@@ -142,6 +158,8 @@
             this.group2.PerformLayout();
             this.Feeds.ResumeLayout(false);
             this.Feeds.PerformLayout();
+            this.Search.ResumeLayout(false);
+            this.Search.PerformLayout();
 
         }
 
@@ -158,6 +176,8 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonEditBox FeedEditBox;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton AddFeedButton;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton RefreshButton;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup Search;
+        internal Microsoft.Office.Tools.Ribbon.RibbonEditBox SearchBox;
     }
 
     partial class ThisRibbonCollection

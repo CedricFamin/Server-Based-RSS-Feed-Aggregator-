@@ -121,7 +121,7 @@
   <data name="ToggleVIewButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAACw4AAAsOAUC+4UEAAAAZdEVYdFNvZnR3YXJlAEFkb2JlIEltYWdlUmVhZHlxyWU8
+        YQUAAAAJcEhZcwAACw0AAAsNAe0HwCwAAAAZdEVYdFNvZnR3YXJlAEFkb2JlIEltYWdlUmVhZHlxyWU8
         AAADM0lEQVR4Xu2a2U4UQRSGCxBUomiIEQwxrSEKislc+ADnEXgUHoUrFgnQYQlL2Iw7GkXAe+/ZZN+h
         ZnmA419kEk0ITi9zek7MdPLdQNWpv77u6ibkGFO+ygbKBsoGygbiGWj7kfMAJYwXL3XM2c+Wcx7wgX2+
         nONSkc+QrIyWpVwK2NalHGvAZXGZYt7TYNOfLGY9YJ8uZlkTLpPLFmwXMUY1f8/6gJXix9hasKmPF7Ks
@@ -247,7 +247,7 @@
         XTesb3QPLh88M+QwdP6m681Lt7xuXbu94vbgcOjwnZHokdE77DtTd1PuvriXeW/h/sYH6AdFD6UeVjxS
         fNTws+7PbaOWo6fHXMf6Hwc/vj/OGn/2S8Yv7ycKnpCfVEyqTDZPmU2dmnafvvF05dOJZ+nPFmYKf5X+
         tfa5zvMffnP8rX82YnbiBf/Fp99LXsq/PPRq2aueuYC5R69TXy/MF72Rf3P4LeNt37vwd5MLWe+x7ys/
-        6H7o/ujz8cGn1E+f/gUDmPP8usTo0wAAAAlwSFlzAAALEgAACxIB0t1+/AAADodJREFUeF7dWuuPltX1
+        6H7o/ujz8cGn1E+f/gUDmPP8usTo0wAAAAlwSFlzAAALEQAACxEBf2RfkQAADodJREFUeF7dWuuPltX1
         fWPbtGmZeQcYBQRFhQI6clGotbbatEnb2LRpbI31z+Aigvc7SGW4qYjKAAMzzAAjw4CgMoDAgILaynAV
         pYgKokWt/dT0Q7u7176cc57nfaEmPnzpL9k5++zLOmut5wUb8ivN3V1bKjiI8c5XFMqViEoRcFc55HN2
         5U0pl+bkjUpnkGNfMRiX6Mt/H6Sj/5r/tQM4+D81FW/YWwmfwJd7c4IO1wPuUZt8bMxxLRiAJVkUcAMx

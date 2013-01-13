@@ -72,5 +72,10 @@ namespace Client_Outlook
                 ViewModel.RefreshFeeds.Execute(null);
             }
         }
+
+        private void SearchBox_TextChanged(object sender, RibbonControlEventArgs e)
+        {
+            SearchDataModel.Instance.Search = (sender as RibbonEditBox).Text;
+        }
     }
 }

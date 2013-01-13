@@ -11,8 +11,6 @@ namespace Client_Outlook.ViewModel
 {
     class FeedManagerViewModel : BindableObject
     {
-        static public FeedManagerViewModel Instance { get; private set; }
-
         #region DataModel
         private FeedManagerDataModel FeedManager { get; set; }
 
@@ -43,10 +41,36 @@ namespace Client_Outlook.ViewModel
         {
             FeedManager = FeedManagerDataModel.Instance;
             FeedManager.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(FeedManager_PropertyChanged);
-            Instance = this;
+            SearchDataModel.Instance.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(Search_PropertyChanged);
 
             RemoveFeed      = new RelayCommand((param) => FeedManager.RemoveFeed(param as Channel));
             AddFollowFeed   = new RelayCommand((param) => FeedManager.AddNewFeed((param as Channel).Url));
+        }
+
+        void Search_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "Search":
+                    SearchDataModel searchInstance = (sender as SearchDataModel);
+                    string searchValue = searchInstance.Search;
+                    if (searchInstance.IsSearchValue(searchValue))
+                    {
+                        AllChannels = (from chan in FeedManagerDataModel.Instance.AllChannels where chan.Title.Contains(searchValue, StringComparison.OrdinalIgnoreCase) select chan).ToList();
+                        Channels = (from chan in FeedManagerDataModel.Instance.Channels where chan.Title.Contains(searchValue) select chan).ToList();
+                    }
+                    else
+                    {
+                        AllChannels = FeedManagerDataModel.Instance.AllChannels;
+                        Channels = FeedManagerDataModel.Instance.Channels;
+                    }
+                    break;
+            }
+        }
+
+        ~FeedManagerViewModel()
+        {
+
         }
         #endregion
 

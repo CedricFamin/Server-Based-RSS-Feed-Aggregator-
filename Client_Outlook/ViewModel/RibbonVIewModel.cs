@@ -81,7 +81,7 @@ namespace Client_Outlook.ViewModel
 
         private void RefreshFeedsBody()
         {
-            FeedManagerViewModel.Instance.GetAllRootFeeds();
+            FeedManagerDataModel.Instance.GetAllRootFeeds();
         }
     }
 }
