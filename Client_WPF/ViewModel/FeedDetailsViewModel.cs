@@ -55,7 +55,9 @@ namespace Client_WPF.ViewModel
                                     " congue turpis varius. Maecenas vel quam at tortor viverra tristique vitae at lorem. Maecenas" +
                                     " augue augue, convallis tristique congue ut, porta sed felis. Nam nisi libero, vehicula" +
                                     " ac ultricies quis, imperdiet lobortis tellus.";
+                item.PubDate = DateTime.Now;
                 Items.Add(item);
+                
             }
 
             ReadItem = new RelayCommand((param) => ReadItemBody(param as Item));
