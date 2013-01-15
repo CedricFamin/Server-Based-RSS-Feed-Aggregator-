@@ -14,6 +14,7 @@ namespace Server.Interface
         WebResult<List<Channel>> GetFeeds(string connectionKey);
         WebResult<List<Channel>> GetAllFeeds();
         WebResult UnfollowFeed(string connectionKey, Channel feed);
+        WebResult RefreshFeed(Channel feed);
         WebResult<List<Item>> GetFeedItems(string connectionKey, Channel feed);
         WebResult ReadItem(string connectionKey, Item item);
     }

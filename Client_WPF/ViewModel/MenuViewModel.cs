@@ -28,6 +28,7 @@ namespace Client_WPF.ViewModel
         }
 
         public ICommand CloseCommand { get; private set; }
+        public ICommand Logout { get; private set; }
         public ICommand ShowConnectionDialog { get; private set; }
 
         public LoginModal ConnectionModal { get; private set; }
@@ -41,7 +42,11 @@ namespace Client_WPF.ViewModel
         public MenuViewModel()
         {
             CloseCommand = new RelayCommand((param) => Application.Current.Shutdown());
-            ShowConnectionDialog = new RelayCommand((param) => ShowConnectionModel_IFN());
+            ShowConnectionDialog = new RelayCommand((param) =>
+            {
+                ShowConnectionModel_IFN();
+            });
+            Logout = new RelayCommand((param) => UserDataModel.Instance.Logout());
             PropertyChangedHandler = new System.ComponentModel.PropertyChangedEventHandler(UserData_PropertyChanged);
             UserDataModel.Instance.PropertyChanged += PropertyChangedHandler;
             
@@ -63,7 +68,9 @@ namespace Client_WPF.ViewModel
                     {
                         ConnectionModal = new LoginModal();
                         ConnectionModal.ShowDialog();
+                        ConnectionModal = null;
                     }
+                    FeedManagerDataModel.Instance.GetAllRootFeeds();
                 }
                 else
                 {
@@ -78,11 +85,16 @@ namespace Client_WPF.ViewModel
         #region private methods
         void ShowConnectionModel_IFN()
         {
-            if (!UserDataModel.Instance.IsConnected && ConnectionModal == null)
+            if (!UserDataModel.Instance.IsConnected)
             {
-                ConnectionModal = new LoginModal();
-                ConnectionModal.ShowDialog();
+                if (ConnectionModal == null)
+                {
+                    ConnectionModal = new LoginModal();
+                    ConnectionModal.ShowDialog();
+                    ConnectionModal = null;
+                }
             }
+            
         }
         #endregion
 

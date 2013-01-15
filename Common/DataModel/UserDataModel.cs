@@ -156,6 +156,14 @@ namespace Common.DataModel
             ShowConnexionModel_IFN();
             AccountClient.Update(ConnectionString, User);
         }
+
+        public void Logout()
+        {
+            AccountClient.LogoutAsync(ConnectionString);
+            ConnectionString = "";
+            IsConnected = false;
+            RaisePropertyChange("IsConnected");
+        }
         #endregion
 
         #region ResultAsync

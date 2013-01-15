@@ -67,7 +67,22 @@
 			<RowDefinition/>
 		</Grid.RowDefinitions>
 		<Menu Height="24" Style="{DynamicResource MenuStyle1}" Foreground="{DynamicResource DefaultColor}" ItemsPanel="{DynamicResource ItemsPanelTemplate}" DataContext="{Binding Mode=OneWay}" Margin="0" VerticalAlignment="Top">
-			<MenuItem Header="Account" Style="{DynamicResource MenuItemStyle}" Grid.Column="0" />
+			<MenuItem Header="Account" Style="{DynamicResource MenuItemStyle}" Grid.Column="0" >
+				<MenuItem Header="Login">
+					<i:Interaction.Triggers>
+						<i:EventTrigger EventName="Click">
+							<i:InvokeCommandAction Command="{Binding ShowConnectionDialog, Mode=OneWay}"/>
+						</i:EventTrigger>
+					</i:Interaction.Triggers>
+				</MenuItem>
+				<MenuItem Header="Logout">
+					<i:Interaction.Triggers>
+						<i:EventTrigger EventName="Click">
+							<i:InvokeCommandAction Command="{Binding Logout, Mode=OneWay}"/>
+						</i:EventTrigger>
+					</i:Interaction.Triggers>
+				</MenuItem>
+			</MenuItem>
 			<MenuItem Header="Feeds" Style="{DynamicResource MenuItemStyle}" Grid.Column="1" />
 			<MenuItem Header="About" Style="{DynamicResource MenuItemStyle}" Grid.Column="2" />
 			<MenuItem Header="MenuItem" d:LayoutOverrides="Height" Grid.Column="3" HorizontalAlignment="Right" Template="{DynamicResource MenuItemSearchControlTemplate}"/>

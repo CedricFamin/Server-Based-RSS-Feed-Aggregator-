@@ -110,6 +110,8 @@ namespace Server.Services
             var dbItems = (from item in db.Items where item.id_channel == feed.Id select item).OrderByDescending(item => item.pubDate);
             foreach (var dbItem in dbItems)
             {
+                if (items.Count() > 50) // totalement arbitraire
+                    break;
                 items.Add(new Item(dbItem, user));
             }
 
@@ -136,6 +138,17 @@ namespace Server.Services
             };
             db.ItemReads.InsertOnSubmit(ir);
             db.SubmitChanges();
+            return new WebResult();
+        }
+
+        [OperationContract]
+        public WebResult RefreshFeed(Channel feed)
+        {
+            var chanToUpdate = (from chan in db.Channels where chan.id == feed.Id select chan).SingleOrDefault();
+
+            if (chanToUpdate == null)
+                return new WebResult(WebResult.ErrorCodeList.CANNOT_GET_FEED);
+            RssFeedConverter.UpdateDBChannel(chanToUpdate);
             return new WebResult();
         }
     }

@@ -94,6 +94,11 @@
 													</Button.Background>
 												</Button>
 												<Button Content="Button" Width="24" Style="{DynamicResource ButtonImageStyle}" BorderBrush="{x:Null}" Height="24" Foreground="{x:Null}">
+													<i:Interaction.Triggers>
+														<i:EventTrigger EventName="Click">
+															<i:InvokeCommandAction CommandParameter="{Binding Mode=OneWay}" Command="{Binding RefreshFeed, Mode=OneWay, Source={StaticResource FeedsManagerViewModelDataSource}}"/>
+														</i:EventTrigger>
+													</i:Interaction.Triggers>
 													<Button.Background>
 														<ImageBrush ImageSource="/Client_WPF;component/Images/share.png"/>
 													</Button.Background>

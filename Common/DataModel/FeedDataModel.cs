@@ -28,21 +28,21 @@ namespace Common.DataModel
         #region PPties
         private UserDataModel UserData { get; set; }
 
-        private List<Channel> channels = null;
+        private List<Channel> channels = new List<Channel>();
         public List<Channel> Channels 
         {
             get { return channels; }
             private set { channels = value; RaisePropertyChange("Channels"); }
         }
 
-        private List<Channel> allChannels = null;
+        private List<Channel> allChannels = new List<Channel>();
         public List<Channel> AllChannels
         {
             get { return allChannels; }
             private set { allChannels = value; RaisePropertyChange("AllChannels"); }
         }
 
-        private List<Item> item = null;
+        private List<Item> item = new List<Item>();
         public List<Item> Items
         {
             get { return item; }
@@ -64,6 +64,10 @@ namespace Common.DataModel
                 FeedsClient.UnfollowFeedCompleted += new EventHandler<UnfollowFeedCompletedEventArgs>(FeedsClient_UnfollowFeedCompleted);
                 FeedsClient.GetFeedItemsCompleted += new EventHandler<GetFeedItemsCompletedEventArgs>(FeedsClient_GetFeedItemsCompleted);
                 feedsClient.GetAllFeedsCompleted += new EventHandler<GetAllFeedsCompletedEventArgs>(feedsClient_GetAllFeedsCompleted);
+                FeedsClient.RefreshFeedCompleted += new EventHandler<RefreshFeedCompletedEventArgs>(FeedsClient_RefreshFeedCompleted);
+
+                if (UserData.IsConnected)
+                    FeedsClient.GetAllFeeds();
             }
             catch (Exception)
             {
@@ -71,6 +75,19 @@ namespace Common.DataModel
                 // HACK BIZARRE BUG DE BLEND
             }
             
+        }
+        #endregion
+
+        #region OnEndAction
+        void FeedsClient_RefreshFeedCompleted(object sender, RefreshFeedCompletedEventArgs e)
+        {
+            if (e.Error == null)
+            {
+                if (e.Result.ErrorCode == WebResult.ErrorCodeList.SUCCESS)
+                {
+                    GetAllRootFeeds();
+                }
+            }
         }
 
         void feedsClient_GetAllFeedsCompleted(object sender, GetAllFeedsCompletedEventArgs e)
@@ -83,9 +100,7 @@ namespace Common.DataModel
                 }
             }
         }
-        #endregion
 
-        #region OnEndAction
         void FeedsClient_AddNewFeedCompleted(object sender, AddNewFeedCompletedEventArgs e)
         {
             if (e.Error == null)
@@ -157,6 +172,11 @@ namespace Common.DataModel
         {
             UserData.ShowConnexionModel_IFN();
             FeedsClient.UnfollowFeedAsync(UserData.GetConnectionString(), feed);
+        }
+
+        public void RefreshFeed(Channel feed)
+        {
+            FeedsClient.RefreshFeed(feed);
         }
         #endregion
 

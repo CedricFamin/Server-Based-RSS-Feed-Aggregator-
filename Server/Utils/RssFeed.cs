@@ -76,7 +76,8 @@ namespace Server.Utils
                 dbItem.id_channel = chan.id;
                 dbItem.title = item.Title != null ? item.Title.Text : null;
                 dbItem.link = item.Links.Count > 0 ? item.Links[0].Uri.AbsoluteUri : null;
-                dbItem.pubDate = item.LastUpdatedTime;
+                var date = item.LastUpdatedTime > item.PublishDate ? item.LastUpdatedTime : item.PublishDate;
+                dbItem.pubDate = date;
                 dbItem.description = item.Summary != null ? item.Summary.Text : null;
                 dbItem.guid = item.Id != null ? item.Id : null;
                 dbItem.author = item.Authors.Count > 0 ? item.Authors[0].Email : null;

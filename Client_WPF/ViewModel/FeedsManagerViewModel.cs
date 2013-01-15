@@ -14,6 +14,7 @@ namespace Client_WPF.ViewModel
         private FeedManagerDataModel FeedsManager { get; set; }
 
         #region properties
+        public ICommand RefreshFeed { get; private set; }
         public ICommand RefreshFeeds { get; private set; }
         public ICommand AddFeed { get; private set; }
         public ICommand RemoveFeed { get; private set; }
@@ -64,6 +65,7 @@ namespace Client_WPF.ViewModel
             FeedsManager.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(FeedsManager_PropertyChanged);
 
             RefreshFeeds = new RelayCommand((param) => FeedsManager.GetAllRootFeeds());
+            RefreshFeed = new RelayCommand((param) => FeedsManager.RefreshFeed(param as Channel));
             AddFeed = new RelayCommand((param) => AddFeedBody(param as string));
             RemoveFeed = new RelayCommand((param) => FeedsManager.RemoveFeed(param as Channel));
             LoadFeedItems = new RelayCommand((param) => FeedsManager.LoadFeedItems(param as Channel));
