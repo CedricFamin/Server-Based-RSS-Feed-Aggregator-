@@ -185,9 +185,9 @@ namespace Common.DataModel
             {
                 if (args.Result.ErrorCode == WebResult.ErrorCodeList.SUCCESS)
                 {
-                    ConnectionString = args.Result.Value.Item1;
+                    ConnectionString = args.Result.Value1;
                     IsConnected = true;    
-                    User = args.Result.Value.Item2;
+                    User = args.Result.Value2;
                     //LoginView.Close();
                 }
                 else

@@ -11,7 +11,7 @@ namespace Server.Interface
     interface IAccount
     {
         WebResult Register(string username, string email, string password);
-        WebResult<Tuple<string, AccountData>> Login(string username, string password);
+        WebResult<string, AccountData> Login(string username, string password);
         WebResult Logout(string session_key);
         WebResult Update(string session_key, AccountData updateUser);
         

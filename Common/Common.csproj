@@ -119,9 +119,6 @@
     <None Include="Service References\RSSService\Account2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\RSSService\Account3.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\RSSService\Account4.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -134,7 +131,7 @@
     <None Include="Service References\RSSService\Common.RSSService.WebResultOfboolean.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\RSSService\Common.RSSService.WebResultOfTupleOfstringAccountDatalrs4Oh3P5F2dSckg.datasource">
+    <None Include="Service References\RSSService\Common.RSSService.WebResultOfstringAccountDatalrs4Oh3P.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
   </ItemGroup>

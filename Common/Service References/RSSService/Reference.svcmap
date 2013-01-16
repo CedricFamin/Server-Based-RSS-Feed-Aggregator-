@@ -26,7 +26,6 @@
     <MetadataFile FileName="Account2.xsd" MetadataType="Schema" ID="949dc4b2-8c9a-4a08-975f-e0b5ef3bd9a2" SourceId="1" SourceUrl="http://localhost:3972/Services/Account.svc?xsd=xsd1" />
     <MetadataFile FileName="Account.wsdl" MetadataType="Wsdl" ID="79b6526b-6029-4f27-bfe9-ae3edab3e96c" SourceId="1" SourceUrl="http://localhost:3972/Services/Account.svc?wsdl" />
     <MetadataFile FileName="Account.disco" MetadataType="Disco" ID="cd6f3341-d266-4ffe-91b2-ffe6c45d759e" SourceId="1" SourceUrl="http://localhost:3972/Services/Account.svc?disco" />
-    <MetadataFile FileName="Account3.xsd" MetadataType="Schema" ID="78360310-5b81-4a1b-b84d-d131be78464c" SourceId="1" SourceUrl="http://localhost:3972/Services/Account.svc?xsd=xsd4" />
     <MetadataFile FileName="Account4.xsd" MetadataType="Schema" ID="5a11816b-e3e4-43cb-a3b5-3a94b5535dde" SourceId="1" SourceUrl="http://localhost:3972/Services/Account.svc?xsd=xsd2" />
   </Metadata>
   <Extensions>

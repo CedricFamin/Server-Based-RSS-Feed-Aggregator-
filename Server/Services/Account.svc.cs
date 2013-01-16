@@ -78,7 +78,7 @@ namespace Server.Services
         }
 
         [OperationContract]
-        public WebResult<Tuple<string, AccountData>> Login(string username, string password)
+        public WebResult<string, AccountData> Login(string username, string password)
         {
             return this._account.Login(username, password);     
         }

@@ -59,4 +59,34 @@ namespace Server.Utils
             Value = value;
         }
     }
+
+    public class WebResult<T1, T2> : WebResult
+    {
+        public T1 Value1 { get; set; }
+        public T2 Value2 { get; set; }
+
+        public WebResult()
+            : base()
+        {
+        }
+
+        public WebResult(ErrorCodeList error)
+            : base(error)
+        {
+        }
+
+        public WebResult(T1 value1, T2 value2)
+            : base()
+        {
+            Value1 = value1;
+            Value2 = value2;
+        }
+
+        public WebResult(T1 value1, T2 value2, ErrorCodeList error)
+            : base(error)
+        {
+            Value1 = value1;
+            Value2 = value2;
+        }
+    }
 }

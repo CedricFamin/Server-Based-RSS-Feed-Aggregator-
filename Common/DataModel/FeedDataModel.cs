@@ -159,7 +159,8 @@ namespace Common.DataModel
             UserData.ShowConnexionModel_IFN();
             try
             {
-                FeedsClient.AddNewFeedAsync(UserData.GetConnectionString(), new Uri(url));
+                if (Uri.IsWellFormedUriString(url, UriKind.Absolute))
+                    FeedsClient.AddNewFeedAsync(UserData.GetConnectionString(), new Uri(url));
             }
             catch (Exception)
             {
