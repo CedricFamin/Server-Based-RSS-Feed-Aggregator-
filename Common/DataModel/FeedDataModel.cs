@@ -67,7 +67,9 @@ namespace Common.DataModel
                 FeedsClient.RefreshFeedCompleted += new EventHandler<RefreshFeedCompletedEventArgs>(FeedsClient_RefreshFeedCompleted);
 
                 if (UserData.IsConnected)
-                    FeedsClient.GetAllFeeds();
+                {
+                    GetAllRootFeeds();
+                }
             }
             catch (Exception)
             {
@@ -177,7 +179,7 @@ namespace Common.DataModel
 
         public void RefreshFeed(Channel feed)
         {
-            FeedsClient.RefreshFeed(feed);
+            FeedsClient.RefreshFeedAsync(feed);
         }
         #endregion
 
