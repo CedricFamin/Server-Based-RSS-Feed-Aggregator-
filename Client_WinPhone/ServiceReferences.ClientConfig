@@ -1,0 +1,24 @@
+﻿<configuration>
+    <system.serviceModel>
+        <bindings>
+            <basicHttpBinding>
+                <binding name="BasicHttpBinding_Account" maxBufferSize="2147483647"
+                    maxReceivedMessageSize="2147483647">
+                    <security mode="None" />
+                </binding>
+                <binding name="BasicHttpBinding_FeedsService" maxBufferSize="2147483647"
+                    maxReceivedMessageSize="2147483647">
+                    <security mode="None" />
+                </binding>
+            </basicHttpBinding>
+        </bindings>
+        <client>
+            <endpoint address="http://localhost:3972/Services/Account.svc"
+                binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_Account"
+                contract="RSSService.Account" name="BasicHttpBinding_Account" />
+            <endpoint address="http://localhost:3972/Services/FeedsService.svc"
+                binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_FeedsService"
+                contract="FeedService.FeedsService" name="BasicHttpBinding_FeedsService" />
+        </client>
+    </system.serviceModel>
+</configuration>

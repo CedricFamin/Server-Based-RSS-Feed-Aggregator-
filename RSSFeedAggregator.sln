@@ -15,6 +15,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client_Outlook", "Client_Outlook\Client_Outlook.csproj", "{D12156B1-E57A-44A6-A1E7-26560D4C322D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client_WinPhone", "Client_WinPhone\Client_WinPhone.csproj", "{900AD1F9-E12E-439C-96ED-E5664FE8C2B6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{04F1074D-3054-4B87-98FC-8D448ED0DB30} = {04F1074D-3054-4B87-98FC-8D448ED0DB30}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{1B04BD2D-61AD-4E1E-934E-B287A84C668C}"
 	ProjectSection(ProjectDependencies) = postProject

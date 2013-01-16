@@ -50,6 +50,8 @@
   <ItemGroup>
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Interop" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
@@ -60,10 +62,26 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataModel\FeedDataModel.cs" />
+    <Compile Include="DataModel\SearchDataModel.cs" />
+    <Compile Include="DataModel\UserDataModel.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\FeedService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\RSSService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\BindableObject.cs" />
+    <Compile Include="Utils\RelayCommand.cs" />
+    <Compile Include="Utils\StringExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -78,6 +96,67 @@
   <ItemGroup>
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml" />
+    <None Include="Service References\FeedService\Client_WinPhone.FeedService.WebResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\FeedService\Client_WinPhone.FeedService.WebResultOfArrayOfChannelMeg_PnYqa.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\FeedService\Client_WinPhone.FeedService.WebResultOfArrayOfItemMeg_PnYqa.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\FeedService\Client_WinPhone.FeedService.WebResultOfChannelMeg_PnYqa.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\FeedService\FeedsService.wsdl" />
+    <None Include="Service References\FeedService\FeedsService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FeedService\FeedsService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FeedService\FeedsService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FeedService\FeedsService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FeedService\FeedsService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RSSService\Account.wsdl" />
+    <None Include="Service References\RSSService\Account.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RSSService\Account1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RSSService\Account2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RSSService\Account3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RSSService\Client_WinPhone.RSSService.WebResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RSSService\Client_WinPhone.RSSService.WebResultOfArrayOfAccountDataYxjpQ34D.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RSSService\Client_WinPhone.RSSService.WebResultOfboolean.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RSSService\Client_WinPhone.RSSService.WebResultOfstringAccountDatalrs4Oh3P.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\FeedService\FeedsService.disco" />
+    <None Include="Service References\FeedService\configuration91.svcinfo" />
+    <None Include="Service References\FeedService\configuration.svcinfo" />
+    <None Include="Service References\FeedService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="ServiceReferences.ClientConfig" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ApplicationIcon.png">
@@ -86,8 +165,23 @@
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Service References\RSSService\Account.disco" />
+    <None Include="Service References\RSSService\configuration91.svcinfo" />
+    <None Include="Service References\RSSService\configuration.svcinfo" />
+    <None Include="Service References\RSSService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\FeedService\" />
+    <WCFMetadataStorage Include="Service References\RSSService\" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
