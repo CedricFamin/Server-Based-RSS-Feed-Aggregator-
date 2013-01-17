@@ -173,7 +173,8 @@ namespace Common.DataModel
             {
                 if (args.Result.ErrorCode == WebResult.ErrorCodeList.SUCCESS)
                 {
-                    IsConnected = args.Result.Value;
+                    IsConnected = args.Result.Value1;
+                    User = args.Result.Value2;
                     RaisePropertyChange("IsConnected");
                 }
             }

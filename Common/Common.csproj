@@ -56,7 +56,9 @@
     <Compile Include="Behavior\ToggleImageBackgroundBehavior.cs" />
     <Compile Include="Behavior\ToggleVisibilityBehavior.cs" />
     <Compile Include="Behavior\WebBrowserUtilityBehavior.cs" />
+    <Compile Include="Converter\BoolToVisibilityConverter.cs" />
     <Compile Include="Converter\DateTimeToStringConverter.cs" />
+    <Compile Include="DataModel\AdminDataModel.cs" />
     <Compile Include="DataModel\FeedDataModel.cs" />
     <Compile Include="DataModel\SearchDataModel.cs" />
     <Compile Include="DataModel\UserDataModel.cs" />
@@ -128,7 +130,7 @@
     <None Include="Service References\RSSService\Common.RSSService.WebResultOfArrayOfAccountDataYxjpQ34D.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\RSSService\Common.RSSService.WebResultOfboolean.datasource">
+    <None Include="Service References\RSSService\Common.RSSService.WebResultOfbooleanAccountDatalrs4Oh3P.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\RSSService\Common.RSSService.WebResultOfstringAccountDatalrs4Oh3P.datasource">

@@ -2,6 +2,8 @@
         Title="RSS Feed Agregator" Height="464" Width="688" Foreground="{DynamicResource DefaultColor}" mc:Ignorable="d" Background="{DynamicResource DefaultBackground}" Icon="Images/icone.png" WindowStartupLocation="CenterOwner" WindowState="Normal" WindowStyle="ThreeDBorderWindow">
 	<Window.Resources>
 
+		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
 		<Client_WPF_ViewModel:MenuViewModel x:Key="MenuViewModelDataSource" d:IsDataSource="True"/>
 
 		<ControlTemplate x:Key="MenuItemSearchControlTemplate" TargetType="{x:Type MenuItem}">
@@ -85,6 +87,7 @@
 			</MenuItem>
 			<MenuItem Header="Feeds" Style="{DynamicResource MenuItemStyle}" Grid.Column="1" />
 			<MenuItem Header="About" Style="{DynamicResource MenuItemStyle}" Grid.Column="2" />
+			<MenuItem Header="Admin" Style="{DynamicResource MenuItemStyle}" Grid.Column="3" Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}" />
 			<MenuItem Header="MenuItem" d:LayoutOverrides="Height" Grid.Column="3" HorizontalAlignment="Right" Template="{DynamicResource MenuItemSearchControlTemplate}"/>
 		</Menu>
 		<local:FeedsManager Grid.RowSpan="2" d:LayoutOverrides="Width, Height" Grid.Row="1"/>

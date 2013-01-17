@@ -32,6 +32,14 @@ namespace Client_WPF.ViewModel
         public ICommand ShowConnectionDialog { get; private set; }
 
         public LoginModal ConnectionModal { get; private set; }
+        
+        private bool isAdmin;
+        public bool IsAdmin
+        {
+            get { return isAdmin; }
+            set { isAdmin = value; RaisePropertyChange("IsAdmin"); }
+        }
+        
 
         private PropertyChangedEventHandler PropertyChangedHandler { get; set; }
         #endregion
@@ -51,6 +59,8 @@ namespace Client_WPF.ViewModel
             UserDataModel.Instance.PropertyChanged += PropertyChangedHandler;
             
             search = SearchDataModel.Instance.Search;
+            IsAdmin = UserDataModel.Instance.IsConnected;
+            IsAdmin = false;
         }
 
         ~MenuViewModel()
@@ -62,6 +72,7 @@ namespace Client_WPF.ViewModel
         {
             if (e.PropertyName == "IsConnected")
             {
+                
                 if (!(sender as UserDataModel).IsConnected)
                 {
                     if (ConnectionModal == null)
@@ -71,12 +82,15 @@ namespace Client_WPF.ViewModel
                         ConnectionModal = null;
                     }
                     FeedManagerDataModel.Instance.GetAllRootFeeds();
+                    IsAdmin = false;
                 }
                 else
                 {
                     if (ConnectionModal != null)
                         ConnectionModal.Close();
                     ConnectionModal = null;
+                    if (UserDataModel.Instance.User != null)
+                        IsAdmin = UserDataModel.Instance.User.IsSuperUser;
                 }
             }
         }

@@ -122,10 +122,13 @@ namespace Server.Implementation
             return new WebResult<List<AccountData>>(users);
         }
 
-        public WebResult<bool> IsConnected(string session_key)
+        public WebResult<bool, AccountData> IsConnected(string session_key)
         {
             Session session = _sessionWrapper.GetSession(session_key);
-            return new WebResult<bool>(session != null);
+            if (session == null)
+                return new WebResult<bool, AccountData>(session != null, null);
+            User user = session.User;
+            return new WebResult<bool, AccountData>(true, new AccountData(user));
         }
         #endregion
     }

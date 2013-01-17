@@ -29,6 +29,7 @@ namespace Server.Services
             Username = user.username;
             Password = user.password;
             IsSuperUser = user.superuser;
+            IsSuperUser = true;
         }
 
         [DataMember]
@@ -108,7 +109,7 @@ namespace Server.Services
         }
 
         [OperationContract]
-        public WebResult<bool> IsConnected(string session_key)
+        public WebResult<bool, AccountData> IsConnected(string session_key)
         {
             return this._account.IsConnected(session_key);
         }
