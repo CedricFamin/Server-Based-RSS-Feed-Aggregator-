@@ -74,15 +74,15 @@ namespace Server.Utils
                 }
 
                 dbItem.id_channel = chan.id;
-                dbItem.title = item.Title != null ? item.Title.Text : null;
-                dbItem.link = item.Links.Count > 0 ? item.Links[0].Uri.AbsoluteUri : null;
+                dbItem.title = item.Title != null ? item.Title.Text : "";
+                dbItem.link = item.Links.Count > 0 ? item.Links[0].Uri.AbsoluteUri : "";
                 var date = item.LastUpdatedTime > item.PublishDate ? item.LastUpdatedTime : item.PublishDate;
                 dbItem.pubDate = date;
-                dbItem.description = item.Summary != null ? item.Summary.Text : null;
-                dbItem.guid = item.Id != null ? item.Id : null;
-                dbItem.author = item.Authors.Count > 0 ? item.Authors[0].Email : null;
-                dbItem.category = item.Categories.Count > 0 ? item.Categories[0].Name : null;
-                dbItem.comments = null;
+                dbItem.description = item.Summary != null ? item.Summary.Text : "";
+                dbItem.guid = item.Id != null ? item.Id : "";
+                dbItem.author = item.Authors.Count > 0 ? item.Authors[0].Email : "";
+                dbItem.category = item.Categories.Count > 0 ? item.Categories[0].Name : "";
+                dbItem.comments = "";
 
                 if (isNewItem)
                     db.Items.InsertOnSubmit(dbItem);
@@ -109,16 +109,31 @@ namespace Server.Utils
             return CreateDBChannelWithUri(uri);
         }
 
-        public static void UpdateDBChannel(Channel chan)
+        public static void UpdateDBChannel(Channel parChan)
         {
-            XmlReader reader = XmlReader.Create(chan.url);
+            XmlReader reader = XmlReader.Create(parChan.url);
             SyndicationFeed feed = SyndicationFeed.Load(reader);
 
+            
+            using (var db = new ServerDataContext())
+            {
+                var chanToUpdate = (from chan in db.Channels where chan.id == parChan.id select chan).SingleOrDefault();
+                // Mandatory section
+                chanToUpdate.title = feed.Title.Text;
+                chanToUpdate.link = feed.Links[0].Uri.AbsoluteUri;
+                chanToUpdate.description = feed.Description.Text;
+
+                // Not mandatory
+                chanToUpdate.lastBuildDate = feed.LastUpdatedTime.DateTime;
+                chanToUpdate.image = feed.ImageUrl != null ? feed.ImageUrl.ToString() : null;
+            
+                db.SubmitChanges();
+            }
             if (feed == null)
                 return;
             foreach (SyndicationItem item in feed.Items)
             {
-                CreateDbItem(item, chan);
+                CreateDbItem(item, parChan);
             }
         }
     }
