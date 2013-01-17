@@ -5,7 +5,8 @@
       <xsd:import schemaLocation="http://localhost:3972/Services/FeedsService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:3972/Services/FeedsService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:3972/Services/FeedsService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Server.Utils" />
-      <xsd:import schemaLocation="http://localhost:3972/Services/FeedsService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Server.Services" />
+      <xsd:import schemaLocation="http://localhost:3972/Services/FeedsService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Server.Data" />
+      <xsd:import schemaLocation="http://localhost:3972/Services/FeedsService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="FeedsService_AddNewFeed_InputMessage">
@@ -20,6 +21,12 @@
   <wsdl:message name="FeedsService_GetFeeds_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetFeedsResponse" />
   </wsdl:message>
+  <wsdl:message name="FeedsService_GetAllFeeds_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllFeeds" />
+  </wsdl:message>
+  <wsdl:message name="FeedsService_GetAllFeeds_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllFeedsResponse" />
+  </wsdl:message>
   <wsdl:message name="FeedsService_UnfollowFeed_InputMessage">
     <wsdl:part name="parameters" element="tns:UnfollowFeed" />
   </wsdl:message>
@@ -32,6 +39,18 @@
   <wsdl:message name="FeedsService_GetFeedItems_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetFeedItemsResponse" />
   </wsdl:message>
+  <wsdl:message name="FeedsService_ReadItem_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReadItem" />
+  </wsdl:message>
+  <wsdl:message name="FeedsService_ReadItem_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReadItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="FeedsService_RefreshFeed_InputMessage">
+    <wsdl:part name="parameters" element="tns:RefreshFeed" />
+  </wsdl:message>
+  <wsdl:message name="FeedsService_RefreshFeed_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RefreshFeedResponse" />
+  </wsdl:message>
   <wsdl:portType name="FeedsService">
     <wsdl:operation name="AddNewFeed">
       <wsdl:input wsaw:Action="http://tempuri.org/FeedsService/AddNewFeed" message="tns:FeedsService_AddNewFeed_InputMessage" />
@@ -41,6 +60,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/FeedsService/GetFeeds" message="tns:FeedsService_GetFeeds_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/FeedsService/GetFeedsResponse" message="tns:FeedsService_GetFeeds_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetAllFeeds">
+      <wsdl:input wsaw:Action="http://tempuri.org/FeedsService/GetAllFeeds" message="tns:FeedsService_GetAllFeeds_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/FeedsService/GetAllFeedsResponse" message="tns:FeedsService_GetAllFeeds_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="UnfollowFeed">
       <wsdl:input wsaw:Action="http://tempuri.org/FeedsService/UnfollowFeed" message="tns:FeedsService_UnfollowFeed_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/FeedsService/UnfollowFeedResponse" message="tns:FeedsService_UnfollowFeed_OutputMessage" />
@@ -48,6 +71,14 @@
     <wsdl:operation name="GetFeedItems">
       <wsdl:input wsaw:Action="http://tempuri.org/FeedsService/GetFeedItems" message="tns:FeedsService_GetFeedItems_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/FeedsService/GetFeedItemsResponse" message="tns:FeedsService_GetFeedItems_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReadItem">
+      <wsdl:input wsaw:Action="http://tempuri.org/FeedsService/ReadItem" message="tns:FeedsService_ReadItem_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/FeedsService/ReadItemResponse" message="tns:FeedsService_ReadItem_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RefreshFeed">
+      <wsdl:input wsaw:Action="http://tempuri.org/FeedsService/RefreshFeed" message="tns:FeedsService_RefreshFeed_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/FeedsService/RefreshFeedResponse" message="tns:FeedsService_RefreshFeed_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_FeedsService" type="tns:FeedsService">
@@ -70,6 +101,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetAllFeeds">
+      <soap:operation soapAction="http://tempuri.org/FeedsService/GetAllFeeds" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="UnfollowFeed">
       <soap:operation soapAction="http://tempuri.org/FeedsService/UnfollowFeed" style="document" />
       <wsdl:input>
@@ -81,6 +121,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetFeedItems">
       <soap:operation soapAction="http://tempuri.org/FeedsService/GetFeedItems" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReadItem">
+      <soap:operation soapAction="http://tempuri.org/FeedsService/ReadItem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RefreshFeed">
+      <soap:operation soapAction="http://tempuri.org/FeedsService/RefreshFeed" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

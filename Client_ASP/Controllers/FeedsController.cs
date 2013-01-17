@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Client_ASP.Models;
+using Client_ASP.FeedServ;
+using System.Diagnostics;
 
 namespace Client_ASP.Controllers
 {
@@ -12,16 +14,33 @@ namespace Client_ASP.Controllers
     {
         public ActionResult List()
         {
+            FeedsService fs = new FeedsService();
+            WebResultOfArrayOfChannelMeg_PnYqa feeds = fs.GetFeeds(Request.Cookies["AuthKey"].Value);
+            if (feeds.ErrorCode == FeedServ.WebResultErrorCodeList.SUCCESS)
+            {
+                ViewBag.Feeds = feeds.Value;
+            }
             return View();
         }
 
-        public ActionResult Feed(int id)
+        public ActionResult Feed(Channel channel)
         {
+            FeedsService fs = new FeedsService();
+            WebResultOfArrayOfItemMeg_PnYqa items = fs.GetFeedItems(Request.Cookies["AuthKey"].Value, channel);
+            if (items.ErrorCode == FeedServ.WebResultErrorCodeList.SUCCESS)
+            {
+                Item[] chanitems = items.Value;
+                ViewBag.Items = chanitems;
+            }
             return View();
         }
 
-        public ActionResult Item(int id)
+        [ValidateInput(false)]
+        public ActionResult Item(Item item)
         {
+            FeedsService fs = new FeedsService();
+            fs.ReadItem(Request.Cookies["AuthKey"].Value, item);
+            ViewBag.ItemDatas = item;
             return View();
         }
 
@@ -40,68 +59,26 @@ namespace Client_ASP.Controllers
         [HttpPost]
         public ActionResult Create(CreateFeedModel model)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Create");
+                FeedsService fs = new FeedsService();
+                WebResultOfChannelMeg_PnYqa addnew = fs.AddNewFeed(Request.Cookies["AuthKey"].Value, model.Uri);
+                if (addnew.ErrorCode == FeedServ.WebResultErrorCodeList.SUCCESS)
+                {
+                    return RedirectToAction("List");
+                }
             }
-            catch
-            {
-                return View();
-            }
-        }
-        
-        //
-        // GET: /Feeds/Edit/5
- 
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        //
-        // POST: /Feeds/Edit/5
-
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
- 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return View(model);
         }
 
         //
         // GET: /Feeds/Delete/5
  
-        public ActionResult Delete(int id)
+        public ActionResult Delete(Channel channel)
         {
-            return View();
-        }
-
-        //
-        // POST: /Feeds/Delete/5
-
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
- 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            FeedsService fs = new FeedsService();
+            fs.UnfollowFeed(Request.Cookies["AuthKey"].Value, channel);
+            return RedirectToAction("List");
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿@{
     ViewBag.Title = "Feeds List";
+    
 }
 <div class="row-fluid">
 	<div class="box span12">
@@ -14,17 +15,23 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Feed name</th>
-                        <th>State</th>
-                        <th>Actions</th>
+                        <th>Feed</th>
+                        <th>URL</th>
+                        <th>Description</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>@Html.ActionLink("Fictive Feed", "Feed", "Feeds", new{id = 0}, null)</td>
-                        <td>0 new</td>
-                        <td>@Html.ActionLink("X", "DeleteFeed", "Feeds", new{id = 0}, null)</td>
-                    </tr>
+                    @foreach (var channel in (ViewBag.Feeds as Client_ASP.FeedServ.Channel[]))
+                    {
+                        <tr>
+                            <td>@Html.ActionLink(channel.Title, "Feed", "Feeds", channel, null)</td>
+                            <td><a href="@channel.Link">@channel.Link</a></td>
+                            <td>@channel.Description.ToString()</td>
+                            <td>@Html.ActionLink("X", "Delete", "Feeds", channel, null)</td>
+                        </tr>
+                    }
+                        
                 </tbody>
             </table>
         </div>

@@ -33,9 +33,15 @@ namespace Client_ASP.FeedServ {
         
         private System.Threading.SendOrPostCallback GetFeedsOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetAllFeedsOperationCompleted;
+        
         private System.Threading.SendOrPostCallback UnfollowFeedOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetFeedItemsOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ReadItemOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback RefreshFeedOperationCompleted;
         
         private bool useDefaultCredentialsSetExplicitly;
         
@@ -82,19 +88,28 @@ namespace Client_ASP.FeedServ {
         public event GetFeedsCompletedEventHandler GetFeedsCompleted;
         
         /// <remarks/>
+        public event GetAllFeedsCompletedEventHandler GetAllFeedsCompleted;
+        
+        /// <remarks/>
         public event UnfollowFeedCompletedEventHandler UnfollowFeedCompleted;
         
         /// <remarks/>
         public event GetFeedItemsCompletedEventHandler GetFeedItemsCompleted;
         
         /// <remarks/>
+        public event ReadItemCompletedEventHandler ReadItemCompleted;
+        
+        /// <remarks/>
+        public event RefreshFeedCompletedEventHandler RefreshFeedCompleted;
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/FeedsService/AddNewFeed", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public WebResultOfRssFeedYxjpQ34D AddNewFeed([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string connectionKey, [System.Xml.Serialization.XmlElementAttribute(DataType="anyURI", IsNullable=true)] string uri) {
+        public WebResultOfChannelMeg_PnYqa AddNewFeed([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string connectionKey, [System.Xml.Serialization.XmlElementAttribute(DataType="anyURI", IsNullable=true)] string uri) {
             object[] results = this.Invoke("AddNewFeed", new object[] {
                         connectionKey,
                         uri});
-            return ((WebResultOfRssFeedYxjpQ34D)(results[0]));
+            return ((WebResultOfChannelMeg_PnYqa)(results[0]));
         }
         
         /// <remarks/>
@@ -122,10 +137,10 @@ namespace Client_ASP.FeedServ {
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/FeedsService/GetFeeds", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public WebResultOfArrayOfRssFeedYxjpQ34D GetFeeds([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string connectionKey) {
+        public WebResultOfArrayOfChannelMeg_PnYqa GetFeeds([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string connectionKey) {
             object[] results = this.Invoke("GetFeeds", new object[] {
                         connectionKey});
-            return ((WebResultOfArrayOfRssFeedYxjpQ34D)(results[0]));
+            return ((WebResultOfArrayOfChannelMeg_PnYqa)(results[0]));
         }
         
         /// <remarks/>
@@ -150,9 +165,37 @@ namespace Client_ASP.FeedServ {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/FeedsService/GetAllFeeds", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public WebResultOfArrayOfChannelMeg_PnYqa GetAllFeeds() {
+            object[] results = this.Invoke("GetAllFeeds", new object[0]);
+            return ((WebResultOfArrayOfChannelMeg_PnYqa)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetAllFeedsAsync() {
+            this.GetAllFeedsAsync(null);
+        }
+        
+        /// <remarks/>
+        public void GetAllFeedsAsync(object userState) {
+            if ((this.GetAllFeedsOperationCompleted == null)) {
+                this.GetAllFeedsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetAllFeedsOperationCompleted);
+            }
+            this.InvokeAsync("GetAllFeeds", new object[0], this.GetAllFeedsOperationCompleted, userState);
+        }
+        
+        private void OnGetAllFeedsOperationCompleted(object arg) {
+            if ((this.GetAllFeedsCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetAllFeedsCompleted(this, new GetAllFeedsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/FeedsService/UnfollowFeed", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public WebResult UnfollowFeed([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string connectionKey, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] RssFeed feed) {
+        public WebResult UnfollowFeed([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string connectionKey, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] Channel feed) {
             object[] results = this.Invoke("UnfollowFeed", new object[] {
                         connectionKey,
                         feed});
@@ -160,12 +203,12 @@ namespace Client_ASP.FeedServ {
         }
         
         /// <remarks/>
-        public void UnfollowFeedAsync(string connectionKey, RssFeed feed) {
+        public void UnfollowFeedAsync(string connectionKey, Channel feed) {
             this.UnfollowFeedAsync(connectionKey, feed, null);
         }
         
         /// <remarks/>
-        public void UnfollowFeedAsync(string connectionKey, RssFeed feed, object userState) {
+        public void UnfollowFeedAsync(string connectionKey, Channel feed, object userState) {
             if ((this.UnfollowFeedOperationCompleted == null)) {
                 this.UnfollowFeedOperationCompleted = new System.Threading.SendOrPostCallback(this.OnUnfollowFeedOperationCompleted);
             }
@@ -184,20 +227,20 @@ namespace Client_ASP.FeedServ {
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/FeedsService/GetFeedItems", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public WebResultOfArrayOfRssFeedYxjpQ34D GetFeedItems([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string connectionKey, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] RssFeed feed) {
+        public WebResultOfArrayOfItemMeg_PnYqa GetFeedItems([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string connectionKey, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] Channel feed) {
             object[] results = this.Invoke("GetFeedItems", new object[] {
                         connectionKey,
                         feed});
-            return ((WebResultOfArrayOfRssFeedYxjpQ34D)(results[0]));
+            return ((WebResultOfArrayOfItemMeg_PnYqa)(results[0]));
         }
         
         /// <remarks/>
-        public void GetFeedItemsAsync(string connectionKey, RssFeed feed) {
+        public void GetFeedItemsAsync(string connectionKey, Channel feed) {
             this.GetFeedItemsAsync(connectionKey, feed, null);
         }
         
         /// <remarks/>
-        public void GetFeedItemsAsync(string connectionKey, RssFeed feed, object userState) {
+        public void GetFeedItemsAsync(string connectionKey, Channel feed, object userState) {
             if ((this.GetFeedItemsOperationCompleted == null)) {
                 this.GetFeedItemsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetFeedItemsOperationCompleted);
             }
@@ -210,6 +253,68 @@ namespace Client_ASP.FeedServ {
             if ((this.GetFeedItemsCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.GetFeedItemsCompleted(this, new GetFeedItemsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/FeedsService/ReadItem", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public WebResult ReadItem([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string connectionKey, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] Item item) {
+            object[] results = this.Invoke("ReadItem", new object[] {
+                        connectionKey,
+                        item});
+            return ((WebResult)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ReadItemAsync(string connectionKey, Item item) {
+            this.ReadItemAsync(connectionKey, item, null);
+        }
+        
+        /// <remarks/>
+        public void ReadItemAsync(string connectionKey, Item item, object userState) {
+            if ((this.ReadItemOperationCompleted == null)) {
+                this.ReadItemOperationCompleted = new System.Threading.SendOrPostCallback(this.OnReadItemOperationCompleted);
+            }
+            this.InvokeAsync("ReadItem", new object[] {
+                        connectionKey,
+                        item}, this.ReadItemOperationCompleted, userState);
+        }
+        
+        private void OnReadItemOperationCompleted(object arg) {
+            if ((this.ReadItemCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ReadItemCompleted(this, new ReadItemCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/FeedsService/RefreshFeed", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public WebResult RefreshFeed([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] Channel feed) {
+            object[] results = this.Invoke("RefreshFeed", new object[] {
+                        feed});
+            return ((WebResult)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void RefreshFeedAsync(Channel feed) {
+            this.RefreshFeedAsync(feed, null);
+        }
+        
+        /// <remarks/>
+        public void RefreshFeedAsync(Channel feed, object userState) {
+            if ((this.RefreshFeedOperationCompleted == null)) {
+                this.RefreshFeedOperationCompleted = new System.Threading.SendOrPostCallback(this.OnRefreshFeedOperationCompleted);
+            }
+            this.InvokeAsync("RefreshFeed", new object[] {
+                        feed}, this.RefreshFeedOperationCompleted, userState);
+        }
+        
+        private void OnRefreshFeedOperationCompleted(object arg) {
+            if ((this.RefreshFeedCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.RefreshFeedCompleted(this, new RefreshFeedCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -238,13 +343,13 @@ namespace Client_ASP.FeedServ {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/Server.Utils")]
-    public partial class WebResultOfRssFeedYxjpQ34D : WebResult {
+    public partial class WebResultOfChannelMeg_PnYqa : WebResult {
         
-        private RssFeed valueField;
+        private Channel valueField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public RssFeed Value {
+        public Channel Value {
             get {
                 return this.valueField;
             }
@@ -259,49 +364,32 @@ namespace Client_ASP.FeedServ {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/Server.Services")]
-    public partial class RssFeed {
-        
-        private System.DateTime dateField;
-        
-        private bool dateFieldSpecified;
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/Server.Data")]
+    public partial class Channel {
         
         private string descriptionField;
+        
+        private string enclosureField;
         
         private int idField;
         
         private bool idFieldSpecified;
         
-        private int idParentField;
+        private string imageField;
         
-        private bool idParentFieldSpecified;
+        private System.Nullable<System.DateTime> lastBuildDateField;
+        
+        private bool lastBuildDateFieldSpecified;
         
         private string linkField;
+        
+        private System.Nullable<System.DateTime> pubDateField;
+        
+        private bool pubDateFieldSpecified;
         
         private string titleField;
         
         private string urlField;
-        
-        /// <remarks/>
-        public System.DateTime Date {
-            get {
-                return this.dateField;
-            }
-            set {
-                this.dateField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool DateSpecified {
-            get {
-                return this.dateFieldSpecified;
-            }
-            set {
-                this.dateFieldSpecified = value;
-            }
-        }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
@@ -311,6 +399,17 @@ namespace Client_ASP.FeedServ {
             }
             set {
                 this.descriptionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string Enclosure {
+            get {
+                return this.enclosureField;
+            }
+            set {
+                this.enclosureField = value;
             }
         }
         
@@ -336,23 +435,35 @@ namespace Client_ASP.FeedServ {
         }
         
         /// <remarks/>
-        public int IdParent {
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string Image {
             get {
-                return this.idParentField;
+                return this.imageField;
             }
             set {
-                this.idParentField = value;
+                this.imageField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<System.DateTime> LastBuildDate {
+            get {
+                return this.lastBuildDateField;
+            }
+            set {
+                this.lastBuildDateField = value;
             }
         }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool IdParentSpecified {
+        public bool LastBuildDateSpecified {
             get {
-                return this.idParentFieldSpecified;
+                return this.lastBuildDateFieldSpecified;
             }
             set {
-                this.idParentFieldSpecified = value;
+                this.lastBuildDateFieldSpecified = value;
             }
         }
         
@@ -364,6 +475,28 @@ namespace Client_ASP.FeedServ {
             }
             set {
                 this.linkField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public System.Nullable<System.DateTime> PubDate {
+            get {
+                return this.pubDateField;
+            }
+            set {
+                this.pubDateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool PubDateSpecified {
+            get {
+                return this.pubDateFieldSpecified;
+            }
+            set {
+                this.pubDateFieldSpecified = value;
             }
         }
         
@@ -391,8 +524,230 @@ namespace Client_ASP.FeedServ {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(WebResultOfArrayOfRssFeedYxjpQ34D))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(WebResultOfRssFeedYxjpQ34D))]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.450")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/System")]
+    public partial class DateTimeOffset {
+        
+        private System.DateTime dateTimeField;
+        
+        private short offsetMinutesField;
+        
+        /// <remarks/>
+        public System.DateTime DateTime {
+            get {
+                return this.dateTimeField;
+            }
+            set {
+                this.dateTimeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public short OffsetMinutes {
+            get {
+                return this.offsetMinutesField;
+            }
+            set {
+                this.offsetMinutesField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.450")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/Server.Data")]
+    public partial class Item {
+        
+        private string authorField;
+        
+        private string categoryField;
+        
+        private string commentsField;
+        
+        private string descriptionField;
+        
+        private string gUIDField;
+        
+        private int idField;
+        
+        private bool idFieldSpecified;
+        
+        private int idChannelField;
+        
+        private bool idChannelFieldSpecified;
+        
+        private string linkField;
+        
+        private DateTimeOffset pubDateField;
+        
+        private bool readField;
+        
+        private bool readFieldSpecified;
+        
+        private string titleField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string Author {
+            get {
+                return this.authorField;
+            }
+            set {
+                this.authorField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string Category {
+            get {
+                return this.categoryField;
+            }
+            set {
+                this.categoryField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string Comments {
+            get {
+                return this.commentsField;
+            }
+            set {
+                this.commentsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string Description {
+            get {
+                return this.descriptionField;
+            }
+            set {
+                this.descriptionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string GUID {
+            get {
+                return this.gUIDField;
+            }
+            set {
+                this.gUIDField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public int Id {
+            get {
+                return this.idField;
+            }
+            set {
+                this.idField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool IdSpecified {
+            get {
+                return this.idFieldSpecified;
+            }
+            set {
+                this.idFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        public int IdChannel {
+            get {
+                return this.idChannelField;
+            }
+            set {
+                this.idChannelField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool IdChannelSpecified {
+            get {
+                return this.idChannelFieldSpecified;
+            }
+            set {
+                this.idChannelFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string Link {
+            get {
+                return this.linkField;
+            }
+            set {
+                this.linkField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public DateTimeOffset PubDate {
+            get {
+                return this.pubDateField;
+            }
+            set {
+                this.pubDateField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public bool Read {
+            get {
+                return this.readField;
+            }
+            set {
+                this.readField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool ReadSpecified {
+            get {
+                return this.readFieldSpecified;
+            }
+            set {
+                this.readFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public string Title {
+            get {
+                return this.titleField;
+            }
+            set {
+                this.titleField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(WebResultOfArrayOfItemMeg_PnYqa))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(WebResultOfArrayOfChannelMeg_PnYqa))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(WebResultOfChannelMeg_PnYqa))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.450")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -467,6 +822,9 @@ namespace Client_ASP.FeedServ {
         
         /// <remarks/>
         PARAMETER_ERROR,
+        
+        /// <remarks/>
+        INVALID_PARAMETER,
     }
     
     /// <remarks/>
@@ -475,14 +833,37 @@ namespace Client_ASP.FeedServ {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/Server.Utils")]
-    public partial class WebResultOfArrayOfRssFeedYxjpQ34D : WebResult {
+    public partial class WebResultOfArrayOfItemMeg_PnYqa : WebResult {
         
-        private RssFeed[] valueField;
+        private Item[] valueField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)]
-        [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Server.Services")]
-        public RssFeed[] Value {
+        [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Server.Data")]
+        public Item[] Value {
+            get {
+                return this.valueField;
+            }
+            set {
+                this.valueField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.450")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/Server.Utils")]
+    public partial class WebResultOfArrayOfChannelMeg_PnYqa : WebResult {
+        
+        private Channel[] valueField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(IsNullable=true)]
+        [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://schemas.datacontract.org/2004/07/Server.Data")]
+        public Channel[] Value {
             get {
                 return this.valueField;
             }
@@ -510,10 +891,10 @@ namespace Client_ASP.FeedServ {
         }
         
         /// <remarks/>
-        public WebResultOfRssFeedYxjpQ34D Result {
+        public WebResultOfChannelMeg_PnYqa Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((WebResultOfRssFeedYxjpQ34D)(this.results[0]));
+                return ((WebResultOfChannelMeg_PnYqa)(this.results[0]));
             }
         }
     }
@@ -536,10 +917,36 @@ namespace Client_ASP.FeedServ {
         }
         
         /// <remarks/>
-        public WebResultOfArrayOfRssFeedYxjpQ34D Result {
+        public WebResultOfArrayOfChannelMeg_PnYqa Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((WebResultOfArrayOfRssFeedYxjpQ34D)(this.results[0]));
+                return ((WebResultOfArrayOfChannelMeg_PnYqa)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.1")]
+    public delegate void GetAllFeedsCompletedEventHandler(object sender, GetAllFeedsCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.1")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetAllFeedsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetAllFeedsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public WebResultOfArrayOfChannelMeg_PnYqa Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((WebResultOfArrayOfChannelMeg_PnYqa)(this.results[0]));
             }
         }
     }
@@ -588,10 +995,62 @@ namespace Client_ASP.FeedServ {
         }
         
         /// <remarks/>
-        public WebResultOfArrayOfRssFeedYxjpQ34D Result {
+        public WebResultOfArrayOfItemMeg_PnYqa Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((WebResultOfArrayOfRssFeedYxjpQ34D)(this.results[0]));
+                return ((WebResultOfArrayOfItemMeg_PnYqa)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.1")]
+    public delegate void ReadItemCompletedEventHandler(object sender, ReadItemCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.1")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ReadItemCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ReadItemCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public WebResult Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((WebResult)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.1")]
+    public delegate void RefreshFeedCompletedEventHandler(object sender, RefreshFeedCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.1")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class RefreshFeedCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal RefreshFeedCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public WebResult Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((WebResult)(this.results[0]));
             }
         }
     }

@@ -6,12 +6,12 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using Client_ASP.Models;
+using System.Diagnostics;
 
 namespace Client_ASP.Controllers
 {
     public class AccountController : Controller
     {
-
         //
         // GET: /Account/LogOn
 
@@ -39,11 +39,16 @@ namespace Client_ASP.Controllers
             if (ModelState.IsValid)
             {
                 AccServ.Account acc = new AccServ.Account();
-                AccServ.WebResult logon = acc.Login(model.UserName, model.Password);
+                AccServ.WebResultOfstringAccountDatalrs4Oh3P logon = acc.Login(model.UserName, model.Password);
                 if (logon.ErrorCode == AccServ.WebResultErrorCodeList.SUCCESS)
                 {
-                    FormsAuthentication.SetAuthCookie(model.UserName, false);
+                    FormsAuthentication.SetAuthCookie(model.UserName, true);
 
+                    HttpCookie AuthKey = new HttpCookie("AuthKey");
+                    AuthKey.Value = logon.Value1;
+                    AuthKey.Expires = DateTime.Now.AddSeconds(2880);
+                    Response.Cookies.Add(AuthKey);
+                    
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                         && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
                     {
@@ -70,6 +75,9 @@ namespace Client_ASP.Controllers
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
+            HttpCookie AuthKey = new HttpCookie("AuthKey");
+            AuthKey.Expires = DateTime.Now.AddDays(-1);
+            Response.Cookies.Add(AuthKey);
             return RedirectToAction("Index", "Home");
         }
 
@@ -101,8 +109,20 @@ namespace Client_ASP.Controllers
                 // Attempt to register the user
                 if (register.ErrorCode.ToString() == "SUCCESS")
                 {
-                    FormsAuthentication.SetAuthCookie(model.UserName, false);
-                    return RedirectToAction("Index", "Home");
+                    AccServ.WebResultOfstringAccountDatalrs4Oh3P logon = acc.Login(model.UserName, model.Password);
+                    if (logon.ErrorCode == AccServ.WebResultErrorCodeList.SUCCESS)
+                    {
+                        FormsAuthentication.SetAuthCookie(model.UserName, true);
+                        
+                        HttpCookie AuthKey = new HttpCookie("AuthKey");
+                        AuthKey.Value = logon.Value1;
+                        AuthKey.Expires = DateTime.Now.AddSeconds(2880);
+                        Response.Cookies.Add(AuthKey); 
+                        
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                        ViewBag.RegisterError = register.ErrorCode.ToString();
                 }
                 else
                     ViewBag.RegisterError = register.ErrorCode.ToString();
