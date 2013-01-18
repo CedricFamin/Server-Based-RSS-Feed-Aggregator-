@@ -5,6 +5,6 @@
     Renaming the file extension or editing the content of this file may   
     cause the file to be unrecognizable by the program.
 -->
-<GenericObjectDataSource DisplayName="WebResultOfArrayOfRssFeedYxjpQ34D" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
-   <TypeInfo>Client_ASP.FeedServ.WebResultOfArrayOfRssFeedYxjpQ34D, Web References.FeedServ.Reference.cs, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</TypeInfo>
+<GenericObjectDataSource DisplayName="WebResultOfstringAccountDatalrs4Oh3P" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+   <TypeInfo>Client_ASP.AccServ.WebResultOfstringAccountDatalrs4Oh3P, Web References.AccServ.Reference.cs, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</TypeInfo>
 </GenericObjectDataSource>

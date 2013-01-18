@@ -41,6 +41,8 @@ namespace Client_ASP.AccServ {
         
         private System.Threading.SendOrPostCallback UserListOperationCompleted;
         
+        private System.Threading.SendOrPostCallback IsConnectedOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -98,6 +100,9 @@ namespace Client_ASP.AccServ {
         public event UserListCompletedEventHandler UserListCompleted;
         
         /// <remarks/>
+        public event IsConnectedCompletedEventHandler IsConnectedCompleted;
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Account/Register", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
         public WebResult Register([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string username, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string email, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string password) {
@@ -134,11 +139,11 @@ namespace Client_ASP.AccServ {
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Account/Login", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public WebResultOfTupleOfSessionAccountDatav7M43KXC5F2dSckg Login([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string username, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string password) {
+        public WebResultOfstringAccountDatalrs4Oh3P Login([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string username, [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string password) {
             object[] results = this.Invoke("Login", new object[] {
                         username,
                         password});
-            return ((WebResultOfTupleOfSessionAccountDatav7M43KXC5F2dSckg)(results[0]));
+            return ((WebResultOfstringAccountDatalrs4Oh3P)(results[0]));
         }
         
         /// <remarks/>
@@ -290,6 +295,36 @@ namespace Client_ASP.AccServ {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Account/IsConnected", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public WebResultOfboolean IsConnected([System.Xml.Serialization.XmlElementAttribute(IsNullable=true)] string session_key) {
+            object[] results = this.Invoke("IsConnected", new object[] {
+                        session_key});
+            return ((WebResultOfboolean)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void IsConnectedAsync(string session_key) {
+            this.IsConnectedAsync(session_key, null);
+        }
+        
+        /// <remarks/>
+        public void IsConnectedAsync(string session_key, object userState) {
+            if ((this.IsConnectedOperationCompleted == null)) {
+                this.IsConnectedOperationCompleted = new System.Threading.SendOrPostCallback(this.OnIsConnectedOperationCompleted);
+            }
+            this.InvokeAsync("IsConnected", new object[] {
+                        session_key}, this.IsConnectedOperationCompleted, userState);
+        }
+        
+        private void OnIsConnectedOperationCompleted(object arg) {
+            if ((this.IsConnectedCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.IsConnectedCompleted(this, new IsConnectedCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -309,8 +344,9 @@ namespace Client_ASP.AccServ {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(WebResultOfboolean))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(WebResultOfArrayOfAccountDataYxjpQ34D))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(WebResultOfTupleOfSessionAccountDatav7M43KXC5F2dSckg))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(WebResultOfstringAccountDatalrs4Oh3P))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.450")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -385,6 +421,9 @@ namespace Client_ASP.AccServ {
         
         /// <remarks/>
         PARAMETER_ERROR,
+        
+        /// <remarks/>
+        INVALID_PARAMETER,
     }
     
     /// <remarks/>
@@ -477,129 +516,31 @@ namespace Client_ASP.AccServ {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/Server.EntityFramwork")]
-    public partial class Session {
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/Server.Utils")]
+    public partial class WebResultOfboolean : WebResult {
         
-        private System.DateTime expireField;
+        private bool valueField;
         
-        private bool expireFieldSpecified;
-        
-        private int idField;
-        
-        private bool idFieldSpecified;
-        
-        private int id_userField;
-        
-        private bool id_userFieldSpecified;
-        
-        private string session_keyField;
+        private bool valueFieldSpecified;
         
         /// <remarks/>
-        public System.DateTime expire {
+        public bool Value {
             get {
-                return this.expireField;
+                return this.valueField;
             }
             set {
-                this.expireField = value;
+                this.valueField = value;
             }
         }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool expireSpecified {
+        public bool ValueSpecified {
             get {
-                return this.expireFieldSpecified;
+                return this.valueFieldSpecified;
             }
             set {
-                this.expireFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        public int id {
-            get {
-                return this.idField;
-            }
-            set {
-                this.idField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool idSpecified {
-            get {
-                return this.idFieldSpecified;
-            }
-            set {
-                this.idFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        public int id_user {
-            get {
-                return this.id_userField;
-            }
-            set {
-                this.id_userField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool id_userSpecified {
-            get {
-                return this.id_userFieldSpecified;
-            }
-            set {
-                this.id_userFieldSpecified = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public string session_key {
-            get {
-                return this.session_keyField;
-            }
-            set {
-                this.session_keyField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.450")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/System")]
-    public partial class TupleOfSessionAccountDatav7M43KXC {
-        
-        private Session m_Item1Field;
-        
-        private AccountData m_Item2Field;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public Session m_Item1 {
-            get {
-                return this.m_Item1Field;
-            }
-            set {
-                this.m_Item1Field = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public AccountData m_Item2 {
-            get {
-                return this.m_Item2Field;
-            }
-            set {
-                this.m_Item2Field = value;
+                this.valueFieldSpecified = value;
             }
         }
     }
@@ -633,18 +574,31 @@ namespace Client_ASP.AccServ {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://schemas.datacontract.org/2004/07/Server.Utils")]
-    public partial class WebResultOfTupleOfSessionAccountDatav7M43KXC5F2dSckg : WebResult {
+    public partial class WebResultOfstringAccountDatalrs4Oh3P : WebResult {
         
-        private TupleOfSessionAccountDatav7M43KXC valueField;
+        private string value1Field;
+        
+        private AccountData value2Field;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
-        public TupleOfSessionAccountDatav7M43KXC Value {
+        public string Value1 {
             get {
-                return this.valueField;
+                return this.value1Field;
             }
             set {
-                this.valueField = value;
+                this.value1Field = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true)]
+        public AccountData Value2 {
+            get {
+                return this.value2Field;
+            }
+            set {
+                this.value2Field = value;
             }
         }
     }
@@ -693,10 +647,10 @@ namespace Client_ASP.AccServ {
         }
         
         /// <remarks/>
-        public WebResultOfTupleOfSessionAccountDatav7M43KXC5F2dSckg Result {
+        public WebResultOfstringAccountDatalrs4Oh3P Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((WebResultOfTupleOfSessionAccountDatav7M43KXC5F2dSckg)(this.results[0]));
+                return ((WebResultOfstringAccountDatalrs4Oh3P)(this.results[0]));
             }
         }
     }
@@ -801,6 +755,32 @@ namespace Client_ASP.AccServ {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((WebResultOfArrayOfAccountDataYxjpQ34D)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.1")]
+    public delegate void IsConnectedCompletedEventHandler(object sender, IsConnectedCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.1")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class IsConnectedCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal IsConnectedCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public WebResultOfboolean Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((WebResultOfboolean)(this.results[0]));
             }
         }
     }

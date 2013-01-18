@@ -6,6 +6,7 @@
     <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="http://localhost:3972/Services/FeedsService.svc?wsdl" filename="FeedsService.wsdl" />
     <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://localhost:3972/Services/FeedsService.svc?xsd=xsd3" filename="FeedsService0.xsd" />
     <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://localhost:3972/Services/FeedsService.svc?xsd=xsd1" filename="FeedsService1.xsd" />
-    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://localhost:3972/Services/FeedsService.svc?xsd=xsd2" filename="FeedsService2.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://localhost:3972/Services/FeedsService.svc?xsd=xsd4" filename="FeedsService2.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://localhost:3972/Services/FeedsService.svc?xsd=xsd2" filename="FeedsService3.xsd" />
   </Results>
 </DiscoveryClientResultsFile>

@@ -1,17 +1,14 @@
-﻿@{
-    ViewBag.Title = "Item Feed";
-}
-<div class="row-fluid">
+﻿<div class="row-fluid">
 	<div class="box span12">
 		<div class="box-header">
-			<h2><i class="icon-th-list"></i><span class="break"></span>@ViewBag.Title : "example name"</h2>
+			<h2><i class="icon-th-list"></i><span class="break"></span>@ViewBag.ItemDatas.Title.ToString()</h2>
 			<div class="box-icon">
 				<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
 				<a href="#" class="btn-close"><i class="icon-remove"></i></a>
 			</div>
 		</div>
 		<div class="box-content">
-            <p>Item content</p>
+            @Html.Raw(ViewBag.ItemDatas.Description)
         </div>
     </div>
 </div>
