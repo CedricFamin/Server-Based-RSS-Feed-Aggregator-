@@ -57,8 +57,8 @@
                         
                         <li class="header"><b>RSS</b></li>
                         <li>@Html.ActionLink("Add new feed", "Create", "Feeds")</li>
-                        <li>@Html.ActionLink("Feed List", "List", "Feeds")</li>
-                        
+                        <li>@Html.ActionLink("My feeds", "List", "Feeds")</li>
+                        <li>@Html.ActionLink("Public Feeds", "Public", "Feeds")</li>
                         <li class="divider"></li>
                         
                         <li class="header"><b>Users</b></li>
@@ -72,9 +72,28 @@
             {
                 <div class="span12">@RenderBody()</div>
             }
-                
-	        
         </div>
     </div>
+    <script>
+		$(document).ready(function(){
+			$('.box-icon > .btn-close').on('click', function(){
+				$(this).parent().parent().parent().fadeOut();
+			});
+			
+			$('.box-icon > .btn-minimize').on('click', function(){
+				var contentbox = $(this).parent().parent().parent().children('.box-content');
+				if (contentbox.is(':visible'))
+				{
+					contentbox.slideUp();
+					$(this).children('i').attr('class', 'icon-chevron-down');
+				}
+				else
+				{
+					contentbox.slideDown();
+					$(this).children('i').attr('class', 'icon-chevron-up');
+				}
+			});
+		});
+	</script>
 </body>
 </html>

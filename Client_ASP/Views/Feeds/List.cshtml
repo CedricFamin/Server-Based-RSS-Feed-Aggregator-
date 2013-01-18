@@ -28,7 +28,7 @@
                             <td>@Html.ActionLink(channel.Title, "Feed", "Feeds", channel, null)</td>
                             <td><a href="@channel.Link">@channel.Link</a></td>
                             <td>@channel.Description.ToString()</td>
-                            <td>@Html.ActionLink("X", "Delete", "Feeds", channel, null)</td>
+                            <td>@Html.ActionLink("X", "Delete", "Feeds", channel, new{@class = "btn btn-danger"})</td>
                         </tr>
                     }
                         
@@ -36,4 +36,18 @@
             </table>
         </div>
     </div>
+</div>
+<!-- Modal -->
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Delete the feed ?</h3>
+  </div>
+  <div class="modal-body">
+    <p>Do you really want to delete this RSS Feed ?</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+    <button class="btn btn-danger">Delete</button>
+  </div>
 </div>

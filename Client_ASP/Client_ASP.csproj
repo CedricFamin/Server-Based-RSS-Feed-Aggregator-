@@ -145,6 +145,7 @@
     <Content Include="Views\Feeds\List.cshtml" />
     <Content Include="Views\Feeds\Feed.cshtml" />
     <Content Include="Views\Feeds\Item.cshtml" />
+    <Content Include="Views\Feeds\Public.cshtml" />
     <None Include="Web References\AccServ\Account.disco" />
     <None Include="Web References\AccServ\WebResultOfArrayOfAccountDataYxjpQ34D.datasource">
       <DependentUpon>Reference.map</DependentUpon>

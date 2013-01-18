@@ -43,11 +43,11 @@ namespace Client_ASP.Controllers
                 if (logon.ErrorCode == AccServ.WebResultErrorCodeList.SUCCESS)
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, true);
-
-                    HttpCookie AuthKey = new HttpCookie("AuthKey");
-                    AuthKey.Value = logon.Value1;
-                    AuthKey.Expires = DateTime.Now.AddSeconds(2880);
-                    Response.Cookies.Add(AuthKey);
+                    HttpCookie auth = FormsAuthentication.GetAuthCookie(model.UserName, true);
+                    FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(auth.Value);
+                    FormsAuthenticationTicket nticket = new FormsAuthenticationTicket(ticket.Version, ticket.Name, ticket.IssueDate, ticket.Expiration, ticket.IsPersistent, logon.Value1);
+                    auth.Value = FormsAuthentication.Encrypt(nticket);
+                    Response.Cookies.Add(auth);
                     
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                         && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
@@ -75,9 +75,6 @@ namespace Client_ASP.Controllers
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
-            HttpCookie AuthKey = new HttpCookie("AuthKey");
-            AuthKey.Expires = DateTime.Now.AddDays(-1);
-            Response.Cookies.Add(AuthKey);
             return RedirectToAction("Index", "Home");
         }
 
@@ -113,11 +110,11 @@ namespace Client_ASP.Controllers
                     if (logon.ErrorCode == AccServ.WebResultErrorCodeList.SUCCESS)
                     {
                         FormsAuthentication.SetAuthCookie(model.UserName, true);
-                        
-                        HttpCookie AuthKey = new HttpCookie("AuthKey");
-                        AuthKey.Value = logon.Value1;
-                        AuthKey.Expires = DateTime.Now.AddSeconds(2880);
-                        Response.Cookies.Add(AuthKey); 
+                        HttpCookie auth = FormsAuthentication.GetAuthCookie(model.UserName, true);
+                        FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(auth.Value);
+                        FormsAuthenticationTicket nticket = new FormsAuthenticationTicket(ticket.Version, ticket.Name, ticket.IssueDate, ticket.Expiration, ticket.IsPersistent, logon.Value1);
+                        auth.Value = FormsAuthentication.Encrypt(nticket);
+                        Response.Cookies.Add(auth);
                         
                         return RedirectToAction("Index", "Home");
                     }
@@ -193,8 +190,12 @@ namespace Client_ASP.Controllers
         [Authorize]
         public ActionResult UserList()
         {
+            FormsIdentity ident = User.Identity as FormsIdentity;
+            FormsAuthenticationTicket ticket = ident.Ticket;
+            string AuthKey = ticket.UserData;
+
             AccServ.Account acc = new AccServ.Account();
-            ViewBag.list = acc.UserList("");
+            ViewBag.list = acc.UserList(AuthKey);
             return View();
         }
 
