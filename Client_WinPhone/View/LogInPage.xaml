@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Client_WinPhone_ViewModel="clr-namespace:Client_WinPhone.ViewModel"
     xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-    xmlns:ic="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions" 
+    xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WP7"
     x:Class="Client_WinPhone.LogInPage"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
@@ -15,8 +15,11 @@
     >
     
     <phone:PhoneApplicationPage.Resources>
-        <Client_WinPhone_ViewModel:LoginPageViewModel x:Key="LoginPageViewModel" />
+        <Client_WinPhone_ViewModel:LogInPageViewModel x:Key="LoginPageViewModel" />
     </phone:PhoneApplicationPage.Resources>
+	<phone:PhoneApplicationPage.DataContext>
+		<Client_WinPhone_ViewModel:LogInPageViewModel/>
+	</phone:PhoneApplicationPage.DataContext>
 
 	<phone:PhoneApplicationPage.FontFamily>
 		<StaticResource ResourceKey="PhoneFontFamilyNormal"/>
@@ -43,13 +46,13 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <TextBox Height="72" HorizontalAlignment="Center" Margin="0,175,0,0" x:Name="UserLogin" VerticalAlignment="Top" Width="400" Text="{Binding Username}" />
-            <PasswordBox Height="72" HorizontalAlignment="Center" Margin="0,250,0,0" x:Name="UserPassword" VerticalAlignment="Top" Width="400" Password="{Binding Password}" />
-            <Button Content="Log In" Height="72" HorizontalAlignment="Center" Margin="0,350,0,0" x:Name="LogInButton" VerticalAlignment="Top" Width="200" DataContext="{Binding}" >
+            <TextBox Height="72" HorizontalAlignment="Center" Margin="0,175,0,0" x:Name="UserLogin" VerticalAlignment="Top" Width="400" Text="{Binding Username, Mode=TwoWay}" />
+            <PasswordBox Height="72" HorizontalAlignment="Center" Margin="0,250,0,0" x:Name="UserPassword" VerticalAlignment="Top" Width="400" Password="{Binding Password, Mode=TwoWay}" />
+            <Button Content="Log In" Height="72" HorizontalAlignment="Center" Margin="0,350,0,0" x:Name="LogInButton" VerticalAlignment="Top" Width="200" >
             	<i:Interaction.Triggers>
-            		<i:EventTrigger EventName="Click">
-            			<i:InvokeCommandAction />
-            		</i:EventTrigger>
+                    <i:EventTrigger EventName="Click">
+                        <cmd:EventToCommand Command="{Binding Login, Mode=TwoWay}"/>
+                    </i:EventTrigger>
             	</i:Interaction.Triggers>
             </Button>
           

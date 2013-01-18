@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using Common.Utils;
 using Common.DataModel;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace Client_WinPhone.ViewModel
 {
@@ -54,15 +55,10 @@ namespace Client_WinPhone.ViewModel
             }
         }
 
-        private bool _register;
-        public bool Register
+        private bool _registerMessage;
+        public bool RegisterMessage
         {
-            get { return _register; }
-            set
-            {
-                _register = value;
-                RaisePropertyChange("Register");
-            }
+            get { return _registerMessage; }
         }
 
         private PropertyChangedEventHandler PropertyChangedHandler { get; set; }
@@ -90,6 +86,7 @@ namespace Client_WinPhone.ViewModel
         #region BodyCommand
         private void LoginBody(string[] param)
         {
+            Debug.WriteLine("Logging : " + Username + " - " + Password + " - " + PasswordConfirm);
             if (Password == PasswordConfirm)
                 UserData.Register(Username, Password);
         }

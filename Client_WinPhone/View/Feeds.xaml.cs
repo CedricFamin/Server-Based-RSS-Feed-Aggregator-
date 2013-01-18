@@ -13,11 +13,16 @@ using Microsoft.Phone.Controls;
 
 namespace Client_WinPhone.View
 {
-    public partial class ChannelsPage : PhoneApplicationPage
+    public partial class Feeds : PhoneApplicationPage
     {
-        public ChannelsPage()
+        public Feeds()
         {
             InitializeComponent();
+        }
+
+        private void ApplicationBarMenuItem_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/View/Channels.xaml", UriKind.Relative));
         }
     }
 }

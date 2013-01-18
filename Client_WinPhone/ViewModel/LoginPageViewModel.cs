@@ -9,10 +9,14 @@ using System.ServiceModel;
 using Common.DataModel;
 using System.ComponentModel;
 using Common.Utils;
+using System.Windows;
+using System.Windows.Navigation;
+using System.Diagnostics;
+using Microsoft.Phone.Controls;
 
 namespace Client_WinPhone.ViewModel
 {
-    public class LoginPageViewModel : BindableObject
+    public class LogInPageViewModel : BindableObject
     {
 
         #region properties
@@ -56,7 +60,7 @@ namespace Client_WinPhone.ViewModel
         #endregion
 
         #region CTor
-        public LoginPageViewModel()
+        public LogInPageViewModel()
         {
             UserData = UserDataModel.Instance;
             PropertyChangedHandler = new System.ComponentModel.PropertyChangedEventHandler(UserData_PropertyChanged);
@@ -65,7 +69,7 @@ namespace Client_WinPhone.ViewModel
             _logued = false;
         }
 
-        ~LoginPageViewModel()
+        ~LogInPageViewModel()
         {
             UserDataModel.Instance.PropertyChanged -= PropertyChangedHandler;
         }
@@ -76,6 +80,12 @@ namespace Client_WinPhone.ViewModel
             {
                 Logued = (sender as UserDataModel).IsConnected;
                 RaisePropertyChange("Logued");
+
+                if (Logued)
+                {
+                    PhoneApplicationFrame frame = (PhoneApplicationFrame)Application.Current.RootVisual;
+                    bool success = frame.Navigate(new Uri("/View/Feeds.xaml", UriKind.Relative));
+                }
             }
         }
         #endregion
@@ -83,9 +93,8 @@ namespace Client_WinPhone.ViewModel
         #region BodyCommand
         private void LoginBody(string[] param)
         {
-                UserData.Login(Username, Password);
+            UserData.Login(Username, Password);
         }
         #endregion
-
     }
 }

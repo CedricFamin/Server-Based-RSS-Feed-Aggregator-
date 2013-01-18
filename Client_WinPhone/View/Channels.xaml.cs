@@ -11,13 +11,19 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 
-namespace Client_WinPhone.Views
+namespace Client_WinPhone.View
 {
-    public partial class FeedPage : PhoneApplicationPage
+    public partial class Channels : PhoneApplicationPage
     {
-        public FeedPage()
+        public Channels()
         {
             InitializeComponent();
+        }
+
+        private void ApplicationBarMenuItem_Click(object sender, EventArgs e)
+        {
+            NavigationService.GoBack();
+            //NavigationService.Navigate(new Uri("/View/Feeds.xaml", UriKind.Relative));
         }
     }
 }

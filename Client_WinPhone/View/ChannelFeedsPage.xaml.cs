@@ -11,11 +11,11 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 
-namespace Client_WinPhone.Views
+namespace Client_WinPhone.View
 {
-    public partial class FeedsManagementPage : PhoneApplicationPage
+    public partial class ChannelFeedsPage : PhoneApplicationPage
     {
-        public FeedsManagementPage()
+        public ChannelFeedsPage()
         {
             InitializeComponent();
         }
