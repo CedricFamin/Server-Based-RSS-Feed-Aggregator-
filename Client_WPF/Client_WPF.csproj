@@ -74,6 +74,7 @@
     <Compile Include="Behavior\WebBrowserUtilityBehavior.cs" />
     <Compile Include="Converter\StringToHtmlPageConveter.cs" />
     <Compile Include="ViewModel\AdminViewModel.cs" />
+    <Compile Include="ViewModel\ErrorViewModel.cs" />
     <Compile Include="ViewModel\FeedDetailsViewModel.cs" />
     <Compile Include="ViewModel\FeedsManagerViewModel.cs" />
     <Compile Include="View\AdminWindow.xaml.cs">
@@ -81,6 +82,9 @@
     </Compile>
     <Compile Include="View\ChannelDetails.xaml.cs">
       <DependentUpon>ChannelDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ErrorModal.xaml.cs">
+      <DependentUpon>ErrorModal.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\FeedsManager.xaml.cs">
       <DependentUpon>FeedsManager.xaml</DependentUpon>
@@ -97,6 +101,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\ChannelDetails.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\ErrorModal.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

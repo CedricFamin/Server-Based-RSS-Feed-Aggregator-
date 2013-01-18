@@ -33,6 +33,7 @@ namespace Client_WPF.ViewModel
         public ICommand OpenAdmin { get; private set; }
 
         public LoginModal ConnectionModal { get; private set; }
+        public ErrorViewModel ErrorModel { get; private set; }
         
         private bool isAdmin;
         public bool IsAdmin
@@ -66,6 +67,8 @@ namespace Client_WPF.ViewModel
             search = SearchDataModel.Instance.Search;
             IsAdmin = UserDataModel.Instance.IsConnected;
             IsAdmin = false;
+
+            ErrorModel = new ErrorViewModel();
         }
 
         ~MenuViewModel()

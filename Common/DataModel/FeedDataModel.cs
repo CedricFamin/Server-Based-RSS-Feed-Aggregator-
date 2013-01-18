@@ -83,68 +83,44 @@ namespace Common.DataModel
         #region OnEndAction
         void FeedsClient_RefreshFeedCompleted(object sender, RefreshFeedCompletedEventArgs e)
         {
-            if (e.Error == null)
-            {
-                if (e.Result.ErrorCode == WebResult.ErrorCodeList.SUCCESS)
-                {
-                    GetAllRootFeeds();
-                }
-            }
+            if (!ErrorDataModel.Instance.EvalResponse(e)) return;
+            if (!ErrorDataModel.Instance.EvalWebResult(e.Result)) return;
+            GetAllRootFeeds();
         }
 
         void feedsClient_GetAllFeedsCompleted(object sender, GetAllFeedsCompletedEventArgs e)
         {
-            if (e.Error == null)
-            {
-                if (e.Result.ErrorCode == WebResult.ErrorCodeList.SUCCESS)
-                {
-                    AllChannels = e.Result.Value.ToList();
-                }
-            }
+            if (!ErrorDataModel.Instance.EvalResponse(e)) return;
+            if (!ErrorDataModel.Instance.EvalWebResult(e.Result)) return;
+            AllChannels = e.Result.Value.ToList();
         }
 
         void FeedsClient_AddNewFeedCompleted(object sender, AddNewFeedCompletedEventArgs e)
         {
-            if (e.Error == null)
-            {
-                if (e.Result.ErrorCode == WebResult.ErrorCodeList.SUCCESS)
-                {
-                    GetAllRootFeeds();
-                }
-            }
+            if (!ErrorDataModel.Instance.EvalResponse(e)) return;
+            if (!ErrorDataModel.Instance.EvalWebResult(e.Result)) return;
+            GetAllRootFeeds();
         }
 
         void FeedsClient_UnfollowFeedCompleted(object sender, UnfollowFeedCompletedEventArgs e)
         {
-            if (e.Error == null)
-            {
-                if (e.Result.ErrorCode == WebResult.ErrorCodeList.SUCCESS)
-                {
-                    GetAllRootFeeds();
-                }
-            }
+            if (!ErrorDataModel.Instance.EvalResponse(e)) return;
+            if (!ErrorDataModel.Instance.EvalWebResult(e.Result)) return;
+            GetAllRootFeeds();
         }
 
         void FeedsClient_GetFeedsCompleted(object sender, GetFeedsCompletedEventArgs e)
         {
-            if (e.Error == null)
-            {
-                if (e.Result.ErrorCode == WebResult.ErrorCodeList.SUCCESS)
-                {
-                    Channels = e.Result.Value.ToList();
-                }
-            }
+            if (!ErrorDataModel.Instance.EvalResponse(e)) return;
+            if (!ErrorDataModel.Instance.EvalWebResult(e.Result)) return;
+            Channels = e.Result.Value.ToList();
         }
 
         void FeedsClient_GetFeedItemsCompleted(object sender, GetFeedItemsCompletedEventArgs e)
         {
-            if (e.Error == null)
-            {
-                if (e.Result.ErrorCode == WebResult.ErrorCodeList.SUCCESS)
-                {
-                    Items = e.Result.Value.ToList();
-                }
-            }
+            if (!ErrorDataModel.Instance.EvalResponse(e)) return;
+            if (!ErrorDataModel.Instance.EvalWebResult(e.Result)) return;
+            Items = e.Result.Value.ToList();
         }
         #endregion
 
@@ -252,13 +228,9 @@ namespace Common.DataModel
 
         void FeedsClient_GetFeedItemsCompleted(object sender, GetFeedItemsCompletedEventArgs e)
         {
-            if (e.Error == null)
-            {
-                if (e.Result.ErrorCode == WebResult.ErrorCodeList.SUCCESS)
-                {
-                    Items = e.Result.Value.ToList();
-                }
-            }
+            if (!ErrorDataModel.Instance.EvalResponse(e)) return;
+            if (!ErrorDataModel.Instance.EvalWebResult(e.Result)) return;
+            Items = e.Result.Value.ToList();
         }
         #endregion
 
