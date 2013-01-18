@@ -20,9 +20,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in (ViewBag.Items as Client_ASP.FeedServ.Item[]))
-                    {
-                        <tr>
+                    @foreach(var item in (ViewBag.Items as Client_ASP.FeedServ.Item[]))
+                    {   
+                        <tr class="@((item.Read) ? "" : "info")">
                             <td>@Html.ActionLink(item.Title, "Item", "Feeds", item, null)</td>
                             <td>@item.PubDate.DateTime.ToString()</td>
                             <td>@((item.Read) ? "-" : "New !")</td>

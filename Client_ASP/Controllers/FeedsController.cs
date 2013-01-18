@@ -61,7 +61,7 @@ namespace Client_ASP.Controllers
             FormsIdentity ident = User.Identity as FormsIdentity;
             FormsAuthenticationTicket ticket = ident.Ticket;
             string AuthKey = ticket.UserData;
-
+            
             FeedsService fs = new FeedsService();
             fs.ReadItem(AuthKey, item);
             ViewBag.ItemDatas = item;

@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Public Feeds List";
+    
+}
+<div class="row-fluid">
+	<div class="box span12">
+		<div class="box-header">
+			<h2><i class="icon-th"></i><span class="break"></span>@ViewBag.Title</h2>
+			<div class="box-icon">
+				<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+				<a href="#" class="btn-close"><i class="icon-remove"></i></a>
+			</div>
+		</div>
+		<div class="box-content">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Feed</th>
+                        <th>URL</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var channel in (ViewBag.Feeds as Client_ASP.FeedServ.Channel[]))
+                    {
+                        <tr>
+                            <td>@channel.Title</td>
+                            <td><a href="@channel.Link">@channel.Link</a></td>
+                            <td>@channel.Description.ToString()</td>
+                        </tr>
+                    }
+                        
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Delete the feed ?</h3>
+  </div>
+  <div class="modal-body">
+    <p>Do you really want to delete this RSS Feed ?</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+    <button class="btn btn-danger">Delete</button>
+  </div>
+</div>
