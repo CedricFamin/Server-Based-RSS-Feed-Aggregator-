@@ -79,7 +79,7 @@ namespace Common.DataModel
                 {
                     try
                     {
-                        accountClient = new AccountClient();
+                        accountClient = new AccountClient("AccountService");
                     }
                     catch (Exception)
                     {
@@ -169,39 +169,32 @@ namespace Common.DataModel
         #region ResultAsync
         private void OnIsConnected(object sender, IsConnectedCompletedEventArgs args)
         {
-            if (args.Error == null)
-            {
-                if (args.Result.ErrorCode == WebResult.ErrorCodeList.SUCCESS)
-                {
-                    IsConnected = args.Result.Value;
-                    RaisePropertyChange("IsConnected");
-                }
-            }
+            if (!ErrorDataModel.Instance.EvalResponse(args)) return;
+            if (!ErrorDataModel.Instance.EvalWebResult(args.Result)) return;
+            IsConnected = args.Result.Value1;
+            User = args.Result.Value2;
+            RaisePropertyChange("IsConnected");
         }
 
         private void OnEndLogin(object sender, LoginCompletedEventArgs args)
         {
-            if (args.Error == null)
+            if (!ErrorDataModel.Instance.EvalResponse(args)) return;
+            if (ErrorDataModel.Instance.EvalWebResult(args.Result))
             {
-                if (args.Result.ErrorCode == WebResult.ErrorCodeList.SUCCESS)
-                {
-                    ConnectionString = args.Result.Value1;
-                    IsConnected = true;    
-                    User = args.Result.Value2;
-                    //LoginView.Close();
-                }
-                else
-                    IsConnected = false;
-                RaisePropertyChange("IsConnected");
+                ConnectionString = args.Result.Value1;
+                IsConnected = true;    
+                User = args.Result.Value2;
+                //LoginView.Close();
             }
+            else
+                IsConnected = false;
+            RaisePropertyChange("IsConnected");
         }
 
         private void OnEndRegister(object sender, RegisterCompletedEventArgs args)
         {
-            if (args.Error == null)
-            {
-
-            }
+            if (!ErrorDataModel.Instance.EvalResponse(args)) return;
+            //if (!ErrorDataModel.Instance.EvalWebResult(e.Result)) return;
         }
         #endregion
 

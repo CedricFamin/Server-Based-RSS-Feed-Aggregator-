@@ -1,6 +1,22 @@
-﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Client_WPF_ViewModel="clr-namespace:Client_WPF.ViewModel" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" xmlns:local="clr-namespace:Client_WPF" x:Class="Client_WPF.MainWindow"
-        Title="RSS Feed Agregator" Height="464" Width="688" Foreground="{DynamicResource DefaultColor}" mc:Ignorable="d" Background="{DynamicResource DefaultBackground}" Icon="Images/icone.png" WindowStartupLocation="CenterOwner" WindowState="Normal" WindowStyle="ThreeDBorderWindow">
+﻿<Window 
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+xmlns:Client_WPF_ViewModel="clr-namespace:Client_WPF.ViewModel" 
+xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" 
+xmlns:local="clr-namespace:Client_WPF" xmlns:Client_WPF_View="clr-namespace:Client_WPF.View" 
+xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" 
+x:Class="Client_WPF.MainWindow"
+Title="RSS Feed Agregator" 
+Height="464" Width="688" 
+Foreground="{DynamicResource DefaultColor}" 
+mc:Ignorable="d" Background="{DynamicResource DefaultBackground}" 
+Icon="Images/icone.png" WindowStartupLocation="CenterOwner" 
+WindowState="Normal" WindowStyle="ThreeDBorderWindow">
 	<Window.Resources>
+		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 
 		<Client_WPF_ViewModel:MenuViewModel x:Key="MenuViewModelDataSource" d:IsDataSource="True"/>
 
@@ -85,6 +101,13 @@
 			</MenuItem>
 			<MenuItem Header="Feeds" Style="{DynamicResource MenuItemStyle}" Grid.Column="1" />
 			<MenuItem Header="About" Style="{DynamicResource MenuItemStyle}" Grid.Column="2" />
+			<MenuItem Header="Admin" Style="{DynamicResource MenuItemStyle}" Grid.Column="3" Visibility="{Binding IsAdmin, Mode=OneWay}">
+				<i:Interaction.Triggers>
+					<i:EventTrigger EventName="Click">
+						<i:InvokeCommandAction Command="{Binding OpenAdmin, Mode=OneWay}"/>
+					</i:EventTrigger>
+				</i:Interaction.Triggers>
+			</MenuItem>
 			<MenuItem Header="MenuItem" d:LayoutOverrides="Height" Grid.Column="3" HorizontalAlignment="Right" Template="{DynamicResource MenuItemSearchControlTemplate}"/>
 		</Menu>
 		<local:FeedsManager Grid.RowSpan="2" d:LayoutOverrides="Width, Height" Grid.Row="1"/>

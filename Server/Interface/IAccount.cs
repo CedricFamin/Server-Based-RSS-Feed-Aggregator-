@@ -17,6 +17,6 @@ namespace Server.Interface
         
         WebResult Delete(string session_key, int id);
         WebResult<List<AccountData>> UserList(string session_key);
-        WebResult<bool> IsConnected(string session_key);
+        WebResult<bool, AccountData> IsConnected(string session_key);
     }
 }

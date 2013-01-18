@@ -3,10 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:Client_Outlook_ViewModel="clr-namespace:Client_Outlook.ViewModel" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Common_Behavior="clr-namespace:Common.Behavior;assembly=Common" xmlns:Client_Outlook_Behavior="clr-namespace:Client_Outlook.Behavior" x:Class="Client_Outlook.View.MainContainerUserControl" 
+             xmlns:Client_Outlook_ViewModel="clr-namespace:Client_Outlook.ViewModel" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:Common_Behavior="clr-namespace:Common.Behavior;assembly=Common" xmlns:Client_Outlook_Behavior="clr-namespace:Client_Outlook.Behavior" xmlns:Common_Converter="clr-namespace:Common.Converter;assembly=Common" x:Class="Client_Outlook.View.MainContainerUserControl" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="336" Background="{DynamicResource MainBG}">
 	<UserControl.Resources>
+		<Common_Converter:DateConverter x:Key="DateConverter"/>
+		<Common_Converter:StringToHtmlPageConverter x:Key="StringToHtmlPageConverter"/>
 		<Client_Outlook_ViewModel:FeedDetailsViewModel x:Key="FeedDetailsViewModelDataSource" d:IsDataSource="True"/>
 		<Client_Outlook_ViewModel:FeedManagerViewModel x:Key="FeedManagerViewModelDataSource" d:IsDataSource="True"/>
 		<Style x:Key="ButtonFocusVisual">
@@ -101,12 +103,16 @@
 		<DataTemplate x:Key="ItemsChannelTemplate">
 			<StackPanel x:Name="stackPanel">
 				<Grid Height="Auto" Width="Auto">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+					</Grid.RowDefinitions>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition/>
 						<ColumnDefinition Width="Auto"/>
 					</Grid.ColumnDefinitions>
 					<TextBlock Margin="0" TextWrapping="Wrap" Text="{Binding Title}" VerticalAlignment="Top" d:LayoutOverrides="Width"/>
-					<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+					<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.RowSpan="2" VerticalAlignment="Top">
 						<Button Content="Button" Width="24" Height="24" Style="{DynamicResource ButtonImageStyle}" Foreground="{x:Null}">
 							<i:Interaction.Behaviors>
 								<Common_Behavior:ToggleVisibilityBehavior Target="{Binding ElementName=webBrowser, Mode=OneWay}"/>
@@ -130,10 +136,11 @@
 							</Button.Background>
 						</Button>
 					</StackPanel>
+					<TextBlock Text="{Binding PubDate, Converter={StaticResource DateConverter}}" TextWrapping="Wrap" d:LayoutOverrides="Width, Height" Grid.Row="1"/>
 				</Grid>
 				<WebBrowser x:Name="webBrowser" Height="Auto" Visibility="Collapsed">
 					<i:Interaction.Behaviors>
-						<Common_Behavior:WebBrowserUtilityBehavior HtmlContent="{Binding Description}"/>
+						<Common_Behavior:WebBrowserUtilityBehavior HtmlContent="{Binding Description, Converter={StaticResource StringToHtmlPageConverter}}"/>
 					</i:Interaction.Behaviors>
 				</WebBrowser>
 			</StackPanel>

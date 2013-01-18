@@ -19,7 +19,7 @@ namespace Common.RSSService {
     [System.SerializableAttribute()]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Common.RSSService.WebResultOfstringAccountDatalrs4Oh3P))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Common.RSSService.WebResultOfArrayOfAccountDataYxjpQ34D))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Common.RSSService.WebResultOfboolean))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Common.RSSService.WebResultOfbooleanAccountDatalrs4Oh3P))]
     public partial class WebResult : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
@@ -169,22 +169,38 @@ namespace Common.RSSService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="WebResultOfboolean", Namespace="http://schemas.datacontract.org/2004/07/Server.Utils")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="WebResultOfbooleanAccountDatalrs4Oh3P", Namespace="http://schemas.datacontract.org/2004/07/Server.Utils")]
     [System.SerializableAttribute()]
-    public partial class WebResultOfboolean : Common.RSSService.WebResult {
+    public partial class WebResultOfbooleanAccountDatalrs4Oh3P : Common.RSSService.WebResult {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool ValueField;
+        private bool Value1Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Common.RSSService.AccountData Value2Field;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool Value {
+        public bool Value1 {
             get {
-                return this.ValueField;
+                return this.Value1Field;
             }
             set {
-                if ((this.ValueField.Equals(value) != true)) {
-                    this.ValueField = value;
-                    this.RaisePropertyChanged("Value");
+                if ((this.Value1Field.Equals(value) != true)) {
+                    this.Value1Field = value;
+                    this.RaisePropertyChanged("Value1");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Common.RSSService.AccountData Value2 {
+            get {
+                return this.Value2Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Value2Field, value) != true)) {
+                    this.Value2Field = value;
+                    this.RaisePropertyChanged("Value2");
                 }
             }
         }
@@ -336,12 +352,12 @@ namespace Common.RSSService {
         Common.RSSService.WebResultOfArrayOfAccountDataYxjpQ34D EndUserList(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Account/IsConnected", ReplyAction="http://tempuri.org/Account/IsConnectedResponse")]
-        Common.RSSService.WebResultOfboolean IsConnected(string session_key);
+        Common.RSSService.WebResultOfbooleanAccountDatalrs4Oh3P IsConnected(string session_key);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/Account/IsConnected", ReplyAction="http://tempuri.org/Account/IsConnectedResponse")]
         System.IAsyncResult BeginIsConnected(string session_key, System.AsyncCallback callback, object asyncState);
         
-        Common.RSSService.WebResultOfboolean EndIsConnected(System.IAsyncResult result);
+        Common.RSSService.WebResultOfbooleanAccountDatalrs4Oh3P EndIsConnected(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -473,10 +489,10 @@ namespace Common.RSSService {
             this.results = results;
         }
         
-        public Common.RSSService.WebResultOfboolean Result {
+        public Common.RSSService.WebResultOfbooleanAccountDatalrs4Oh3P Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((Common.RSSService.WebResultOfboolean)(this.results[0]));
+                return ((Common.RSSService.WebResultOfbooleanAccountDatalrs4Oh3P)(this.results[0]));
             }
         }
     }
@@ -870,7 +886,7 @@ namespace Common.RSSService {
                         session_key}, this.onEndUserListDelegate, this.onUserListCompletedDelegate, userState);
         }
         
-        public Common.RSSService.WebResultOfboolean IsConnected(string session_key) {
+        public Common.RSSService.WebResultOfbooleanAccountDatalrs4Oh3P IsConnected(string session_key) {
             return base.Channel.IsConnected(session_key);
         }
         
@@ -880,7 +896,7 @@ namespace Common.RSSService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public Common.RSSService.WebResultOfboolean EndIsConnected(System.IAsyncResult result) {
+        public Common.RSSService.WebResultOfbooleanAccountDatalrs4Oh3P EndIsConnected(System.IAsyncResult result) {
             return base.Channel.EndIsConnected(result);
         }
         
@@ -890,7 +906,7 @@ namespace Common.RSSService {
         }
         
         private object[] OnEndIsConnected(System.IAsyncResult result) {
-            Common.RSSService.WebResultOfboolean retVal = this.EndIsConnected(result);
+            Common.RSSService.WebResultOfbooleanAccountDatalrs4Oh3P retVal = this.EndIsConnected(result);
             return new object[] {
                     retVal};
         }

@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Feeds List";
+    ViewBag.Title = "Public Feeds List";
     
 }
 <div class="row-fluid">
@@ -18,17 +18,15 @@
                         <th>Feed</th>
                         <th>URL</th>
                         <th>Description</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var channel in (ViewBag.Feeds as Client_ASP.FeedServ.Channel[]))
                     {
                         <tr>
-                            <td>@Html.ActionLink(channel.Title, "Feed", "Feeds", channel, null)</td>
+                            <td>@channel.Title</td>
                             <td><a href="@channel.Link">@channel.Link</a></td>
                             <td>@channel.Description.ToString()</td>
-                            <td>@Html.ActionLink("X", "Delete", "Feeds", channel, new{@class = "btn btn-danger"})</td>
                         </tr>
                     }
                         

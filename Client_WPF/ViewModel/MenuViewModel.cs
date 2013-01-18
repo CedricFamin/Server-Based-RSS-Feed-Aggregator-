@@ -30,8 +30,18 @@ namespace Client_WPF.ViewModel
         public ICommand CloseCommand { get; private set; }
         public ICommand Logout { get; private set; }
         public ICommand ShowConnectionDialog { get; private set; }
+        public ICommand OpenAdmin { get; private set; }
 
         public LoginModal ConnectionModal { get; private set; }
+        public ErrorViewModel ErrorModel { get; private set; }
+        
+        private bool isAdmin;
+        public bool IsAdmin
+        {
+            get { return isAdmin; }
+            set { isAdmin = value; RaisePropertyChange("IsAdmin"); }
+        }
+        
 
         private PropertyChangedEventHandler PropertyChangedHandler { get; set; }
         #endregion
@@ -48,9 +58,17 @@ namespace Client_WPF.ViewModel
             });
             Logout = new RelayCommand((param) => UserDataModel.Instance.Logout());
             PropertyChangedHandler = new System.ComponentModel.PropertyChangedEventHandler(UserData_PropertyChanged);
+            OpenAdmin = new RelayCommand((param) => 
+                {
+                    new AdminWindow().Show();
+                });
             UserDataModel.Instance.PropertyChanged += PropertyChangedHandler;
             
             search = SearchDataModel.Instance.Search;
+            IsAdmin = UserDataModel.Instance.IsConnected;
+            IsAdmin = false;
+
+            ErrorModel = new ErrorViewModel();
         }
 
         ~MenuViewModel()
@@ -62,6 +80,7 @@ namespace Client_WPF.ViewModel
         {
             if (e.PropertyName == "IsConnected")
             {
+                
                 if (!(sender as UserDataModel).IsConnected)
                 {
                     if (ConnectionModal == null)
@@ -71,14 +90,18 @@ namespace Client_WPF.ViewModel
                         ConnectionModal = null;
                     }
                     FeedManagerDataModel.Instance.GetAllRootFeeds();
+                    IsAdmin = false;
                 }
                 else
                 {
                     if (ConnectionModal != null)
                         ConnectionModal.Close();
                     ConnectionModal = null;
+                    if (UserDataModel.Instance.User != null)
+                        IsAdmin = UserDataModel.Instance.User.IsSuperUser;
                 }
             }
+            IsAdmin = true;
         }
         #endregion
 

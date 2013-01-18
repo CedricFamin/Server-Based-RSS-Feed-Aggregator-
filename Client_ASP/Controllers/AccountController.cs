@@ -6,12 +6,12 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using Client_ASP.Models;
+using System.Diagnostics;
 
 namespace Client_ASP.Controllers
 {
     public class AccountController : Controller
     {
-
         //
         // GET: /Account/LogOn
 
@@ -39,11 +39,16 @@ namespace Client_ASP.Controllers
             if (ModelState.IsValid)
             {
                 AccServ.Account acc = new AccServ.Account();
-                AccServ.WebResult logon = acc.Login(model.UserName, model.Password);
+                AccServ.WebResultOfstringAccountDatalrs4Oh3P logon = acc.Login(model.UserName, model.Password);
                 if (logon.ErrorCode == AccServ.WebResultErrorCodeList.SUCCESS)
                 {
-                    FormsAuthentication.SetAuthCookie(model.UserName, false);
-
+                    FormsAuthentication.SetAuthCookie(model.UserName, true);
+                    HttpCookie auth = FormsAuthentication.GetAuthCookie(model.UserName, true);
+                    FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(auth.Value);
+                    FormsAuthenticationTicket nticket = new FormsAuthenticationTicket(ticket.Version, ticket.Name, ticket.IssueDate, ticket.Expiration, ticket.IsPersistent, logon.Value1);
+                    auth.Value = FormsAuthentication.Encrypt(nticket);
+                    Response.Cookies.Add(auth);
+                    
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                         && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
                     {
@@ -101,8 +106,20 @@ namespace Client_ASP.Controllers
                 // Attempt to register the user
                 if (register.ErrorCode.ToString() == "SUCCESS")
                 {
-                    FormsAuthentication.SetAuthCookie(model.UserName, false);
-                    return RedirectToAction("Index", "Home");
+                    AccServ.WebResultOfstringAccountDatalrs4Oh3P logon = acc.Login(model.UserName, model.Password);
+                    if (logon.ErrorCode == AccServ.WebResultErrorCodeList.SUCCESS)
+                    {
+                        FormsAuthentication.SetAuthCookie(model.UserName, true);
+                        HttpCookie auth = FormsAuthentication.GetAuthCookie(model.UserName, true);
+                        FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(auth.Value);
+                        FormsAuthenticationTicket nticket = new FormsAuthenticationTicket(ticket.Version, ticket.Name, ticket.IssueDate, ticket.Expiration, ticket.IsPersistent, logon.Value1);
+                        auth.Value = FormsAuthentication.Encrypt(nticket);
+                        Response.Cookies.Add(auth);
+                        
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                        ViewBag.RegisterError = register.ErrorCode.ToString();
                 }
                 else
                     ViewBag.RegisterError = register.ErrorCode.ToString();
@@ -173,8 +190,12 @@ namespace Client_ASP.Controllers
         [Authorize]
         public ActionResult UserList()
         {
+            FormsIdentity ident = User.Identity as FormsIdentity;
+            FormsAuthenticationTicket ticket = ident.Ticket;
+            string AuthKey = ticket.UserData;
+
             AccServ.Account acc = new AccServ.Account();
-            ViewBag.list = acc.UserList("");
+            ViewBag.list = acc.UserList(AuthKey);
             return View();
         }
 

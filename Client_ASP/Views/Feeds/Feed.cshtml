@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Feed Details";
+    ViewBag.Title = "Feed Items";
 }
 <div class="row-fluid">
 	<div class="box span12">
@@ -15,15 +15,21 @@
                 <thead>
                     <tr>
                         <th>Item Feed</th>
+                        <th>Pub. Date</th>
                         <th>State</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>@Html.ActionLink("Fictive Item Feed", "Item", "Feeds", new{id = 0}, null)</td>
-                        <td>New !</td>
-                    </tr>
+                    @foreach(var item in (ViewBag.Items as Client_ASP.FeedServ.Item[]))
+                    {   
+                        <tr class="@((item.Read) ? "" : "info")">
+                            <td>@Html.ActionLink(item.Title, "Item", "Feeds", item, null)</td>
+                            <td>@item.PubDate.DateTime.ToString()</td>
+                            <td>@((item.Read) ? "-" : "New !")</td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>
-    </div
+    </div>
+</div>

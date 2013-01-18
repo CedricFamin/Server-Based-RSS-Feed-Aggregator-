@@ -145,14 +145,15 @@
     <Content Include="Views\Feeds\List.cshtml" />
     <Content Include="Views\Feeds\Feed.cshtml" />
     <Content Include="Views\Feeds\Item.cshtml" />
+    <Content Include="Views\Feeds\Public.cshtml" />
     <None Include="Web References\AccServ\Account.disco" />
-    <None Include="Web References\AccServ\Account4.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Web References\AccServ\WebResultOfArrayOfAccountDataYxjpQ34D.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
-    <None Include="Web References\AccServ\WebResultOfTupleOfSessionAccountDatav7M43KXC5F2dSckg.datasource">
+    <None Include="Web References\AccServ\WebResultOfboolean.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\AccServ\WebResultOfstringAccountDatalrs4Oh3P.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\FeedServ\FeedsService.disco" />
@@ -187,9 +188,6 @@
     <None Include="Web References\AccServ\Account2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Web References\AccServ\Account3.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Web References\AccServ\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -210,6 +208,9 @@
     <None Include="Web References\FeedServ\FeedsService2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Web References\FeedServ\FeedsService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Web References\FeedServ\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -217,10 +218,13 @@
     <None Include="Web References\FeedServ\WebResult.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
-    <None Include="Web References\FeedServ\WebResultOfArrayOfRssFeedYxjpQ34D.datasource">
+    <None Include="Web References\FeedServ\WebResultOfArrayOfChannelMeg_PnYqa.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
-    <None Include="Web References\FeedServ\WebResultOfRssFeedYxjpQ34D.datasource">
+    <None Include="Web References\FeedServ\WebResultOfArrayOfItemMeg_PnYqa.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\FeedServ\WebResultOfChannelMeg_PnYqa.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
   </ItemGroup>
