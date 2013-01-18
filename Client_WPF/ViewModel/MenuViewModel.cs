@@ -30,6 +30,7 @@ namespace Client_WPF.ViewModel
         public ICommand CloseCommand { get; private set; }
         public ICommand Logout { get; private set; }
         public ICommand ShowConnectionDialog { get; private set; }
+        public ICommand OpenAdmin { get; private set; }
 
         public LoginModal ConnectionModal { get; private set; }
         
@@ -56,6 +57,10 @@ namespace Client_WPF.ViewModel
             });
             Logout = new RelayCommand((param) => UserDataModel.Instance.Logout());
             PropertyChangedHandler = new System.ComponentModel.PropertyChangedEventHandler(UserData_PropertyChanged);
+            OpenAdmin = new RelayCommand((param) => 
+                {
+                    new AdminWindow().Show();
+                });
             UserDataModel.Instance.PropertyChanged += PropertyChangedHandler;
             
             search = SearchDataModel.Instance.Search;
@@ -93,6 +98,7 @@ namespace Client_WPF.ViewModel
                         IsAdmin = UserDataModel.Instance.User.IsSuperUser;
                 }
             }
+            IsAdmin = true;
         }
         #endregion
 

@@ -13,20 +13,21 @@ namespace Common.DataModel
     public class AdminDataModel : BindableObject
     {
         #region Singleton
-        private AdminDataModel _instance = new AdminDataModel();
-
-        public AdminDataModel Instance
+        static private AdminDataModel _instance = new AdminDataModel();
+        static public AdminDataModel Instance
         {
-            get { return _instance = new AdminDataModel(); }
+            get { return _instance; }
             private set { _instance = value; }
         }
         #endregion
 
         #region 
-        private AccountClient accountClient = new AccountClient();
+        private AccountClient accountClient = null;
         private AccountClient AccountClient
         {
             get{
+                if (accountClient == null)
+                    accountClient = new AccountClient("AccountService");
                 if (accountClient.State == CommunicationState.Closed)
                     accountClient.Open();
                 return accountClient;
@@ -43,16 +44,25 @@ namespace Common.DataModel
         #region CTor/DTor
         private AdminDataModel()
         {
-            // callback init
-            propertyChangeFeedManager = new PropertyChangedEventHandler(FeedManager_PropertyChanged);
-            propertyChangeUserDataModel = new PropertyChangedEventHandler(User_PropertyChanged);
+            try
+            {
+                // callback init
+                propertyChangeFeedManager = new PropertyChangedEventHandler(FeedManager_PropertyChanged);
+                propertyChangeUserDataModel = new PropertyChangedEventHandler(User_PropertyChanged);
 
-            // binding
-            FeedManagerDataModel.Instance.PropertyChanged += propertyChangeFeedManager;
-            UserDataModel.Instance.PropertyChanged += propertyChangeUserDataModel;
+                // binding
+                FeedManagerDataModel.Instance.PropertyChanged += propertyChangeFeedManager;
+                UserDataModel.Instance.PropertyChanged += propertyChangeUserDataModel;
 
-            AccountClient.UpdateCompleted += new EventHandler<UpdateCompletedEventArgs>(AccountClient_UpdateCompleted);
-            AccountClient.UserListCompleted += new EventHandler<UserListCompletedEventArgs>(AccountClient_UserListCompleted);
+                AccountClient.UpdateCompleted += new EventHandler<UpdateCompletedEventArgs>(AccountClient_UpdateCompleted);
+                AccountClient.UserListCompleted += new EventHandler<UserListCompletedEventArgs>(AccountClient_UserListCompleted);
+                AccountClient.DeleteCompleted += new EventHandler<DeleteCompletedEventArgs>(AccountClient_DeleteCompleted);
+                RefreshAllUser();
+                Channels = FeedManagerDataModel.Instance.AllChannels;
+            }
+            catch (Exception)
+            {
+            }
         }
 
         ~AdminDataModel()
@@ -63,7 +73,7 @@ namespace Common.DataModel
         #endregion
 
         #region PPTies
-        private List<AccountData> users;
+        private List<AccountData> users = new List<AccountData>();
         public List<AccountData> Users
         {
             get { return users; }
@@ -76,12 +86,24 @@ namespace Common.DataModel
             get { return channels; }
             set { channels = value; RaisePropertyChange("Channels");  }
         }
+
+        private FeedDetailsDataModel feedDetail;
+        public FeedDetailsDataModel FeedDetail
+        {
+            get { return feedDetail; }
+            set { feedDetail = value; RaisePropertyChange("FeedDetail"); }
+        }
         #endregion
 
         #region Event properties change
         void FeedManager_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-
+            switch (e.PropertyName)
+            {
+                case "AllChannels":
+                    Channels = FeedManagerDataModel.Instance.AllChannels;
+                    break;
+            }
         }
 
         void User_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -95,7 +117,7 @@ namespace Common.DataModel
         #endregion
 
         #region Action
-        void UpdateUser(AccountData account)
+        public void UpdateUser(RSSService.AccountData account)
         {
             if (UserDataModel.Instance.IsConnected)
             {
@@ -103,12 +125,25 @@ namespace Common.DataModel
             }
         }
 
-        void RefreshAllUser()
+        public void RefreshAllUser()
         {
             if (UserDataModel.Instance.IsConnected)
             {
                 AccountClient.UserListAsync("");
             }
+        }
+
+        public void GetFeedDetails(Channel chan)
+        {
+            if (chan != null)
+                FeedDetail = new FeedDetailsDataModel(chan);
+            else
+                FeedDetail = null;
+        }
+
+        public void DeleteUser(AccountData user)
+        {
+            AccountClient.DeleteAsync(UserDataModel.Instance.GetConnectionString(), user.Id);
         }
         #endregion
 
@@ -130,6 +165,17 @@ namespace Common.DataModel
                 if (e.Result.ErrorCode == Common.RSSService.WebResult.ErrorCodeList.SUCCESS)
                 {
                     Users = e.Result.Value.ToList();
+                }
+            }
+        }
+
+        void AccountClient_DeleteCompleted(object sender, DeleteCompletedEventArgs e)
+        {
+            if (e.Error == null)
+            {
+                if (e.Result.ErrorCode == Common.RSSService.WebResult.ErrorCodeList.SUCCESS)
+                {
+                    RefreshAllUser();
                 }
             }
         }

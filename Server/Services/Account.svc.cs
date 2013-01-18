@@ -29,7 +29,6 @@ namespace Server.Services
             Username = user.username;
             Password = user.password;
             IsSuperUser = user.superuser;
-            IsSuperUser = true;
         }
 
         [DataMember]

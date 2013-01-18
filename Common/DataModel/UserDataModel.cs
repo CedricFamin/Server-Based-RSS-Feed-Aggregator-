@@ -79,7 +79,7 @@ namespace Common.DataModel
                 {
                     try
                     {
-                        accountClient = new AccountClient();
+                        accountClient = new AccountClient("AccountService");
                     }
                     catch (Exception)
                     {

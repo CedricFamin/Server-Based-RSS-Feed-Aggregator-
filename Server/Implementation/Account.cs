@@ -77,9 +77,13 @@ namespace Server.Implementation
 
             User user = _sessionWrapper.GetUser(session);
 
-            user.username = updateUser.Username;
-            user.password = updateUser.Password;
-            user.email = updateUser.Username;
+            var userToUpdate = (from u in db.Users where u.id == updateUser.Id select u).SingleOrDefault();
+            if (userToUpdate == null)
+                return new WebResult(WebResult.ErrorCodeList.USER_NOT_FOUND);
+            userToUpdate.username = updateUser.Username;
+            userToUpdate.password = updateUser.Password;
+            userToUpdate.email = updateUser.Username;
+            userToUpdate.superuser = updateUser.IsSuperUser;
             db.SubmitChanges();
             return new WebResult();
         }
@@ -101,6 +105,11 @@ namespace Server.Implementation
                 if (users.Count() == 0)
                     return new WebResult<Tuple<string, AccountData>>(WebResult.ErrorCodeList.USER_NOT_FOUND);
                 var userToDelete = (users).Single();
+                // DELETE SESSION
+                db.Sessions.DeleteAllOnSubmit(db.Sessions.Where(s => s.User == userToDelete));
+                // DELETE FEED FOLLOW
+                db.ChannelXUsers.DeleteAllOnSubmit(db.ChannelXUsers.Where(uxs => uxs.User == userToDelete));
+                // DELETE USER
                 db.Users.DeleteOnSubmit(userToDelete);
                 db.SubmitChanges();
                 return new WebResult();
